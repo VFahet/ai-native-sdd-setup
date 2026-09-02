@@ -1,15 +1,15 @@
-# Triage Labels
+# Labels de triage
 
-The skills speak in terms of five canonical triage roles. This file maps those roles to the actual label strings used in this repo's issue tracker.
+Les skills raisonnent en termes de cinq rôles canoniques de triage. Ce fichier fait la correspondance entre ces rôles et les chaînes de label réellement utilisées dans l'issue tracker de ce dépôt.
 
-| Label in mattpocock/skills | Label in our tracker | Meaning                                  |
-| -------------------------- | -------------------- | ---------------------------------------- |
-| `needs-triage`             | `needs-triage`       | Maintainer needs to evaluate this issue  |
-| `needs-info`               | `needs-info`         | Waiting on reporter for more information |
-| `ready-for-agent`          | `ready-for-agent`    | Fully specified, ready for an AFK agent  |
-| `ready-for-human`          | `ready-for-human`    | Requires human implementation            |
-| `wontfix`                  | `wontfix`            | Will not be actioned                     |
+| Label canonique   | Label dans notre tracker | Signification                                        |
+| ----------------- | ------------------------ | ---------------------------------------------------- |
+| `needs-triage`    | `needs-triage`           | Le mainteneur doit évaluer cette issue               |
+| `needs-info`      | `needs-info`             | En attente d'informations complémentaires du rapporteur |
+| `ready-for-agent` | `ready-for-agent`        | Entièrement spécifiée, prête pour un agent autonome  |
+| `ready-for-human` | `ready-for-human`        | Nécessite une implémentation humaine                 |
+| `wontfix`         | `wontfix`                | Ne sera pas traitée                                  |
 
-When a skill mentions a role (e.g. "apply the AFK-ready triage label"), use the corresponding label string from this table.
+Quand un skill mentionne un rôle (par exemple « appliquer le label de triage prêt-pour-agent »), utiliser la chaîne de label correspondante dans ce tableau.
 
-Edit the right-hand column to match whatever vocabulary you actually use.
+Modifier la colonne de droite pour coller au vocabulaire que tu utilises réellement.

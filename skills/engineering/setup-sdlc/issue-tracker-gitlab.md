@@ -1,46 +1,46 @@
-# Issue tracker: GitLab
+# Issue tracker : GitLab
 
-Issues and specs for this repo live as GitLab issues. Use the [`glab`](https://gitlab.com/gitlab-org/cli) CLI for all operations.
+Les issues et les specs de ce dépôt vivent comme issues GitLab. Utiliser la CLI [`glab`](https://gitlab.com/gitlab-org/cli) pour toutes les opérations.
 
 ## Conventions
 
-- **Create an issue**: `glab issue create --title "..." --description "..."`. Use a heredoc for multi-line descriptions. Pass `--description -` to open an editor.
-- **Read an issue**: `glab issue view <number> --comments`. Use `-F json` for machine-readable output.
-- **List issues**: `glab issue list -F json` with appropriate `--label` filters.
-- **Comment on an issue**: `glab issue note <number> --message "..."`. GitLab calls comments "notes".
-- **Apply / remove labels**: `glab issue update <number> --label "..."` / `--unlabel "..."`. Multiple labels can be comma-separated or by repeating the flag.
-- **Close**: `glab issue close <number>`. `glab issue close` does not accept a closing comment, so post the explanation first with `glab issue note <number> --message "..."`, then close.
-- **Merge requests**: GitLab calls PRs "merge requests". Use `glab mr create`, `glab mr view`, `glab mr note`, etc., the same shape as `gh pr ...` with `mr` in place of `pr` and `note`/`--message` in place of `comment`/`--body`.
+- **Créer une issue** : `glab issue create --title "..." --description "..."`. Utiliser un heredoc pour les descriptions multi-lignes. Passer `--description -` pour ouvrir un éditeur.
+- **Lire une issue** : `glab issue view <numéro> --comments`. Utiliser `-F json` pour une sortie exploitable par machine.
+- **Lister les issues** : `glab issue list -F json` avec les filtres `--label` appropriés.
+- **Commenter une issue** : `glab issue note <numéro> --message "..."`. GitLab appelle les commentaires des « notes ».
+- **Appliquer / retirer des labels** : `glab issue update <numéro> --label "..."` / `--unlabel "..."`. Plusieurs labels peuvent être séparés par des virgules, ou passés en répétant le drapeau.
+- **Fermer** : `glab issue close <numéro>`. `glab issue close` n'accepte pas de commentaire de clôture : poster l'explication d'abord avec `glab issue note <numéro> --message "..."`, puis fermer.
+- **Merge requests** : GitLab appelle les PR des « merge requests ». Utiliser `glab mr create`, `glab mr view`, `glab mr note`, etc. — même forme que `gh pr ...`, avec `mr` à la place de `pr` et `note`/`--message` à la place de `comment`/`--body`.
 
-Infer the repo from `git remote -v`; `glab` does this automatically when run inside a clone.
+Déduire le dépôt de `git remote -v` ; `glab` le fait automatiquement quand il tourne dans un clone.
 
-## Merge requests as a triage surface
+## Les merge requests comme surface de triage
 
-**MRs as a request surface: no.** _(Set to `yes` if this repo treats external merge requests as feature requests; `/triage` reads this flag.)_
+**MR comme surface de demande : non.** _(Passer à `oui` si ce dépôt traite les merge requests externes comme des demandes de fonctionnalité ; `/triage` lit ce drapeau.)_
 
-When set to `yes`, MRs run through the same labels and states as issues, using the `glab mr` equivalents:
+Quand le drapeau vaut `oui`, les MR passent par les mêmes labels et les mêmes états que les issues, avec les équivalents `glab mr` :
 
-- **Read an MR**: `glab mr view <number> --comments` and `glab mr diff <number>` for the diff.
-- **List external MRs for triage**: `glab mr list -F json`, then keep only MRs whose author is not a project member/owner (a contributor's MR, not a maintainer's in-flight work).
-- **Comment / label / close**: `glab mr note`, `glab mr update --label`/`--unlabel`, `glab mr close`.
+- **Lire une MR** : `glab mr view <numéro> --comments`, et `glab mr diff <numéro>` pour le diff.
+- **Lister les MR externes à trier** : `glab mr list -F json`, puis ne garder que les MR dont l'auteur n'est ni membre ni propriétaire du projet (la MR d'un contributeur, pas le travail en cours d'un mainteneur).
+- **Commenter / labelliser / fermer** : `glab mr note`, `glab mr update --label`/`--unlabel`, `glab mr close`.
 
-Unlike GitHub, GitLab numbers issues and MRs separately, so `#42` is unambiguous once you know which surface the maintainer means.
+Contrairement à GitHub, GitLab numérote les issues et les MR séparément : `#42` est donc sans ambiguïté dès qu'on sait de quelle surface parle le mainteneur.
 
-## When a skill says "publish to the issue tracker"
+## Quand un skill dit « publier dans l'issue tracker »
 
-Create a GitLab issue.
+Créer une issue GitLab.
 
-## When a skill says "fetch the relevant ticket"
+## Quand un skill dit « récupérer le ticket concerné »
 
-Run `glab issue view <number> --comments`.
+Lancer `glab issue view <numéro> --comments`.
 
-## Wayfinding operations
+## Opérations de wayfinding
 
-Used by `/wayfinder`. The **map** is a single issue with **child** issues as tickets.
+Utilisées par `/wayfinder`. La **carte** est une issue unique, avec des issues **enfants** comme tickets.
 
-- **Map**: a single issue labelled `wayfinder:map`, holding the Notes / Decisions-so-far / Fog body. `glab issue create --label wayfinder:map`. (On GitLab tiers with native epics, an epic may hold the map instead; a labelled issue works everywhere.)
-- **Child ticket**: an issue carrying `Part of #<map>` at the top of its description and labels `wayfinder:<type>` (`research`/`prototype`/`grilling`/`task`). Once claimed, the ticket is assigned to the driving dev.
-- **Blocking**: GitLab's **native blocking link**, the canonical, UI-visible representation. Add it with the `/blocked_by #<n>` quick action, posted as a note (`glab issue note <child> --message "/blocked_by #<blocker>"`). Native blocking links are a Premium/Ultimate feature; on the free tier (or where unavailable) fall back to a `Blocked by: #<n>, #<n>` line at the top of the description. A ticket is unblocked when every blocker is closed.
-- **Frontier query**: `glab issue list -F json` scoped to the map's children, drop any with an open blocker: a native `blocked_by` link to an open issue (`glab api projects/:id/issues/:iid/links`), or an open issue in the `Blocked by` line, or an assignee; first in map order wins.
-- **Claim**: `glab issue update <n> --assignee @me`, the session's first write.
-- **Resolve**: `glab issue note <n> --message "<answer>"`, then `glab issue close <n>`, then append a context pointer (gist + link) to the map's Decisions-so-far.
+- **Carte** : une issue unique labellisée `wayfinder:map`, portant le corps Notes / Décisions à ce jour / Brouillard. `glab issue create --label wayfinder:map`. (Sur les offres GitLab disposant des epics natives, une epic peut porter la carte à la place ; une issue labellisée fonctionne partout.)
+- **Ticket enfant** : une issue portant `Part of #<carte>` en haut de sa description, et les labels `wayfinder:<type>` (`research`/`prototype`/`grilling`/`task`). Une fois réservé, le ticket est assigné au dev qui le porte.
+- **Blocage** : le **lien de blocage natif** de GitLab, la représentation canonique et visible dans l'UI. L'ajouter avec l'action rapide `/blocked_by #<n>`, postée comme note (`glab issue note <enfant> --message "/blocked_by #<bloqueur>"`). Les liens de blocage natifs sont une fonctionnalité Premium/Ultimate ; sur l'offre gratuite (ou là où ils sont indisponibles), se rabattre sur une ligne `Blocked by: #<n>, #<n>` en haut de la description. Un ticket est débloqué quand tous ses bloqueurs sont fermés.
+- **Requête de frontière** : `glab issue list -F json` restreint aux enfants de la carte, en écartant ceux qui ont un bloqueur ouvert — un lien `blocked_by` natif vers une issue ouverte (`glab api projects/:id/issues/:iid/links`), ou une issue ouverte dans la ligne `Blocked by` — ou un assigné ; le premier dans l'ordre de la carte l'emporte.
+- **Réserver** : `glab issue update <n> --assignee @me`, la première écriture de la session.
+- **Résoudre** : `glab issue note <n> --message "<réponse>"`, puis `glab issue close <n>`, puis ajouter un pointeur de contexte (résumé + lien) aux Décisions à ce jour de la carte.
