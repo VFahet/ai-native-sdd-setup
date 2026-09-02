@@ -12,12 +12,13 @@ L'issue tracker et le vocabulaire des labels de triage devraient t'avoir été f
 
 1. **Rassembler les sources écrites**, avant toute synthèse. C'est ce qui permet de lancer ce skill dans une fenêtre neuve, sans avoir mené l'entretien soi-même :
 
-   - **`.scratch/<feature-slug>/decisions.md`** s'il existe : les décisions prises pendant `/grill-with-docs`. C'est la source principale des sections *Décisions d'implémentation* et *Décisions de test* quand la conversation ne les porte pas. Si l'utilisateur n'a pas passé de slug, parcourir `.scratch/*/` à la recherche des répertoires contenant un `decisions.md` sans `spec.md` ; s'il n'y en a qu'un, l'annoncer et continuer, sinon demander lequel.
+   - **`.scratch/<feature-slug>/decisions.md`** s'il existe : les décisions prises pendant `/grill-with-docs`. C'est la source principale des sections *Décisions d'implémentation* et *Décisions de test* quand la conversation ne les porte pas. Si l'utilisateur n'a pas passé de slug, parcourir `.scratch/*/` à la recherche des répertoires contenant un `decisions.md` dont la fonctionnalité n'a **pas encore de spec**. Ce que « pas encore de spec » veut dire dépend de la forme que le tracker configuré donne à une spec, lue dans `docs/agents/issue-tracker.md` : sur le tracker markdown local, pas de `spec.md` à côté du `decisions.md` ; sur un vrai tracker, aucune issue dont le titre commence par `spec: <feature-slug>` — la marque que pose l'étape 4, à chercher sur tous les états, ouverts comme fermés. S'il n'y en a qu'un, l'annoncer et continuer, sinon demander lequel.
    - **`docs/prd.md`** s'il existe : y relever les **exigences non fonctionnelles qui contraignent cette fonctionnalité**, et les reporter dans les décisions d'implémentation **avec leur chiffre ou leur seuil**. Une exigence restée dans le PRD ne deviendra jamais un critère d'acceptation. Reprendre aussi le hors-périmètre du projet qui touche cette zone.
+   - **La carte d'un chantier `/wayfinder`** — `.scratch/<chantier>/map.md` sur le tracker markdown local, l'issue labellisée `wayfinder:map` sur un vrai tracker — quand l'utilisateur en passe une ou qu'un chantier existe : sa **destination** dit vers quoi ce chantier cherchait son chemin, et ses **Décisions à ce jour** indexent les **tickets de décision** résolus. La carte n'en garde que l'essentiel, donc zoomer sur les tickets qui touchent cette fonctionnalité pour lire leur réponse. Reprendre son **hors périmètre** dans le hors-scope de la spec, et laisser le **brouillard** dehors : ce que la carte n'a pas encore spécifié ne se spécifie pas ici.
 
    Attention à l'altitude : le PRD énonce le problème **du projet**, cette spec énonce celui **d'une seule fonctionnalité**. Ne pas recopier — restreindre.
 
-   Si ni l'un ni l'autre n'existe, travailler à partir de la conversation seule, comme avant.
+   Si aucune de ces sources n'existe, travailler à partir de la conversation seule, comme avant.
 
 2. Explorer le dépôt pour comprendre l'état actuel du code, si ce n'est pas déjà fait. Utiliser le vocabulaire du glossaire de domaine du projet dans toute la spec, et respecter les ADR qui couvrent la zone concernée.
 
@@ -25,7 +26,7 @@ L'issue tracker et le vocabulaire des labels de triage devraient t'avoir été f
 
 Vérifier auprès de l'utilisateur que ces seams correspondent à ce qu'il attend.
 
-4. Rédiger la spec avec le gabarit ci-dessous, puis la publier dans l'issue tracker du projet. Appliquer le label de triage `ready-for-agent` — pas besoin de triage supplémentaire.
+4. Rédiger la spec avec le gabarit ci-dessous, puis la publier dans l'issue tracker du projet. Appliquer le label de triage `ready-for-agent` — pas besoin de triage supplémentaire. Sur un vrai tracker, titrer l'issue `spec: <feature-slug> — <titre>` : `ready-for-agent` ne distingue rien, `to-tickets` l'applique aussi à chacun de ses tickets, et c'est ce préfixe de titre qui rend la spec retrouvable par le balayage de l'étape 1. Sur le tracker markdown local, le chemin `.scratch/<feature-slug>/spec.md` porte déjà la marque.
 
 <spec-template>
 
@@ -82,3 +83,7 @@ Une description de ce qui est hors du périmètre de cette spec.
 Toute note supplémentaire sur la fonctionnalité.
 
 </spec-template>
+
+## Ensuite
+
+`/to-tickets`, avec la spec qui vient d'être publiée : son chemin sur le tracker markdown local, son numéro d'issue sur un vrai tracker. C'est la référence que sa première étape récupère ; sans elle, il repart de la conversation. Ne pas le lancer soi-même : annoncer à l'utilisateur la commande exacte à taper, référence comprise.

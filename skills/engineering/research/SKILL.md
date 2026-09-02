@@ -9,4 +9,4 @@ Sa mission :
 
 1. Enquêter sur la question à partir de **sources primaires** (docs officielles, code source, specs, API first-party), et non d'un compte rendu secondaire de celles-ci. Remonter chaque affirmation jusqu'à la source qui en est propriétaire.
 2. Écrire les conclusions dans un unique fichier Markdown, en citant la source de chaque affirmation.
-3. L'enregistrer là où le dépôt range déjà ce genre de notes ; se conformer à la convention existante et, s'il n'y en a pas, le placer à un endroit sensé et indiquer lequel.
+3. L'enregistrer dans `docs/research/<sujet-slug>.md`, où `/discover` et `/grill-with-docs` savent le lire. Si le dépôt range déjà ce genre de notes ailleurs, sa convention prime : s'y conformer et indiquer le chemin retenu.

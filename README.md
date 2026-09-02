@@ -19,7 +19,7 @@ Puis, dans le dépôt où tu veux travailler :
 /setup-sdlc
 ```
 
-Cette commande configure une fois pour toutes où vivent les issues, les ADR et le glossaire du projet. Les autres skills en dépendent.
+Cette commande configure une fois pour toutes où vivent les issues, les ADR et le glossaire du projet, et pose le workflow git : une branche par fonctionnalité, et des garde-fous qui refusent à l'agent de merger vers le trunk. Les autres skills en dépendent.
 
 ## La chaîne
 
@@ -34,8 +34,9 @@ Une phase de cadrage séquentielle, une fois. Puis des boucles, une par fonction
                                       ▼
    /grill-with-docs  ─▶  /to-spec  ─▶  /to-tickets  ─▶  /implement
                               │              │                │
-                     spec.md ─┘     issues/NN-*.md ─┘         ├─▶ /tdd
-                                                              └─▶ /code-review
+                     spec.md ─┘              │                ├─▶ /tdd
+                                             │                └─▶ /code-review
+     .scratch/<feature-slug>/issues/NN-*.md ─┘
 ```
 
 Le détail complet — diagrammes, artefacts, points de `/clear`, skills hors chaîne — est dans [FLUX.md](./FLUX.md).
@@ -59,7 +60,7 @@ Le cadrage amont, absent du dépôt d'origine.
 
 | Skill | Rôle |
 |---|---|
-| **setup-sdlc** | Configure le dépôt : tracker d'issues, docs de domaine. À lancer une fois avant tout le reste |
+| **setup-sdlc** | Configure le dépôt : tracker d'issues, docs de domaine, workflow git et garde-fous. À lancer une fois avant tout le reste |
 | **which-skill** | Routeur : quel skill ou quel enchaînement correspond à ta situation |
 | **research** | Enquête sur sources primaires et capture les résultats dans un fichier du dépôt |
 | **wayfinder** | Cartographie un chantier trop gros pour une session, en tickets de décision résolus un à un |
@@ -67,7 +68,7 @@ Le cadrage amont, absent du dépôt d'origine.
 | **grill-with-docs** | L'interview de `grilling`, qui produit ADR et glossaire au passage. Premier tour : cadre la fonctionnalité contre le PRD, puis enchaîne sur la conception |
 | **to-spec** | Transforme la conversation en spec technique : problème, user stories, décisions d'implémentation, hors-scope |
 | **to-tickets** | Découpe une spec en tickets *tracer bullet*, chacun déclarant ce qui le bloque |
-| **implement** | Exécute un ticket : TDD aux seams convenus, typecheck, revue, commit |
+| **implement** | Exécute un ticket sur la branche de sa fonctionnalité : TDD aux seams convenus, typecheck, revue, commit — puis, au dernier ticket, revue de la fonctionnalité entière et PR |
 | **tdd** | La boucle red-green-refactor, et ce qui fait un test qui mérite d'être gardé |
 | **code-review** | Revue sur deux axes en parallèle : conformité aux standards du dépôt, et conformité à la spec d'origine |
 | **diagnosing-bugs** | Boucle de diagnostic pour les bugs durs et les régressions de performance |
@@ -91,6 +92,8 @@ Les skills conservés mais non traduits vivent dans [skills/backlog/](./skills/b
 ## Conventions
 
 Le corps des skills est en français, mais les `name:` restent en anglais — ce sont les commandes et les références croisées. Certains termes de l'art (`seam`, `tracer bullet`, `deep module`, `red-green-refactor`) ne sont pas traduits non plus : [CONTEXT.md](./CONTEXT.md) dit lesquels et pourquoi.
+
+Les skills du plugin sont aussi exposés sous le préfixe `ai-native-sdlc:`, et le nom nu suffit tant que rien d'autre ne le revendique. Une exception : `code-review` entre en collision avec la commande intégrée de Claude Code, et doit donc s'invoquer sous sa forme préfixée, `/ai-native-sdlc:code-review`.
 
 ## Licence
 

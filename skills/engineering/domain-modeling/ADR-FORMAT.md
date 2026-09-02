@@ -1,8 +1,8 @@
 # Format des ADR
 
-Les ADR vivent dans `docs/adr/` et suivent une numérotation séquentielle : `0001-slug.md`, `0002-slug.md`, etc.
+Un ADR vit dans le `docs/adr/` de sa portée et porte un numéro séquentiel : `0001-slug.md`, `0002-slug.md`, etc. Dans un dépôt mono-contexte, il n'y a qu'un `docs/adr/`, à la racine. Dans un dépôt multi-contexte (voir « Structure des fichiers » dans [SKILL.md](./SKILL.md)), une décision propre à un contexte va dans le `src/<contexte>/docs/adr/` de ce contexte, une décision à l'échelle du système dans le `docs/adr/` de la racine.
 
-Créer le répertoire `docs/adr/` paresseusement : seulement quand le premier ADR est nécessaire.
+Créer le `docs/adr/` concerné paresseusement : seulement quand le premier ADR est nécessaire.
 
 ## Gabarit
 
@@ -24,15 +24,11 @@ Ne les inclure que lorsqu'elles apportent une vraie valeur. La plupart des ADR n
 
 ## Numérotation
 
-Parcourir `docs/adr/` pour trouver le numéro existant le plus élevé et l'incrémenter de un.
+La séquence est unique pour tout le dépôt, quelle que soit la disposition : parcourir **tous** les `docs/adr/` — celui de la racine et ceux des contextes — pour trouver le numéro existant le plus élevé, et l'incrémenter de un. Un numéro ne sert donc qu'une fois, et une référence « ADR-0007 » désigne un seul fichier, où qu'il vive.
 
 ## Quand proposer un ADR
 
-Les trois conditions doivent être vraies :
-
-1. **Difficilement réversible** : le coût d'un changement d'avis plus tard est réel
-2. **Surprenant sans le contexte** : un lecteur futur regardera le code et se demandera « mais pourquoi diable ont-ils fait ça comme ça ? »
-3. **Le fruit d'un vrai arbitrage** : il existait de véritables alternatives et tu en as choisi une pour des raisons précises
+Les trois conditions sont énoncées dans la section « Proposer des ADR avec parcimonie » de [SKILL.md](./SKILL.md) ; elles doivent toutes être vraies.
 
 Si une décision est facilement réversible, passer : tu reviendras en arrière, voilà tout. Si elle n'est pas surprenante, personne ne se demandera pourquoi. S'il n'y avait pas de véritable alternative, il n'y a rien à consigner de plus que « on a fait la chose évidente ».
 

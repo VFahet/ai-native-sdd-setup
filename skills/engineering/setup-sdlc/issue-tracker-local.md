@@ -23,7 +23,7 @@ Lire le fichier au chemin indiqué. L'utilisateur passe normalement le chemin ou
 Utilisées par `/wayfinder`. La **carte** est un fichier, avec un fichier **enfant** par ticket.
 
 - **Carte** : `.scratch/<chantier>/map.md` (le corps Notes / Décisions à ce jour / Brouillard).
-- **Ticket enfant** : `.scratch/<chantier>/issues/NN-<slug>.md`, numéroté à partir de `01`, avec la question dans le corps. Une ligne `Type:` consigne le type de ticket (`research`/`prototype`/`grilling`/`task`) ; une ligne `Status:` consigne `claimed`/`resolved`.
+- **Ticket enfant** : `.scratch/<chantier>/issues/<NN>-<slug>.md`, numéroté à partir de `01`, avec la question dans le corps. Une ligne `Type:` consigne le type de ticket (`research`/`prototype`/`grilling`/`task`) ; une ligne `Status:` consigne `claimed`/`resolved`.
 - **Blocage** : une ligne `Blocked by: NN, NN` en haut du fichier. Un ticket est débloqué quand tous les fichiers qu'il liste sont `resolved`.
 - **Frontière** : parcourir `.scratch/<chantier>/issues/` à la recherche des fichiers ouverts, débloqués et non réservés ; le plus petit numéro l'emporte.
 - **Réserver** : passer `Status: claimed` et enregistrer avant tout travail.

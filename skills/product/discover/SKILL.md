@@ -12,6 +12,8 @@ Le cadrage produit : établir **quoi**, **pourquoi** et **jusqu'où**, avant qu'
 
 Ce skill ne réinvente pas l'entretien. Il fournit un **agenda** et un **artefact de sortie** ; le moteur d'interrogation est `grilling`. Appeler l'outil Skill avec « grilling » et mener l'agenda ci-dessous comme arbre de décision : questions par rounds, frontière recalculée à chaque réponse, une recommandation proposée pour chaque question.
 
+Avant d'ouvrir l'entretien, lire les notes présentes sous `docs/research/` : elles alimentent l'agenda — un fait déjà établi et sourcé ne se redemande pas — sans jamais le remplacer.
+
 ## Ce que ce skill ne fait pas
 
 - **Aucune solution.** Dès qu'une réponse décrit *comment* on construit, la noter à part et revenir au problème. Le comment appartient à `/grill-with-docs` puis à `/to-spec`.

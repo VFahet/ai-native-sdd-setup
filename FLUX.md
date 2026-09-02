@@ -18,13 +18,13 @@ flowchart TD
     G --> TS["/to-spec<br/>+ validation des seams"]
     TS --> SPEC[/"spec dans le tracker<br/>ready-for-agent"/]
     SPEC --> TT["/to-tickets<br/>tranches verticales"]
-    TT --> ISS[/"issues/NN-*.md<br/>tracer bullets + blocages"/]
+    TT --> ISS[/".scratch/…/issues/NN-*.md<br/>tracer bullets + blocages"/]
 
     ISS --> CL(["/clear"])
     CL --> I["/implement NN"]
     I --> TDD["/tdd<br/>red-green, en interne"]
-    I --> CR["/code-review<br/>Standards + Spec"]
-    I --> OK(["critères validés<br/>+ commit"])
+    I --> CR["/code-review<br/>par ticket, puis<br/>par fonctionnalité"]
+    I --> OK(["critères validés<br/>commit, puis PR<br/>au dernier ticket"])
 
     OK -. "tickets restants" .-> CL
     OK -. "fonctionnalité suivante" .-> G
@@ -34,6 +34,10 @@ flowchart TD
     style CL fill:#9e6a03,stroke:#9e6a03,color:#fff
 ```
 
+Une fonctionnalité tient sur une branche, un ticket sur un commit : `/implement` crée `feature/<feature-slug>` au premier ticket, y commite les suivants, et ouvre la PR au dernier. Il ne la merge pas — `/setup-sdlc` pose les garde-fous qui le lui refusent, et `docs/agents/git-workflow.md` dit pourquoi.
+
+D'où **deux revues à deux découpages différents**. À chaque ticket, `/code-review` relit le ticket contre son ticket. Au dernier, il relit la fonctionnalité entière contre le trunk et contre la **spec** — la seule passe capable de voir une exigence tombée entre deux tickets, ou une duplication née entre le ticket 1 et le ticket 4. Ni l'une ni l'autre ne peut faire le travail de l'autre.
+
 **Chaque skill lit ses entrées sur disque**, donc chacun tourne dans une fenêtre neuve. Enchaîner `/discover` à `/to-tickets` d'une traite reste **recommandé** — le cadrage, la conception et le découpage raisonnent mieux sur une même réflexion continue — mais ce n'est plus une condition de survie des données. Après `/to-tickets`, `/clear` entre chaque `/implement` : chaque ticket est autoportant.
 
 ## Les artefacts
@@ -41,12 +45,15 @@ flowchart TD
 | Fichier | Écrit par | Lu par | Durée de vie |
 |---|---|---|---|
 | `docs/agents/*.md` | `/setup-sdlc` | tous | permanent |
+| `.claude/settings.json`, `.claude/hooks/` | `/setup-sdlc` | le harness | permanent |
+| `docs/research/<sujet-slug>.md` | `/research` | `/discover`, `/grill-with-docs` | courte — une note dit ce qui était vrai le jour où elle a été écrite |
 | `.scratch/discovery.md` | `/discover` | `/to-prd` | jetable |
-| **`docs/prd.md`** | `/to-prd` | `/grill-with-docs` | **survit au projet, gelé** |
+| **`docs/prd.md`** | `/to-prd` | `/grill-with-docs`, `/to-spec` | **survit au projet, gelé** |
 | `CONTEXT.md`, `docs/adr/` | `/grill-with-docs` | tous | permanent |
-| `.scratch/<feature-slug>/decisions.md` | `/grill-with-docs` | `/to-spec` | jetable |
+| `.scratch/<feature-slug>/decisions.md` | `/grill-with-docs`, avec ou sans PRD | `/to-spec` | jetable |
+| `.scratch/<chantier>/map.md` (ou l'issue `wayfinder:map`) | `/wayfinder` | `/wayfinder`, `/to-spec` | le temps du chantier |
 | `.scratch/<feature-slug>/spec.md` (ou une issue du tracker) | `/to-spec` | `/to-tickets`, `/code-review` | le temps de la fonctionnalité |
-| `issues/NN-*.md` | `/to-tickets` | `/implement` | le temps de la fonctionnalité |
+| `.scratch/<feature-slug>/issues/<NN>-<slug>.md` | `/to-tickets` | `/implement` | le temps de la fonctionnalité |
 
 ## Les quatre niveaux
 
@@ -62,17 +69,21 @@ Ces niveaux n'existent pas pour coordonner des humains — ils compressent du co
 
 > **Un niveau se justifie s'il fait tenir le suivant dans une fenêtre. Sinon c'est de la cérémonie.**
 
-**Sauter `/to-spec` a un coût précis.** C'est le seul skill qui esquisse les **seams** de test et te les fait valider (`to-spec` étape 2) ; `/to-tickets` ne prononce jamais le mot. Or `/implement` étape 2 exige de travailler « aux seams convenus à l'avance » et pose qu'« un seam non confirmé n'est pas un seam ». Si tu sautes la spec, tu dois faire proposer les seams par `/implement` au démarrage et les ratifier — sinon sa précondition n'est satisfaite par personne. Le saut ne se justifie que sur une fonctionnalité déjà entièrement discutée dans la fenêtre courante, aux seams évidents.
+**Sauter `/to-spec` a un coût précis.** C'est le seul skill qui esquisse les **seams** de test et te les fait valider (`to-spec` étape 3) ; `/to-tickets` ne prononce jamais le mot. Or `/implement` étape 3 exige de travailler « aux seams convenus à l'avance » et pose qu'« un seam non confirmé n'est pas un seam ». Si tu sautes la spec, tu dois faire proposer les seams par `/implement` au démarrage et les ratifier — sinon sa précondition n'est satisfaite par personne. Le saut ne se justifie que sur une fonctionnalité déjà entièrement discutée dans la fenêtre courante, aux seams évidents.
+
+Le saut coûte une seconde chose depuis que la PR existe : sans spec, la revue de fonctionnalité de `/implement` étape 7 n'a rien à confronter au diff complet. Son axe Spec est alors sauté, et il ne reste que des revues de tickets contre des tickets — donc plus personne pour voir une exigence tombée au découpage.
 
 ## Hors chaîne
 
 ```mermaid
 flowchart LR
     R["/research"] --> G["/grill-with-docs"]
+    R --> D["/discover"]
     PR["/prototype"] --> G
     W["/wayfinder"] -- "quand le chemin<br/>n'est pas visible" --> TS["/to-spec"]
     DB["/diagnosing-bugs"] --> I["/implement"]
 
+    style D fill:#1f6feb,stroke:#1f6feb,color:#fff
     style G fill:#1f6feb,stroke:#1f6feb,color:#fff
     style TS fill:#1f6feb,stroke:#1f6feb,color:#fff
     style I fill:#1f6feb,stroke:#1f6feb,color:#fff
@@ -95,6 +106,6 @@ flowchart LR
 
 La couche produit (`skills/product/`) a été greffée au-dessus d'une chaîne, héritée du dépôt d'origine, qui n'en avait pas. Un joint reste ouvert :
 
-- **`/which-skill` est périmé.** Il ignore `/discover` et `/to-prd`, et route vers quatre commandes non livrées (`/triage`, `/improve-codebase-architecture`, `/to-questionnaire`, `/wizard`). C'est le routeur : quelqu'un qui le suit aujourd'hui se fait mal orienter.
+- **La branche montante du V n'a pas de skill.** Les métriques de succès du PRD sont ce qui rend l'itération falsifiable, et rien ne les rouvre une fois le lot 1 livré. `/to-prd` pose cette relecture comme un rendez-vous que l'utilisateur prend lui-même, et c'est délibéré : aucune commande ne la déclenche, la chaîne ne la rappellera pas. C'est la seule branche de validation qu'aucun test automatique ne couvre.
 
 Et une limite à connaître : l'indépendance des fenêtres repose sur le fait que `/grill-with-docs` **écrive effectivement** `decisions.md`. C'est une obligation inscrite dans un skill, pas un mécanisme — elle échoue en silence si l'agent la saute. Son absence est au moins observable, ce que l'ancienne règle « une seule fenêtre » n'était pas.

@@ -103,3 +103,9 @@ Le comportement de bout en bout que ce ticket rend fonctionnel, du point de vue 
 </issue-template>
 
 Dans les deux formes, éviter les chemins de fichiers précis et les extraits de code : ils deviennent obsolètes vite. Exception : si un prototype a produit un extrait qui encode une décision plus précisément que la prose ne le pourrait (machine à états, reducer, schéma, forme d'un type), l'inclure et noter brièvement qu'il vient d'un prototype. Ne garder que les parties porteuses de décision — pas une démo qui tourne, juste l'essentiel.
+
+Une fois les tickets publiés, **annoncer à l'utilisateur les commandes exactes à taper** pour les tickets de la frontière : `/implement .scratch/<feature-slug>/issues/<NN>-<slug>.md` — le chemin complet — sur le tracker markdown local, `/implement <numéro d'issue>` sur un vrai tracker. Le slug ne survit pas au `/clear` qui suit : il doit voyager dans la commande.
+
+## Ensuite
+
+`/clear`, puis `/implement`, **un ticket à la fois**, dans l'ordre de la frontière — les tickets dont tous les bloqueurs sont terminés, la frontière étant rejouée après chaque ticket clos. Le `/clear` n'est pas une hygiène facultative : chaque ticket est autoportant, donc le contexte du découpage est jetable, et le garder ne fait que ronger la fenêtre du ticket suivant.

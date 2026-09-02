@@ -16,7 +16,7 @@ Déduire le dépôt de `git remote -v` ; `glab` le fait automatiquement quand il
 
 ## Les merge requests comme surface de triage
 
-**MR comme surface de demande : non.** _(Passer à `oui` si ce dépôt traite les merge requests externes comme des demandes de fonctionnalité ; `/triage` lit ce drapeau.)_
+**MR comme surface de demande : non.** _(Passer à `oui` si ce dépôt traite les merge requests externes comme des demandes de fonctionnalité ; le drapeau dit si la file de triage inclut les merge requests ou seulement les issues.)_
 
 Quand le drapeau vaut `oui`, les MR passent par les mêmes labels et les mêmes états que les issues, avec les équivalents `glab mr` :
 

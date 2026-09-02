@@ -21,7 +21,7 @@ La route que suit la majorité du travail. Une phase de cadrage **séquentielle,
 
 Le PRD n'est pas un document de communication : c'est l'**invariant qui rend l'itération falsifiable**. Sans point fixe, changer une spec et changer d'avis deviennent indiscernables.
 
-Pas de projet à cadrer, juste une idée dans un dépôt existant ? Sauter directement à l'étape 3.
+Pas de projet à cadrer, juste une idée dans un dépôt existant ? Sauter directement à l'étape 3. Sans PRD, le premier tour de cadrage tombe, mais le slug et `decisions.md` restent dus : ce chemin garde la même indépendance des fenêtres que le reste de la chaîne.
 
 ### Livraison, une boucle par fonctionnalité
 
@@ -31,15 +31,17 @@ Pas de projet à cadrer, juste une idée dans un dépôt existant ? Sauter direc
 
 4. **Embranchement : peux-tu trancher toutes les questions en conversation ?** Si une question exige une réponse exécutable (un modèle d'état, de la logique métier, une UI qu'il faut voir), faire un détour par **`/prototype`**, avec **`/handoff`** comme pont dans les deux sens — un prototype vit dans son propre répertoire, ce qui est exactement le rôle de `/handoff` (voir Limites de phase).
 
-5. **`/to-spec`** transforme l'entretien en spec et la publie dans le tracker avec le label `ready-for-agent`. Il n'interviewe pas : il lit `decisions.md`, relève dans `docs/prd.md` les **exigences non fonctionnelles qui contraignent cette fonctionnalité** avec leur chiffre, puis esquisse les **seams** de test et te les fait valider. Une seule spec, celle de cette fonctionnalité.
+5. **`/to-spec`** transforme l'entretien en spec et la publie dans le tracker — un fichier `.scratch/<feature-slug>/spec.md` en markdown local, une issue sur un vrai tracker — avec le label `ready-for-agent`. Il n'interviewe pas : il lit `decisions.md`, relève dans `docs/prd.md` les **exigences non fonctionnelles qui contraignent cette fonctionnalité** avec leur chiffre, reprend la carte d'un chantier `/wayfinder` s'il y en a une, puis esquisse les **seams** de test et te les fait valider. Une seule spec, celle de cette fonctionnalité.
 
 6. **`/to-tickets`** la découpe en tickets **tracer bullet** : des tranches *verticales* qui traversent toutes les couches étroitement mais complètement, chacune démontrable seule et dimensionnée pour une fenêtre de contexte neuve. Chaque ticket déclare ses **arêtes de blocage**, et c'est ici que naissent les critères d'acceptation. Sur un tracker local, cela donne un fichier par ticket sous `.scratch/<feature-slug>/issues/` ; sur un vrai tracker, les arêtes deviennent des liens de blocage natifs.
 
-7. **`/implement`**, un ticket à la fois, **en faisant un `/clear` du contexte entre chacun**. Chaque ticket est autoportant, donc le contexte du précédent est jetable. Il pilote **`/tdd`** en interne (une tranche red-green à la fois, aux seams convenus), valide critère par critère avec une preuve nommable, puis clôt par **`/code-review`** — une revue du diff sur deux axes, Standards et Spec — avant de commiter.
+7. **`/implement`**, un ticket à la fois, **en faisant un `/clear` du contexte entre chacun**. Chaque ticket est autoportant, donc le contexte du précédent est jetable. Il pilote **`/tdd`** en interne (une tranche red-green à la fois, aux seams convenus), valide critère par critère avec une preuve nommable, puis clôt par **`/ai-native-sdlc:code-review`** (le nom nu entre en collision avec la commande intégrée de Claude Code) — une revue du diff sur deux axes, Standards et Spec. La revue rapporte, elle ne corrige pas : le **refactor**, troisième temps du red-green-refactor que `/tdd` laisse de côté, a lieu ici, sur les constats de l'axe Standards, avant de commiter.
+
+   Il travaille sur `feature/<feature-slug>`, créée au premier ticket de la fonctionnalité, un commit par ticket. Au **dernier** ticket seulement, il rappelle la revue sur un tout autre découpage — la fonctionnalité entière contre le trunk et contre la **spec**, seule passe capable de voir une exigence tombée entre deux tickets — puis ouvre la PR. Il ne la merge jamais : `/setup-sdlc` pose les garde-fous qui le lui refusent.
 
 Puis retour à l'étape 3 pour la fonctionnalité suivante.
 
-Prendre **`/tdd`** seul quand tu veux simplement construire un comportement concret en commençant par les tests, sans spec complète, et **`/code-review`** seul dès que tu veux relire une branche ou une PR par rapport à un point fixe.
+Prendre **`/tdd`** seul quand tu veux simplement construire un comportement concret en commençant par les tests, sans spec complète, et **`/ai-native-sdlc:code-review`** seul dès que tu veux relire une branche ou une PR par rapport à un point fixe.
 
 ### Hygiène de contexte
 
@@ -57,7 +59,7 @@ Une situation de départ qui génère du travail, puis rejoint l'enchaînement p
 
   Là où `/grill-with-docs` affûte une fonctionnalité que tu peux tenir en une seule session, wayfinder est fait pour celle que tu ne peux pas. Le réserver exactement à ça : si tu peux nommer tes fonctionnalités en une ligne chacune et dire laquelle vient d'abord, tu n'en as pas besoin.
 
-  Quand la carte s'éclaircit, **il passe la main, il ne construit pas** : rejoindre l'enchaînement principal à **`/to-spec`**, qui condense les décisions liées en un plan constructible, puis `/to-tickets` et `/implement` comme d'habitude. Reboucler la carte directement sur `/implement` saute cette condensation et jette le détail lié.
+  Quand la carte s'éclaircit, **il passe la main, il ne construit pas** : rejoindre l'enchaînement principal à **`/to-spec`**, qui lit les **Décisions à ce jour** de la carte puis les réponses consignées dans les tickets de décision fermés, et les condense en un plan constructible ; ensuite `/to-tickets` et `/implement` comme d'habitude. Reboucler la carte directement sur `/implement` saute cette condensation et jette le détail lié.
 
 ## Le vocabulaire en dessous
 
@@ -86,11 +88,11 @@ Complètement en dehors de l'enchaînement principal.
 - **`/grilling`** est la primitive d'interview elle-même : les tours, la frontière, les faits sont le travail de l'agent et les décisions sont les tiennes. `/discover`, `/grill-me` et `/grill-with-docs` sont ses portes d'entrée nommées, et `/wayfinder` la fait tourner en interne. Ne la prendre directement que si tu veux l'interview sans aucune enveloppe autour.
 - **`/resolving-merge-conflicts`** traite un conflit de merge ou de rebase en cours, hunk par hunk, en résolvant par **intention** remontée jusqu'à la source primaire de chaque côté plutôt qu'en choisissant des lignes, puis termine l'opération. Il ne lance jamais `--abort`. Le prendre quand tu es déjà au milieu d'un conflit.
 - **`/prototype`** est un petit programme jetable qui répond à une seule question de conception : ce modèle d'état est-il juste, ou à quoi cette UI devrait-elle ressembler. Jetable est une contrainte sur la façon dont le code est écrit, pas une promesse de le détruire : la réponse se replie dans le vrai code, et le prototype lui-même est conservé comme **source primaire** sur une branche `prototype/<name>` hors de main, pointée depuis l'issue d'implémentation. C'est le détour de l'étape 4 de l'enchaînement principal, mais le prendre chaque fois qu'une question de conception est difficile à trancher sur le papier.
-- **`/research`** : déléguer le travail de lecture à un **agent en arrière-plan** — il enquête sur une question à partir de **sources primaires**, puis dépose dans le dépôt un fichier Markdown sourcé. Continuer à travailler pendant qu'il lit. Le fichier qu'il produit est quelque chose à emmener *dans* l'enchaînement principal, à `/discover` ou `/grill-with-docs` : la recherche alimente la réflexion plutôt qu'elle ne la remplace.
+- **`/research`** : déléguer le travail de lecture à un **agent en arrière-plan** — il enquête sur une question à partir de **sources primaires**, puis dépose dans le dépôt un fichier Markdown sourcé. Continuer à travailler pendant qu'il lit. Ce fichier atterrit dans `docs/research/<sujet-slug>.md`, que `/discover` et `/grill-with-docs` lisent d'eux-mêmes avant d'ouvrir leur entretien : la recherche alimente la réflexion plutôt qu'elle ne la remplace.
 - **`/wait-what`** est le correctif pour un message qui n'est pas passé. L'utiliser en pleine conversation, à l'intérieur de n'importe quel autre skill, et l'agent re-pitche ce qu'il vient de dire avec le contexte qui te manquait, en langage clair, en utilisant le vocabulaire de `CONTEXT.md`. Il agit après coup ; `/grill-with-docs` est le remède en amont, parce qu'une langue commune décidée tôt est ce qui empêche le jargon d'arriver.
 - **`/teach`** : apprendre un concept sur plusieurs sessions, en utilisant le répertoire courant comme espace de travail à état.
 - **`/writing-for-agents`** est la référence pour rédiger les documents que des agents consomment : skills, `CLAUDE.md`, `AGENTS.md`, docs pointées.
 
 ## Prérequis
 
-**`/setup-sdlc`** : à lancer avant ton premier enchaînement, pour configurer l'issue tracker et l'organisation des docs de domaine que les autres skills présupposent. Les issue trackers personnalisés fonctionnent aussi.
+**`/setup-sdlc`** : à lancer avant ton premier enchaînement, pour configurer ce que les autres skills présupposent — l'issue tracker, le vocabulaire des labels de triage, l'organisation des docs de domaine, et le workflow git avec ses garde-fous. Les issue trackers personnalisés fonctionnent aussi.

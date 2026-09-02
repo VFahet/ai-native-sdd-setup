@@ -10,7 +10,7 @@ Le PRD répond à **pourquoi**, **pour qui** et **jusqu'où**. Il ne dit pas *co
 
 Sa fonction n'est pas de communiquer. Elle est structurelle : **le PRD est le point fixe qui rend l'itération falsifiable.** Sans invariant, changer une spec et changer d'avis deviennent indiscernables, et on ne peut plus dire si le projet converge.
 
-Ne PAS interviewer l'utilisateur. Ce skill synthétise `.scratch/discovery.md` et le contexte de la conversation. Si aucun cadrage n'a eu lieu, dire à l'utilisateur de lancer `/discover` d'abord.
+Ne PAS interviewer l'utilisateur. Ce skill synthétise `.scratch/discovery.md` et le contexte de la conversation — l'un des deux suffit : un cadrage mené dans la fenêtre courante n'a pas besoin d'avoir laissé de fichier. C'est l'absence de matière — ni fichier, ni cadrage tenu en conversation — qui renvoie à `/discover` d'abord.
 
 ## Où va quoi
 
@@ -131,4 +131,4 @@ Ce partage suit le test de stabilité. *Quelles fonctionnalités forment le prem
 
 `/grill-with-docs` puis `/to-spec`, une fonctionnalité à la fois. Le premier tour de `/grill-with-docs` cadre la fonctionnalité contre ce PRD, puis l'entretien enchaîne sur le comment — il n'y a pas d'étape de cadrage séparée.
 
-Le PRD sera rouvert une dernière fois après livraison, pour confronter ses métriques de succès à la réalité. C'est la seule branche de validation qu'aucun test automatique ne couvre.
+Une fois le lot 1 livré, rouvrir ce PRD et confronter ses métriques de succès à la réalité : c'est la seule branche de validation qu'aucun test automatique ne couvre. Aucun skill ne porte ce geste — le dire à l'utilisateur comme un rendez-vous qu'il prend lui-même, pas comme une étape que la chaîne déclenchera.
