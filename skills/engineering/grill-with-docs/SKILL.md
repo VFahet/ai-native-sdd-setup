@@ -29,7 +29,7 @@ La question 1 est le seul endroit où le gel du PRD est vérifié. Si l'énoncé
 
 Les tours suivants sont du `grilling` normal, sur le **comment**. Pas de cloison entre les deux : une fois la fonctionnalité cadrée, la conversation glisse vers la conception, et c'est ce qu'on veut.
 
-Pas de `docs/prd.md` ? Le cadrage contre le PRD et la vérification du gel tombent — enchaîner directement sur le `grilling` du comment. Deux obligations traversent quand même : `CONTEXT.md`, `docs/adr/` et `docs/research/` se lisent avant d'ouvrir l'entretien, et le **slug** reste dû — le dériver de la fonctionnalité discutée dès qu'elle est identifiée et l'annoncer exactement comme le fait la question 1.
+Pas de `docs/prd.md` ? Le cadrage contre le PRD et la vérification du gel tombent — enchaîner directement sur le `grilling` du comment. Trois obligations traversent quand même : `CONTEXT.md`, `docs/adr/` et `docs/research/` se lisent avant d'ouvrir l'entretien ; le **slug** reste dû — le dériver de la fonctionnalité discutée dès qu'elle est identifiée et l'annoncer exactement comme le fait la question 1 ; et la trace de sortie reste due à l'identique, sans quoi le chemin « dépôt existant » serait le seul de la chaîne à ne tenir que dans une fenêtre.
 
 ## Écrire la sortie
 
@@ -39,6 +39,8 @@ Quand l'entretien est terminé, les décisions **difficilement réversibles** pa
 
 Cet artefact a un lecteur unique, `/to-spec`, et une seule raison d'exister : **que l'entretien survive à une fin de session.** Sans lui, `to-spec` lancé dans une fenêtre neuve n'a rien à synthétiser — il lui est interdit d'interviewer, donc il inventerait.
 
-Il est jetable une fois la spec écrite. Le dire à l'utilisateur, et lui proposer d'enchaîner tout de suite si la session est encore vivante.
+Il est jetable une fois la spec écrite. Le dire à l'utilisateur.
 
-**Sans PRD**, le slug ne vient pas du PRD mais de la fonctionnalité discutée — l'écriture, elle, ne change pas. Ce qui est propre au cas avec PRD, c'est le premier tour de cadrage et la vérification du gel ; la trace est due dans les deux cas, sans quoi le chemin « dépôt existant » serait le seul de la chaîne à ne tenir que dans une fenêtre.
+## Ensuite
+
+`/to-spec <feature-slug>`. Ne pas le lancer soi-même : annoncer à l'utilisateur la commande exacte à taper, slug compris, et lui proposer d'enchaîner tout de suite si la session est encore vivante.

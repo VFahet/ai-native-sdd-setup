@@ -46,7 +46,7 @@ Si le contenu déborde, ce n'est pas le PRD qu'il faut allonger : c'est une fonc
 
 4. Montrer à l'utilisateur **les métriques de succès, le hors-périmètre et le lot 1, isolément**, et demander s'ils tiennent. Ces trois sections portent tout le document : les autres se corrigent, celles-là s'écroulent. Pour le lot 1, énoncer la dérivation — quelle métrique il fait bouger, et pourquoi rien de plus petit n'y suffit.
 
-5. Rappeler que le PRD est désormais gelé, puis **proposer nommément la première fonctionnalité du lot 1** — son nom, son slug en kebab-case, et sa justification : ce dont elle ne dépend pas, la métrique qu'elle porte, les couches qu'elle traverse. Ne pas se contenter de nommer la commande à lancer : sans proposition concrète, personne ne choisit et le projet s'arrête là. L'utilisateur ratifie ou corrige.
+5. Rappeler que le PRD est désormais gelé, puis **proposer nommément la première fonctionnalité du lot 1** — son nom, le slug en kebab-case que porte sa ligne dans le PRD, et sa justification : ce dont elle ne dépend pas, la métrique qu'elle porte, les couches qu'elle traverse. Ne pas se contenter de nommer la commande à lancer : sans proposition concrète, personne ne choisit et le projet s'arrête là. L'utilisateur ratifie ou corrige.
 
 <prd-template>
 
@@ -82,7 +82,7 @@ Les contraintes transverses, chacune avec un chiffre ou un seuil : performance, 
 
 ## Fonctionnalités
 
-La décomposition du projet, une ligne par fonctionnalité. **Chaque fonctionnalité devient une spec.** C'est le joint entre la phase de cadrage et la phase itérative : sans cette liste, personne ne sait combien de specs sont attendues ni quand le projet est fini.
+La décomposition du projet, une ligne par fonctionnalité. **Chaque fonctionnalité devient une spec.** Le slug que porte sa ligne nomme le répertoire `.scratch/<feature-slug>/` de cette spec : la suite de la chaîne le lit ici plutôt que de le redériver. C'est le joint entre la phase de cadrage et la phase itérative : sans cette liste, personne ne sait combien de specs sont attendues ni quand le projet est fini.
 
 L'ordre se **dérive**, il ne s'arbitre pas : les dépendances contraignent, les métriques départagent. Noter la dépendance sur la ligne quand elle existe.
 
@@ -92,16 +92,16 @@ La plus petite combinaison de fonctionnalités qui fait bouger **au moins une m�
 
 Mettre en tête celle qui **traverse le plus de couches**. C'est en la construisant que se prennent les décisions transverses — schéma, authentification, seams de test — dont toutes les suivantes hériteront. Les prendre face au cas le plus exigeant plutôt que face au plus facile.
 
-1. **<nom de la fonctionnalité>** — ce qu'elle permet, en une phrase, du point de vue de l'acteur.
-2. **<nom de la fonctionnalité>** — … · bloqué par 1
+1. **<nom de la fonctionnalité>** `<feature-slug>` — ce qu'elle permet, en une phrase, du point de vue de l'acteur.
+2. **<nom de la fonctionnalité>** `<feature-slug>` — … · bloqué par 1
 
 ### Ensuite · ordre indicatif, non gelé
 
-3. **<nom de la fonctionnalité>** — …
+3. **<nom de la fonctionnalité>** `<feature-slug>` — …
 
 ### Plus tard · non ordonné
 
-4. **<nom de la fonctionnalité>** — …
+4. **<nom de la fonctionnalité>** `<feature-slug>` — …
 
 ## Questions ouvertes
 

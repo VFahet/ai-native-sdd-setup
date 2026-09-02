@@ -30,8 +30,6 @@ La séquence est unique pour tout le dépôt, quelle que soit la disposition : p
 
 Les trois conditions sont énoncées dans la section « Proposer des ADR avec parcimonie » de [SKILL.md](./SKILL.md) ; elles doivent toutes être vraies.
 
-Si une décision est facilement réversible, passer : tu reviendras en arrière, voilà tout. Si elle n'est pas surprenante, personne ne se demandera pourquoi. S'il n'y avait pas de véritable alternative, il n'y a rien à consigner de plus que « on a fait la chose évidente ».
-
 ### Ce qui mérite un ADR
 
 - **La forme architecturale.** « On utilise un monorepo. » « Le modèle d'écriture est event-sourcé, le modèle de lecture est projeté dans Postgres. »

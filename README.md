@@ -74,7 +74,9 @@ Le cadrage amont, absent du dépôt d'origine.
 | **diagnosing-bugs** | Boucle de diagnostic pour les bugs durs et les régressions de performance |
 | **domain-modeling** | Construit et affine le modèle de domaine : `CONTEXT.md` et ADR |
 | **codebase-design** | Vocabulaire partagé pour concevoir des *deep modules* : où placer un seam, comment approfondir une interface |
+| **improve-codebase-architecture** | Balaie le code à la recherche de modules *shallow*, les présente dans un rapport HTML visuel, puis grille celui que tu retiens |
 | **resolving-merge-conflicts** | Résout un merge ou un rebase en conflit, en préservant les deux intentions |
+| **wizard** | Génère un script bash qui guide un humain à travers ce que lui seul peut faire : dashboards tiers, secrets de CI, bascules |
 
 ### Productivity
 
@@ -84,16 +86,18 @@ Le cadrage amont, absent du dépôt d'origine.
 | **grill-me** | Le même, en interview dirigée |
 | **handoff** | Compacte la session en document de passation pour l'agent suivant |
 | **teach** | Enseigne un concept ou une compétence dans le contexte de ce workspace |
+| **to-questionnaire** | Transforme une décision que tu ne peux pas trancher seul en questionnaire pour celui qui détient le contexte |
 | **wait-what** | « Ce message n'est pas passé. Re-pitche. » |
 | **writing-for-agents** | Écrire des documents pour des agents : skills, `CLAUDE.md`, `AGENTS.md` |
+| **retro** | Rétrospective sur une session : ce qu'il faut changer dans l'environnement de l'agent pour que les suivantes coûtent moins |
 
 Les skills conservés mais non traduits vivent dans [skills/backlog/](./skills/backlog/) et ne sont pas livrés dans le plugin.
 
 ## Conventions
 
-Le corps des skills est en français, mais les `name:` restent en anglais — ce sont les commandes et les références croisées. Certains termes de l'art (`seam`, `tracer bullet`, `deep module`, `red-green-refactor`) ne sont pas traduits non plus : [CONTEXT.md](./CONTEXT.md) dit lesquels et pourquoi.
+Le corps des skills est en français, mais les `name:` restent en anglais — ce sont les commandes et les références croisées. Certains termes de l'art (`seam`, `tracer bullet`, `deep module`, `red-green-refactor`, `trunk`) ne sont pas traduits non plus : [CONTEXT.md](./CONTEXT.md) dit lesquels et pourquoi.
 
-Les skills du plugin sont aussi exposés sous le préfixe `ai-native-sdlc:`, et le nom nu suffit tant que rien d'autre ne le revendique. Une exception : `code-review` entre en collision avec la commande intégrée de Claude Code, et doit donc s'invoquer sous sa forme préfixée, `/ai-native-sdlc:code-review`.
+Les skills du plugin sont aussi exposés sous le préfixe `ai-native-sdlc:`, et le nom nu suffit tant que rien d'autre ne le revendique. Une exception, et une seule : `code-review` entre en collision avec la commande intégrée de Claude Code, donc un skill qui l'appelle passe `ai-native-sdlc:code-review` à l'outil Skill. La forme préfixée ne va pas plus loin : dans la prose, les tableaux et les schémas de ce dépôt, le nom s'écrit nu — `/code-review`.
 
 ## Licence
 

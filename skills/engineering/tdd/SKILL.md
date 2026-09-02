@@ -35,4 +35,4 @@ Quand la forme même de cette interface est en question (quelle est la profondeu
 
 - **Rouge avant vert.** Écrire d'abord le test qui échoue, puis juste assez de code pour le faire passer. Ne pas anticiper les tests suivants ni ajouter de fonctionnalités spéculatives.
 - **Une tranche à la fois.** Un seam, un test, une implémentation minimale par cycle.
-- **Le refactoring ne fait pas partie de la boucle.** Il appartient à l'étape de revue de `/implement`, pas au cycle d'implémentation rouge → vert.
+- **Le refactoring ne fait pas partie de la boucle.** Il appartient à l'étape de revue de `/implement`, pas au cycle d'implémentation rouge → vert. Quand ce skill tourne seul, hors de cette chaîne, le refactor a lieu après la boucle, sur le même critère : les tests restent verts.

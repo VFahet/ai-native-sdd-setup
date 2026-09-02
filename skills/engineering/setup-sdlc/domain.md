@@ -8,7 +8,7 @@ Comment les skills d'ingénierie doivent consommer la documentation de domaine d
 - **`CONTEXT-MAP.md`** à la racine s'il existe : il pointe vers un `CONTEXT.md` par contexte. Lire chacun de ceux qui touchent au sujet.
 - **`docs/adr/`** : lire les ADR qui concernent la zone où tu t'apprêtes à travailler. Dans les dépôts multi-contextes, regarder aussi `src/<contexte>/docs/adr/` pour les décisions propres à un contexte.
 
-Si l'un de ces fichiers n'existe pas, **continuer sans rien dire**. Ne pas signaler son absence ; ne pas proposer de le créer d'emblée. Le skill `/domain-modeling` (atteint via `/grill-with-docs`) les crée paresseusement, quand un terme ou une décision est réellement tranché.
+Si l'un de ces fichiers n'existe pas, **continuer sans rien dire**. Ne pas signaler son absence ; ne pas proposer de le créer d'emblée. Le skill `/domain-modeling` (atteint via `/grill-with-docs` et `/improve-codebase-architecture`) les crée paresseusement, quand un terme ou une décision est réellement tranché.
 
 ## Structure des fichiers
 

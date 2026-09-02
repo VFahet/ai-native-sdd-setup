@@ -62,9 +62,9 @@ Publier les tickets validés. **Comment** dépend du tracker configuré par `/se
 - **Fichiers locaux** → écrire un fichier par ticket sous `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numérotés à partir de `01` dans l'ordre des dépendances (les bloqueurs d'abord). Le « Bloqué par » de chaque fichier liste les numéros ou titres dont il dépend. Utiliser le gabarit par ticket ci-dessous : un ticket par fichier, jamais un fichier unique regroupant tout.
 - **Un vrai issue tracker (GitHub, Linear, …)** → publier une issue par ticket dans l'ordre des dépendances (les bloqueurs d'abord), pour que les arêtes de blocage de chaque ticket puissent référencer de vrais identifiants. Utiliser la relation native de blocage / sous-issue de la plateforme quand elle existe ; sinon, renseigner le « Bloqué par » de chaque ticket avec les issues bloquantes. Appliquer le label de triage `ready-for-agent` sauf instruction contraire ; les tickets sont saisissables par un agent par construction.
 
-Travailler la **frontière** : tout ticket dont les bloqueurs sont tous terminés. Pour une chaîne purement linéaire, cela revient à descendre de haut en bas.
-
 Ne PAS fermer ni modifier une issue parente.
+
+Une fois les tickets publiés, **annoncer à l'utilisateur les commandes exactes à taper** pour les tickets de la frontière : `/implement .scratch/<feature-slug>/issues/<NN>-<slug>.md` — le chemin complet — sur le tracker markdown local, `/implement <numéro d'issue>` sur un vrai tracker. Le slug ne survit pas au `/clear` qui suit : il doit voyager dans la commande.
 
 <local-ticket-template>
 
@@ -74,7 +74,7 @@ Ne PAS fermer ni modifier une issue parente.
 
 **Bloqué par :** les numéros ou titres des tickets qui conditionnent celui-ci, ou « Aucun (peut démarrer immédiatement) ».
 
-**Status:** ready-for-agent
+**Status:** <label configuré pour `ready-for-agent`>
 
 - [ ] Critère d'acceptation 1
 - [ ] Critère d'acceptation 2
@@ -103,8 +103,6 @@ Le comportement de bout en bout que ce ticket rend fonctionnel, du point de vue 
 </issue-template>
 
 Dans les deux formes, éviter les chemins de fichiers précis et les extraits de code : ils deviennent obsolètes vite. Exception : si un prototype a produit un extrait qui encode une décision plus précisément que la prose ne le pourrait (machine à états, reducer, schéma, forme d'un type), l'inclure et noter brièvement qu'il vient d'un prototype. Ne garder que les parties porteuses de décision — pas une démo qui tourne, juste l'essentiel.
-
-Une fois les tickets publiés, **annoncer à l'utilisateur les commandes exactes à taper** pour les tickets de la frontière : `/implement .scratch/<feature-slug>/issues/<NN>-<slug>.md` — le chemin complet — sur le tracker markdown local, `/implement <numéro d'issue>` sur un vrai tracker. Le slug ne survit pas au `/clear` qui suit : il doit voyager dans la commande.
 
 ## Ensuite
 

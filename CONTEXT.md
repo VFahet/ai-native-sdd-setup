@@ -45,6 +45,14 @@ Réarranger le code _avant_ d'ajouter la fonctionnalité, pour que l'ajout devie
 La portion de la fenêtre de contexte (~150k tokens sur les modèles de pointe) à l'intérieur de laquelle le modèle raisonne encore finement. Au-delà, il répond toujours mais dégrade sans le signaler. C'est ce qui dimensionne les limites de phase.
 _À ne pas traduire par_ : zone intelligente, zone de lucidité
 
+**trunk**
+La branche d'intégration du dépôt — `main` le plus souvent, mais le nom réel se lit dans le dépôt, jamais supposé. « Branche principale » désigne aussi bien la branche courante d'un développeur, donc ne tranche rien ; « tronc » perd le rattachement à _trunk-based development_, le modèle de branche d'où le terme vient. Le mot porte en plus la direction : on part du trunk, on y revient par une PR.
+_À ne pas traduire par_ : tronc, branche principale
+
+**wizard**
+Le script bash que produit `/wizard` : il guide un humain, pas à pas, à travers une procédure manuelle. Le mot désigne l'artefact autant que la commande qui le fabrique ; « assistant » perdrait ce lien et se confondrait avec l'agent lui-même.
+_À ne pas traduire par_ : assistant, magicien
+
 **ADR** — _Architecture Decision Record_. Sigle usuel, non traduit.
 
 **spec**

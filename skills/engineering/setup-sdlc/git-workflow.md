@@ -6,7 +6,7 @@ Comment les skills d'ingénierie manipulent git dans ce dépôt. Lu par `/implem
 
 **Trunk-based, une branche par fonctionnalité.**
 
-- La branche de référence est `main`. Elle est toujours livrable.
+- Le trunk est `main`. Il est toujours livrable.
 - Une **fonctionnalité** — une ligne du PRD, une spec, l'unité que `/to-tickets` découpe — vit sur une branche `feature/<feature-slug>` partant d'un `main` à jour.
 - Un **ticket** est un commit sur cette branche, pas une branche à lui.
 - La branche vit le temps de la fonctionnalité. Au-delà de deux ou trois jours, ce n'est pas le modèle de branche qui est en cause : la fonctionnalité est trop grosse. Chaque ticket étant un *tracer bullet* qui atterrit au vert, la sortie de secours est de merger par ticket plutôt que par fonctionnalité.

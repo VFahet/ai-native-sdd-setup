@@ -64,6 +64,8 @@ Chaque ticket est une **issue enfant** de la carte ; l'id d'issue du tracker est
 <la décision ou l'investigation que ce ticket résout>
 ```
 
+Sur le tracker markdown local, ce ticket est un fichier `.scratch/<chantier>/decisions/<NN>-<slug>.md` — `decisions/`, pas `issues/` : le chemin dit ce que le ticket **est**, une décision et non une tranche de construction, ce qui laisse `.scratch/*/issues/` non ambigu pour `/implement`. Un chantier et une fonctionnalité peuvent donc partager le même répertoire `.scratch/<slug>/` : `map.md` et `decisions/` y cohabitent avec `issues/`.
+
 Chaque ticket porte un label `wayfinder:<type>`, parmi `research`, `prototype`, `grilling`, `task` (voir [Types de ticket](#types-de-ticket)).
 
 Une session **réserve** un ticket en l'assignant au dev qui pilote la carte, **d'abord**, avant tout travail, pour que les sessions concurrentes le sautent. Cet assigné _est_ la réservation : un ticket ouvert et non assigné n'est pas réservé.
@@ -133,8 +135,8 @@ L'utilisateur peut faire tourner les tickets débloqués en parallèle : attends
 
 `/to-spec`. La carte est terminée quand le chemin vers la destination est clair et qu'il ne reste plus aucun ticket : annonce-le à l'utilisateur — la destination, les décisions qui y mènent, et le fait qu'il ne reste rien à décider avant que quelqu'un aille construire — puis passe la main.
 
-Passer la main, c'est **nommer le `<feature-slug>`** de chaque spec que la carte appelle — un chantier en donne souvent plusieurs — puis annoncer à l'utilisateur la commande exacte à taper : `/to-spec <feature-slug>`, pointeur vers la carte compris. Ni le slug ni le pointeur ne survivent au `/clear` : ils doivent voyager dans la commande.
+Passer la main, c'est **nommer le `<feature-slug>`** de chaque spec que la carte appelle — un chantier en donne souvent plusieurs. Ne pas lancer `/to-spec` soi-même : annoncer à l'utilisateur la commande exacte à taper, `/to-spec <feature-slug>`, pointeur vers la carte compris. Ni le slug ni le pointeur ne survivent au `/clear` : ils doivent voyager dans la commande.
 
-Le slug est en kebab-case et **distinct du nom du chantier** : il nomme le `.scratch/<feature-slug>/` où la spec est publiée, puis où `/to-tickets` écrira les tickets d'implémentation — ce qui laisse `.scratch/<chantier>/issues/` aux seuls tickets de décision. Les confondre mettrait deux vocabulaires `Status:` dans un même répertoire, et `/implement`, qui retrouve un ticket en balayant `.scratch/*/issues/`, prendrait une décision fermée pour une tranche à construire.
+Le slug est en kebab-case et nomme la **fonctionnalité**, pas le chantier : il désigne le `.scratch/<feature-slug>/` où la spec est publiée, puis où `/to-tickets` écrira les tickets d'implémentation. Il peut reprendre le nom du chantier — `map.md` et `decisions/` cohabitent avec `spec.md` et `issues/` — mais une carte qui appelle plusieurs specs a besoin d'un slug par spec.
 
-Sauf si les **Notes** du chantier en ont décidé autrement, wayfinder a produit des décisions et non des livrables : c'est `/to-spec` qui les condense en un plan constructible. Il ira lire la carte (`.scratch/<chantier>/map.md` sur le tracker markdown local, l'issue labellisée `wayfinder:map` ailleurs) pour ses **Décisions à ce jour**, puis les réponses consignées dans les tickets de décision fermés, pour le détail que l'index ne porte pas. Reboucler directement sur `/implement` sauterait cette condensation et jetterait ce détail.
+Sauf si les **Notes** du chantier en ont décidé autrement, wayfinder a produit des décisions et non des livrables : c'est `/to-spec` qui les condense en un plan constructible. Il ira lire la carte (`.scratch/<chantier>/map.md` sur le tracker markdown local, l'issue labellisée `wayfinder:map` ailleurs) pour ses **Décisions à ce jour**, puis les réponses consignées dans les tickets de décision fermés (`.scratch/<chantier>/decisions/<NN>-<slug>.md` sur le tracker markdown local, les issues enfants fermées de la carte ailleurs), pour le détail que l'index ne porte pas. Reboucler directement sur `/implement` sauterait cette condensation et jetterait ce détail.

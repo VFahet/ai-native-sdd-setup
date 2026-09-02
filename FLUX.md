@@ -21,7 +21,7 @@ flowchart TD
     TT --> ISS[/".scratch/…/issues/NN-*.md<br/>tracer bullets + blocages"/]
 
     ISS --> CL(["/clear"])
-    CL --> I["/implement NN"]
+    CL --> I["/implement<br/>chemin complet du ticket<br/>— NN sur un vrai tracker"]
     I --> TDD["/tdd<br/>red-green, en interne"]
     I --> CR["/code-review<br/>par ticket, puis<br/>par fonctionnalité"]
     I --> OK(["critères validés<br/>commit, puis PR<br/>au dernier ticket"])
@@ -52,6 +52,7 @@ D'où **deux revues à deux découpages différents**. À chaque ticket, `/code-
 | `CONTEXT.md`, `docs/adr/` | `/grill-with-docs` | tous | permanent |
 | `.scratch/<feature-slug>/decisions.md` | `/grill-with-docs`, avec ou sans PRD | `/to-spec` | jetable |
 | `.scratch/<chantier>/map.md` (ou l'issue `wayfinder:map`) | `/wayfinder` | `/wayfinder`, `/to-spec` | le temps du chantier |
+| `.scratch/<chantier>/decisions/<NN>-<slug>.md` (ou une issue enfant de la carte) | `/wayfinder` | `/wayfinder`, `/to-spec` | le temps du chantier |
 | `.scratch/<feature-slug>/spec.md` (ou une issue du tracker) | `/to-spec` | `/to-tickets`, `/code-review` | le temps de la fonctionnalité |
 | `.scratch/<feature-slug>/issues/<NN>-<slug>.md` | `/to-tickets` | `/implement` | le temps de la fonctionnalité |
 
@@ -96,11 +97,15 @@ flowchart LR
 | `/wayfinder` | un chantier trop gros pour une session — produit des décisions, pas du code |
 | `/diagnosing-bugs` | un bug dur, une régression, un test intermittent |
 | `/resolving-merge-conflicts` | un conflit de merge ou de rebase déjà en cours |
+| `/improve-codebase-architecture` | l'architecture freine — chercher les modules *shallow* avant qu'une fonctionnalité ne s'y casse les dents |
+| `/wizard` | une procédure manuelle que l'agent ne peut pas faire à ta place, et qu'il faut ré-expliquer chaque fois |
+| `/to-questionnaire` | une décision qui dépend de quelqu'un d'autre |
 | `/wait-what` | un message qui n'est pas passé — re-pitch |
 | `/handoff` | nouveau harness, nouveau répertoire, collègue, ou fork d'une tâche annexe |
 | `/grill-me` | l'interview, hors d'un répertoire de travail |
 | `/domain-modeling`, `/codebase-design` | le vocabulaire sous les autres skills — quand ce sont les mots qui coincent |
 | `/teach`, `/writing-for-agents`, `/which-skill` | méta, hors cycle |
+| `/retro` | après coup — une session qui a mal tourné, et ce que l'environnement doit en apprendre |
 
 ## Ce qui reste à recâbler
 
