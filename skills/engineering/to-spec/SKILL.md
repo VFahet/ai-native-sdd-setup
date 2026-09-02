@@ -10,13 +10,22 @@ L'issue tracker et le vocabulaire des labels de triage devraient t'avoir été f
 
 ## Process
 
-1. Explorer le dépôt pour comprendre l'état actuel du code, si ce n'est pas déjà fait. Utiliser le vocabulaire du glossaire de domaine du projet dans toute la spec, et respecter les ADR qui couvrent la zone concernée.
+1. **Rassembler les sources écrites**, avant toute synthèse. C'est ce qui permet de lancer ce skill dans une fenêtre neuve, sans avoir mené l'entretien soi-même :
 
-2. Esquisser les seams auxquels la fonctionnalité sera testée. Préférer les seams existants aux nouveaux. Prendre le seam le plus haut possible. Si de nouveaux seams sont nécessaires, les proposer au point le plus haut atteignable. Moins il y a de seams dans le code, mieux c'est — le nombre idéal est un.
+   - **`.scratch/<feature-slug>/decisions.md`** s'il existe : les décisions prises pendant `/grill-with-docs`. C'est la source principale des sections *Décisions d'implémentation* et *Décisions de test* quand la conversation ne les porte pas. Si l'utilisateur n'a pas passé de slug, parcourir `.scratch/*/` à la recherche des répertoires contenant un `decisions.md` sans `spec.md` ; s'il n'y en a qu'un, l'annoncer et continuer, sinon demander lequel.
+   - **`docs/prd.md`** s'il existe : y relever les **exigences non fonctionnelles qui contraignent cette fonctionnalité**, et les reporter dans les décisions d'implémentation **avec leur chiffre ou leur seuil**. Une exigence restée dans le PRD ne deviendra jamais un critère d'acceptation. Reprendre aussi le hors-périmètre du projet qui touche cette zone.
+
+   Attention à l'altitude : le PRD énonce le problème **du projet**, cette spec énonce celui **d'une seule fonctionnalité**. Ne pas recopier — restreindre.
+
+   Si ni l'un ni l'autre n'existe, travailler à partir de la conversation seule, comme avant.
+
+2. Explorer le dépôt pour comprendre l'état actuel du code, si ce n'est pas déjà fait. Utiliser le vocabulaire du glossaire de domaine du projet dans toute la spec, et respecter les ADR qui couvrent la zone concernée.
+
+3. Esquisser les seams auxquels la fonctionnalité sera testée. Préférer les seams existants aux nouveaux. Prendre le seam le plus haut possible. Si de nouveaux seams sont nécessaires, les proposer au point le plus haut atteignable. Moins il y a de seams dans le code, mieux c'est — le nombre idéal est un.
 
 Vérifier auprès de l'utilisateur que ces seams correspondent à ce qu'il attend.
 
-3. Rédiger la spec avec le gabarit ci-dessous, puis la publier dans l'issue tracker du projet. Appliquer le label de triage `ready-for-agent` — pas besoin de triage supplémentaire.
+4. Rédiger la spec avec le gabarit ci-dessous, puis la publier dans l'issue tracker du projet. Appliquer le label de triage `ready-for-agent` — pas besoin de triage supplémentaire.
 
 <spec-template>
 

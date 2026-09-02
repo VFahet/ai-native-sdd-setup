@@ -4,7 +4,7 @@ Un environnement Claude Code qui structure le cycle de développement complet �
 
 L'idée : ne pas laisser l'agent improviser le processus. Chaque étape produit un artefact versionné que la suivante consomme. Le développement reste sous ton contrôle ; l'IA exécute à l'intérieur d'un cadre que tu as posé.
 
-> Ce dépôt est une traduction française des [skills de Matt Pocock](https://github.com/mattpocock/skills) (MIT), adaptée à Claude Code. Voir [UPSTREAM.md](./UPSTREAM.md) pour ce qui a changé et comment se resynchroniser.
+> Les skills sont en majeure partie tirés des [skills de Matt Pocock](https://github.com/mattpocock/skills) (MIT), traduits en français puis remaniés pour coller à mes besoins : couche produit ajoutée, chaîne recâblée, Claude Code uniquement.
 
 ## Installation
 
@@ -23,24 +23,26 @@ Cette commande configure une fois pour toutes où vivent les issues, les ADR et 
 
 ## La chaîne
 
-Une phase de cadrage séquentielle, une fois. Puis des boucles, une par capacité.
+Une phase de cadrage séquentielle, une fois. Puis des boucles, une par fonctionnalité.
 
 ```
 ─── cadrage, une fois ───────────────────────────────────────────
    /discover  ──▶  /to-prd  ──▶  docs/prd.md        [gelé]
                                       │
-                                      │  décomposition en capacités
-─── livraison, par capacité ──────────┼──────────────────────────
+                                      │  décomposition en fonctionnalités
+─── livraison, par fonctionnalité ────┼──────────────────────────
                                       ▼
-   /discover <slug>  ─▶  /to-spec  ─▶  /to-tickets  ─▶  /implement
+   /grill-with-docs  ─▶  /to-spec  ─▶  /to-tickets  ─▶  /implement
                               │              │                │
                      spec.md ─┘     issues/NN-*.md ─┘         ├─▶ /tdd
                                                               └─▶ /code-review
 ```
 
+Le détail complet — diagrammes, artefacts, points de `/clear`, skills hors chaîne — est dans [FLUX.md](./FLUX.md).
+
 Le PRD n'est pas un document de communication : c'est **l'invariant qui rend l'itération falsifiable**. Sans point fixe, changer une spec et changer d'avis deviennent indiscernables. Il est gelé par défaut et ne bouge que par révision datée.
 
-Le partage entre PRD et spec ne se fait pas au zoom mais à l'axe : le PRD porte ce qui **contraint tout le projet** et reste vrai quelle que soit la solution ; la spec porte ce qui **décrit une seule capacité** et qu'un test peut vérifier.
+Le partage entre PRD et spec ne se fait pas au zoom mais à l'axe : le PRD porte ce qui **contraint tout le projet** et reste vrai quelle que soit la solution ; la spec porte ce qui **décrit une seule fonctionnalité** et qu'un test peut vérifier.
 
 ## Les skills
 
@@ -50,8 +52,8 @@ Le cadrage amont, absent du dépôt d'origine.
 
 | Skill | Rôle |
 |---|---|
-| **discover** | Cadrage produit : problème, acteurs, exigences non fonctionnelles, périmètre, métriques. Deux modes — projet et feature |
-| **to-prd** | Synthétise le cadrage en `docs/prd.md` : plafonné à deux pages, gelé, décomposé en capacités |
+| **discover** | Cadrage produit initial, une fois par projet : problème, acteurs, exigences non fonctionnelles, périmètre, métriques, lot MVP |
+| **to-prd** | Synthétise le cadrage en `docs/prd.md` : plafonné à deux pages, gelé, décomposé en fonctionnalités ordonnées en lots |
 
 ### Engineering
 
@@ -62,7 +64,7 @@ Le cadrage amont, absent du dépôt d'origine.
 | **research** | Enquête sur sources primaires et capture les résultats dans un fichier du dépôt |
 | **wayfinder** | Cartographie un chantier trop gros pour une session, en tickets de décision résolus un à un |
 | **prototype** | Construit un prototype jetable pour trancher une question de conception |
-| **grill-with-docs** | L'interview de `grilling`, qui produit ADR et glossaire au passage |
+| **grill-with-docs** | L'interview de `grilling`, qui produit ADR et glossaire au passage. Premier tour : cadre la fonctionnalité contre le PRD, puis enchaîne sur la conception |
 | **to-spec** | Transforme la conversation en spec technique : problème, user stories, décisions d'implémentation, hors-scope |
 | **to-tickets** | Découpe une spec en tickets *tracer bullet*, chacun déclarant ce qui le bloque |
 | **implement** | Exécute un ticket : TDD aux seams convenus, typecheck, revue, commit |

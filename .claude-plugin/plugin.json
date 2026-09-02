@@ -1,7 +1,7 @@
 {
   "name": "ai-native-sdlc",
   "version": "0.1.0",
-  "description": "Un environnement de développement structuré et augmenté à l'IA : cadrage, spec, découpage, exécution TDD, revue. Traduction française des skills de Matt Pocock, pour Claude Code.",
+  "description": "Un environnement de développement structuré et augmenté à l'IA : cadrage, spec, découpage, exécution TDD, revue. En français, pour Claude Code.",
   "author": {
     "name": "Valentin Fahet"
   },
