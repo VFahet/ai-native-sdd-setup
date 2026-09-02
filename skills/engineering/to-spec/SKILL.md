@@ -1,75 +1,75 @@
 ---
 name: to-spec
-description: "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed."
+description: "Transforme la conversation en cours en spec et la publie dans l'issue tracker du projet : pas d'interview, juste la synthèse de ce qui a déjà été discuté."
 disable-model-invocation: true
 ---
 
-This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user; just synthesize what you already know.
+Ce skill prend le contexte de la conversation en cours et la compréhension du code, et produit une spec. Ne PAS interviewer l'utilisateur ; se contenter de synthétiser ce que tu sais déjà.
 
-The issue tracker and triage label vocabulary should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.
+L'issue tracker et le vocabulaire des labels de triage devraient t'avoir été fournis. Si ce n'est pas le cas, dire à l'utilisateur de lancer `/setup-sdlc`.
 
 ## Process
 
-1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching.
+1. Explorer le dépôt pour comprendre l'état actuel du code, si ce n'est pas déjà fait. Utiliser le vocabulaire du glossaire de domaine du projet dans toute la spec, et respecter les ADR qui couvrent la zone concernée.
 
-2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
+2. Esquisser les seams auxquels la fonctionnalité sera testée. Préférer les seams existants aux nouveaux. Prendre le seam le plus haut possible. Si de nouveaux seams sont nécessaires, les proposer au point le plus haut atteignable. Moins il y a de seams dans le code, mieux c'est — le nombre idéal est un.
 
-Check with the user that these seams match their expectations.
+Vérifier auprès de l'utilisateur que ces seams correspondent à ce qu'il attend.
 
-3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+3. Rédiger la spec avec le gabarit ci-dessous, puis la publier dans l'issue tracker du projet. Appliquer le label de triage `ready-for-agent` — pas besoin de triage supplémentaire.
 
 <spec-template>
 
-## Problem Statement
+## Énoncé du problème
 
-The problem that the user is facing, from the user's perspective.
+Le problème que rencontre l'utilisateur, de son point de vue à lui.
 
 ## Solution
 
-The solution to the problem, from the user's perspective.
+La solution à ce problème, du point de vue de l'utilisateur.
 
-## User Stories
+## User stories
 
-A LONG, numbered list of user stories. Each user story should be in the format of:
+Une LONGUE liste numérotée de user stories. Chaque user story suit le format :
 
-1. As an <actor>, I want a <feature>, so that <benefit>
+1. En tant que <acteur>, je veux <fonctionnalité>, afin de <bénéfice>
 
 <user-story-example>
-1. As a mobile bank customer, I want to see balance on my accounts, so that I can make better informed decisions about my spending
+1. En tant que client d'une banque mobile, je veux voir le solde de mes comptes, afin de prendre de meilleures décisions sur mes dépenses
 </user-story-example>
 
-This list of user stories should be extremely extensive and cover all aspects of the feature.
+Cette liste de user stories doit être extrêmement fournie et couvrir tous les aspects de la fonctionnalité.
 
-## Implementation Decisions
+## Décisions d'implémentation
 
-A list of implementation decisions that were made. This can include:
+La liste des décisions d'implémentation prises. Cela peut inclure :
 
-- The modules that will be built/modified
-- The interfaces of those modules that will be modified
-- Technical clarifications from the developer
-- Architectural decisions
-- Schema changes
-- API contracts
-- Specific interactions
+- Les modules qui seront construits ou modifiés
+- Les interfaces de ces modules qui seront modifiées
+- Les clarifications techniques apportées par le développeur
+- Les décisions d'architecture
+- Les changements de schéma
+- Les contrats d'API
+- Des interactions spécifiques
 
-Do NOT include specific file paths or code snippets. They may end up being outdated very quickly.
+Ne PAS inclure de chemins de fichiers précis ni d'extraits de code. Ils peuvent devenir obsolètes très vite.
 
-Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it within the relevant decision and note briefly that it came from a prototype. Trim to the decision-rich parts, not a working demo, just the important bits.
+Exception : si un prototype a produit un extrait qui encode une décision plus précisément que la prose ne le pourrait (machine à états, reducer, schéma, forme d'un type), l'inclure dans la décision concernée et noter brièvement qu'il vient d'un prototype. Ne garder que les parties porteuses de décision — pas une démo qui tourne, juste l'essentiel.
 
-## Testing Decisions
+## Décisions de test
 
-A list of testing decisions that were made. Include:
+La liste des décisions de test prises. Inclure :
 
-- A description of what makes a good test (only test external behavior, not implementation details)
-- Which modules will be tested
-- Prior art for the tests (i.e. similar types of tests in the codebase)
+- Une description de ce qui fait un bon test (ne tester que le comportement externe, pas les détails d'implémentation)
+- Quels modules seront testés
+- L'art antérieur pour ces tests (c'est-à-dire des tests similaires déjà présents dans le code)
 
-## Out of Scope
+## Hors-scope
 
-A description of the things that are out of scope for this spec.
+Une description de ce qui est hors du périmètre de cette spec.
 
-## Further Notes
+## Notes complémentaires
 
-Any further notes about the feature.
+Toute note supplémentaire sur la fonctionnalité.
 
 </spec-template>
