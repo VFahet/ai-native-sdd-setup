@@ -40,6 +40,11 @@ idée  ──/grilling──▶  cadrée
 | Skill | Rôle |
 |---|---|
 | **setup-sdlc** | Configure le dépôt : tracker d'issues, docs de domaine. À lancer une fois avant tout le reste |
+| **which-skill** | Routeur : quel skill ou quel enchaînement correspond à ta situation |
+| **research** | Enquête sur sources primaires et capture les résultats dans un fichier du dépôt |
+| **wayfinder** | Cartographie un chantier trop gros pour une session, en tickets de décision résolus un à un |
+| **prototype** | Construit un prototype jetable pour trancher une question de conception |
+| **grill-with-docs** | L'interview de `grilling`, qui produit ADR et glossaire au passage |
 | **to-spec** | Transforme la conversation en spec technique : problème, user stories, décisions d'implémentation, hors-scope |
 | **to-tickets** | Découpe une spec en tickets *tracer bullet*, chacun déclarant ce qui le bloque |
 | **implement** | Exécute un ticket : TDD aux seams convenus, typecheck, revue, commit |
@@ -48,7 +53,7 @@ idée  ──/grilling──▶  cadrée
 | **diagnosing-bugs** | Boucle de diagnostic pour les bugs durs et les régressions de performance |
 | **domain-modeling** | Construit et affine le modèle de domaine : `CONTEXT.md` et ADR |
 | **codebase-design** | Vocabulaire partagé pour concevoir des *deep modules* : où placer un seam, comment approfondir une interface |
-| **research** | Enquête sur sources primaires et capture les résultats dans un fichier du dépôt |
+| **resolving-merge-conflicts** | Résout un merge ou un rebase en conflit, en préservant les deux intentions |
 
 ### Productivity
 
@@ -57,6 +62,7 @@ idée  ──/grilling──▶  cadrée
 | **grilling** | Met une idée, un plan ou une décision sous pression jusqu'à ce qu'elle tienne ou casse |
 | **grill-me** | Le même, en interview dirigée |
 | **handoff** | Compacte la session en document de passation pour l'agent suivant |
+| **teach** | Enseigne un concept ou une compétence dans le contexte de ce workspace |
 | **wait-what** | « Ce message n'est pas passé. Re-pitche. » |
 | **writing-for-agents** | Écrire des documents pour des agents : skills, `CLAUDE.md`, `AGENTS.md` |
 
