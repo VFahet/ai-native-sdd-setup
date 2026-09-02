@@ -1,0 +1,29 @@
+{
+  "name": "ai-native-sdlc",
+  "version": "0.1.0",
+  "description": "Un environnement de développement structuré et augmenté à l'IA : cadrage, spec, découpage, exécution TDD, revue. Traduction française des skills de Matt Pocock, pour Claude Code.",
+  "author": {
+    "name": "Valentin Fahet"
+  },
+  "homepage": "https://github.com/VFahet/ai-native-sdlc-setup",
+  "repository": "https://github.com/VFahet/ai-native-sdlc-setup",
+  "license": "MIT",
+  "keywords": ["sdlc", "français", "tdd", "code-review", "spec"],
+  "skills": [
+    "./skills/engineering/setup-sdlc",
+    "./skills/engineering/to-spec",
+    "./skills/engineering/to-tickets",
+    "./skills/engineering/implement",
+    "./skills/engineering/tdd",
+    "./skills/engineering/code-review",
+    "./skills/engineering/diagnosing-bugs",
+    "./skills/engineering/domain-modeling",
+    "./skills/engineering/codebase-design",
+    "./skills/engineering/research",
+    "./skills/productivity/grilling",
+    "./skills/productivity/grill-me",
+    "./skills/productivity/handoff",
+    "./skills/productivity/wait-what",
+    "./skills/productivity/writing-for-agents"
+  ]
+}

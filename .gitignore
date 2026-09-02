@@ -1,0 +1,5 @@
+# Dépôts clonés en référence, jamais versionnés ici
+_reference/
+
+node_modules/
+.DS_Store

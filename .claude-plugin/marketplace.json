@@ -1,0 +1,17 @@
+{
+  "name": "ai-native-sdlc-setup",
+  "owner": {
+    "name": "Valentin Fahet",
+    "url": "https://github.com/VFahet"
+  },
+  "description": "Un environnement de développement structuré et augmenté à l'IA, en français, pour Claude Code.",
+  "plugins": [
+    {
+      "name": "ai-native-sdlc",
+      "source": "./",
+      "description": "Skills francophones couvrant le SDLC complet : cadrage, spec, découpage en tickets, exécution TDD, revue de code.",
+      "category": "engineering",
+      "keywords": ["sdlc", "français", "tdd", "spec", "code-review"]
+    }
+  ]
+}
