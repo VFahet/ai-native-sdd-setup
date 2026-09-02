@@ -1,11 +1,11 @@
-# Good and Bad Tests
+# Bons et mauvais tests
 
-## Good Tests
+## Bons tests
 
-**Integration-style**: Test through real interfaces, not mocks of internal parts.
+**Style intégration** : tester à travers de vraies interfaces, pas des mocks de parties internes.
 
 ```typescript
-// GOOD: Tests observable behavior
+// BON : teste un comportement observable
 test("user can checkout with valid cart", async () => {
   const cart = createCart();
   cart.add(product);
@@ -14,20 +14,20 @@ test("user can checkout with valid cart", async () => {
 });
 ```
 
-Characteristics:
+Caractéristiques :
 
-- Tests behavior users/callers care about
-- Uses public API only
-- Survives internal refactors
-- Describes WHAT, not HOW
-- One logical assertion per test
+- Teste un comportement qui intéresse les utilisateurs ou les appelants
+- N'utilise que l'API publique
+- Survit aux refactors internes
+- Décrit le QUOI, pas le COMMENT
+- Une assertion logique par test
 
-## Bad Tests
+## Mauvais tests
 
-**Implementation-detail tests**: Coupled to internal structure.
+**Tests de détails d'implémentation** : couplés à la structure interne.
 
 ```typescript
-// BAD: Tests implementation details
+// MAUVAIS : teste des détails d'implémentation
 test("checkout calls paymentService.process", async () => {
   const mockPayment = jest.mock(paymentService);
   await checkout(cart, payment);
@@ -35,24 +35,24 @@ test("checkout calls paymentService.process", async () => {
 });
 ```
 
-Red flags:
+Signaux d'alerte :
 
-- Mocking internal collaborators
-- Testing private methods
-- Asserting on call counts/order
-- Test breaks when refactoring without behavior change
-- Test name describes HOW not WHAT
-- Verifying through external means instead of interface
+- Mocker des collaborateurs internes
+- Tester des méthodes privées
+- Faire des assertions sur le nombre ou l'ordre des appels
+- Le test casse lors d'un refactor sans changement de comportement
+- Le nom du test décrit le COMMENT plutôt que le QUOI
+- Vérifier par un moyen externe au lieu de passer par l'interface
 
 ```typescript
-// BAD: Bypasses interface to verify
+// MAUVAIS : contourne l'interface pour vérifier
 test("createUser saves to database", async () => {
   await createUser({ name: "Alice" });
   const row = await db.query("SELECT * FROM users WHERE name = ?", ["Alice"]);
   expect(row).toBeDefined();
 });
 
-// GOOD: Verifies through interface
+// BON : vérifie à travers l'interface
 test("createUser makes user retrievable", async () => {
   const user = await createUser({ name: "Alice" });
   const retrieved = await getUser(user.id);
@@ -60,17 +60,17 @@ test("createUser makes user retrievable", async () => {
 });
 ```
 
-**Tautological tests**: Expected value restates the implementation, so the test passes by construction.
+**Tests tautologiques** : la valeur attendue redit l'implémentation, donc le test passe par construction.
 
 ```typescript
-// BAD: Expected value is recomputed the way the code computes it
+// MAUVAIS : la valeur attendue est recalculée comme le code la calcule
 test("calculateTotal sums line items", () => {
   const items = [{ price: 10 }, { price: 5 }];
   const expected = items.reduce((sum, i) => sum + i.price, 0);
   expect(calculateTotal(items)).toBe(expected);
 });
 
-// GOOD: Expected value is an independent, known literal
+// BON : la valeur attendue est un littéral indépendant et connu
 test("calculateTotal sums line items", () => {
   expect(calculateTotal([{ price: 10 }, { price: 5 }])).toBe(15);
 });
