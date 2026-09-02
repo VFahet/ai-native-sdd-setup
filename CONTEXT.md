@@ -41,6 +41,10 @@ L'interview qui met une idée sous pression jusqu'à ce qu'elle tienne ou casse.
 **prefactoring**
 Réarranger le code _avant_ d'ajouter la fonctionnalité, pour que l'ajout devienne simple. « Make the change easy, then make the easy change. »
 
+**smart zone**
+La portion de la fenêtre de contexte (~150k tokens sur les modèles de pointe) à l'intérieur de laquelle le modèle raisonne encore finement. Au-delà, il répond toujours mais dégrade sans le signaler. C'est ce qui dimensionne les limites de phase.
+_À ne pas traduire par_ : zone intelligente, zone de lucidité
+
 **ADR** — _Architecture Decision Record_. Sigle usuel, non traduit.
 
 **spec**
@@ -49,6 +53,10 @@ Le document technique produit par `/to-spec`. « Spécification » est correct m
 ### 3. Les identifiants techniques
 
 Chemins, noms de fichiers, labels de triage, commandes shell, clés de configuration : jamais traduits. `.scratch/<feature-slug>/spec.md` reste tel quel.
+
+**Exception : les exemples illustratifs.** Quand un skill montre l'arborescence d'un projet imaginaire pour expliquer une convention, les noms de domaine de cet exemple sont francisés — `src/ordering/` devient `src/commandes/`, `0001-event-sourced-orders.md` devient `0001-commandes-event-sourcees.md`. Un lecteur francophone nomme ses dossiers en français ; un exemple qui ne le fait pas enseigne mal. Les liens markdown qui pointent vers ces chemins d'exemple suivent, pour que la cible corresponde au dossier montré.
+
+La frontière est nette : ce qui est francisé, c'est le **domaine imaginaire** de l'exemple. Tout ce qui est une convention réelle de l'outillage reste intact, même à l'intérieur d'un exemple — `CONTEXT.md`, `CONTEXT-MAP.md`, `docs/adr/`, `.scratch/`, `docs/agents/`, `package.json` — ainsi que les identifiants de code (`OrderPlaced`, `CustomerId`, `Money`).
 
 ## Vocabulaire du domaine
 

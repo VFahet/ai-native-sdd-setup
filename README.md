@@ -23,17 +23,35 @@ Cette commande configure une fois pour toutes où vivent les issues, les ADR et 
 
 ## La chaîne
 
+Une phase de cadrage séquentielle, une fois. Puis des boucles, une par capacité.
+
 ```
-idée  ──/grilling──▶  cadrée
-                          │
-                    /to-spec        →  .scratch/<feature>/spec.md
-                          │
-                   /to-tickets      →  .scratch/<feature>/issues/NN-*.md
-                          │
-                   /implement  ──▶  /tdd  ──▶  /code-review
+─── cadrage, une fois ───────────────────────────────────────────
+   /discover  ──▶  /to-prd  ──▶  docs/prd.md        [gelé]
+                                      │
+                                      │  décomposition en capacités
+─── livraison, par capacité ──────────┼──────────────────────────
+                                      ▼
+   /discover <slug>  ─▶  /to-spec  ─▶  /to-tickets  ─▶  /implement
+                              │              │                │
+                     spec.md ─┘     issues/NN-*.md ─┘         ├─▶ /tdd
+                                                              └─▶ /code-review
 ```
 
+Le PRD n'est pas un document de communication : c'est **l'invariant qui rend l'itération falsifiable**. Sans point fixe, changer une spec et changer d'avis deviennent indiscernables. Il est gelé par défaut et ne bouge que par révision datée.
+
+Le partage entre PRD et spec ne se fait pas au zoom mais à l'axe : le PRD porte ce qui **contraint tout le projet** et reste vrai quelle que soit la solution ; la spec porte ce qui **décrit une seule capacité** et qu'un test peut vérifier.
+
 ## Les skills
+
+### Product
+
+Le cadrage amont, absent du dépôt d'origine.
+
+| Skill | Rôle |
+|---|---|
+| **discover** | Cadrage produit : problème, acteurs, exigences non fonctionnelles, périmètre, métriques. Deux modes — projet et feature |
+| **to-prd** | Synthétise le cadrage en `docs/prd.md` : plafonné à deux pages, gelé, décomposé en capacités |
 
 ### Engineering
 

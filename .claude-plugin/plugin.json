@@ -10,6 +10,8 @@
   "license": "MIT",
   "keywords": ["sdlc", "français", "tdd", "code-review", "spec"],
   "skills": [
+    "./skills/product/discover",
+    "./skills/product/to-prd",
     "./skills/engineering/setup-sdlc",
     "./skills/engineering/which-skill",
     "./skills/engineering/research",
