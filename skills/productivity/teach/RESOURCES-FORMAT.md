@@ -1,32 +1,32 @@
-# RESOURCES.md Format
+# Format de RESOURCES.md
 
-`RESOURCES.md` is the curated set of trusted sources for this topic. Knowledge for explainers should be drawn from here, not from parametric guesses. Wisdom comes from the communities listed here.
+`RESOURCES.md` est l'ensemble, trié sur le volet, des sources de confiance pour ce sujet. La connaissance qui nourrit les explications doit être puisée ici, pas dans des suppositions paramétriques. La sagesse vient des communautés listées ici.
 
 ## Structure
 
 ```md
-# {Topic} Resources
+# Ressources {Sujet}
 
-## Knowledge
+## Connaissance
 
-- [Book: _The Science and Practice of Strength Training_ by Zatsiorsky & Kraemer](https://example.com)
-  Foundational text on programming and adaptation. Use for: anything to do with periodisation, recovery, intensity zones.
-- [Article: "How Much Should I Train?" by Greg Nuckols (Stronger By Science)](https://example.com)
-  Evidence-based review of volume landmarks. Use for: weekly set targets per muscle group.
+- [Livre : _The Science and Practice of Strength Training_, par Zatsiorsky & Kraemer](https://example.com)
+  Texte fondateur sur la programmation et l'adaptation. À utiliser pour : tout ce qui touche à la périodisation, la récupération, les zones d'intensité.
+- [Article : « How Much Should I Train? », par Greg Nuckols (Stronger By Science)](https://example.com)
+  Revue, fondée sur les preuves, des repères de volume. À utiliser pour : les objectifs hebdomadaires de séries par groupe musculaire.
 
-## Wisdom (Communities)
+## Sagesse (communautés)
 
 - [r/weightroom](https://reddit.com/r/weightroom)
-  High-signal subreddit, moderated against bro-science. Use for: programme critique, plateau troubleshooting.
-- Local: Tuesday strength class at {gym name}
-  Use for: real-time coaching feedback on lifts.
+  Subreddit à fort signal, modéré contre la bro-science. À utiliser pour : la critique de programme, le déblocage des plateaux.
+- Sur place : cours de renforcement musculaire du mardi à {nom de la salle}
+  À utiliser pour : un retour de coaching en temps réel sur les mouvements.
 ```
 
-## Rules
+## Règles
 
-- **High-trust only.** Prefer primary sources, recognised experts, peer-reviewed work, and communities with strong moderation. If a resource is marketing dressed as education, leave it out.
-- **Annotate every entry.** A bare link is useless in three months. Add one line: what it covers and when to reach for it.
-- **Group by Knowledge / Wisdom.** Mirrors the philosophy in [SKILL.md](./SKILL.md). It is fine for a resource to appear in only one group.
-- **Surface gaps explicitly.** If no good resource exists for an area the mission needs, write a `## Gaps` section listing what is missing. This drives future search.
-- **Prune ruthlessly.** A resource that turned out to be wrong, shallow, or off-mission should be removed, not buried. Better five sharp sources than thirty mediocre ones.
-- **Record community preferences.** If the user has opted out of joining communities, note it here so future sessions don't keep proposing them.
+- **Haute confiance uniquement.** Privilégier les sources primaires, les experts reconnus, les travaux évalués par les pairs et les communautés fortement modérées. Si une ressource est du marketing déguisé en pédagogie, la laisser de côté.
+- **Annoter chaque entrée.** Un lien nu ne sert à rien dans trois mois. Ajouter une ligne : ce que la ressource couvre et quand y recourir.
+- **Grouper par Connaissance / Sagesse.** Cela reflète la philosophie décrite dans [SKILL.md](./SKILL.md). Une ressource peut très bien n'apparaître que dans un seul groupe.
+- **Faire remonter les manques explicitement.** Si aucune bonne ressource n'existe pour un domaine dont la mission a besoin, écrire une section `## Manques` listant ce qui fait défaut. Cela guide les recherches futures.
+- **Élaguer sans pitié.** Une ressource qui s'est révélée fausse, superficielle ou hors mission doit être supprimée, pas enterrée. Mieux vaut cinq sources tranchantes que trente médiocres.
+- **Consigner les préférences en matière de communautés.** Si l'utilisateur a choisi de ne pas rejoindre de communauté, le noter ici pour que les sessions futures cessent d'en proposer.

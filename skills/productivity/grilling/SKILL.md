@@ -1,28 +1,28 @@
 ---
 name: grilling
-description: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
+description: Soumettre l'utilisateur à un grilling sans relâche sur un plan, une décision ou une idée. À utiliser quand l'utilisateur veut mettre sa réflexion à l'épreuve, ou emploie une formule de déclenchement du type « grill » ou « grilling ».
 ---
 
-Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
+Interroger l'utilisateur sans relâche jusqu'à parvenir à une compréhension partagée. Cartographier l'échange sous forme d'**arbre de conception** : chaque décision se ramifie en celles qui en dépendent.
 
-Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.
+Travailler l'arbre par **tours**. La **frontière**, c'est l'ensemble des décisions dont les prérequis sont déjà tranchés : les questions que tu peux poser _maintenant_ sans deviner des réponses que tu n'as pas encore entendues. Poser toute la frontière en un seul tour : numéroter chaque question et donner ta réponse recommandée. Puis attendre les réponses de l'utilisateur avant le tour suivant.
 
-Format a round like so:
+Formater un tour ainsi :
 
 ```
-❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+❓ **Q1** - **<titre de la question>** : <corps de la question, possiblement sur plusieurs paragraphes, pouvant inclure des choix multiples>
 
-➡️ <your recommended answer>
+➡️ <ta réponse recommandée>
 
 ---
 
-❓ **Q2** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+❓ **Q2** - **<titre de la question>** : <corps de la question, possiblement sur plusieurs paragraphes, pouvant inclure des choix multiples>
 
-➡️ <your recommended answer>
+➡️ <ta réponse recommandée>
 ```
 
-Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
+Chaque tour auquel l'utilisateur répond remodèle l'arbre : les décisions tranchées repoussent la frontière vers l'extérieur et débloquent les questions qui en dépendaient. Recalculer la frontière et poser le tour suivant. Une question dont la réponse dépend d'une autre question encore ouverte dans ce tour appartient à un tour _ultérieur_, pas à celui-ci.
 
-Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
+Trouver les _faits_ est ton travail, jamais celui de l'utilisateur. Quand une question de la frontière nécessite un fait tiré de l'environnement (système de fichiers, outils, etc.), dépêcher un sous-agent pour le trouver ; ne pas demander à l'utilisateur ce que tu pourrais chercher toi-même. Ne pas rester bloqué dessus : une exploration en cours est un prérequis non tranché, donc seules les questions qui en découlent attendent le rapport du sous-agent ; poser dès maintenant le reste de la frontière. Les _décisions_ appartiennent à l'utilisateur : les lui soumettre une par une et attendre.
 
-The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.
+La session est terminée quand la frontière est vide : chaque branche de l'arbre de conception visitée, rien laissé en supposition tacite. Ne pas agir dessus tant que l'utilisateur n'a pas confirmé que vous êtes parvenus à une compréhension partagée.

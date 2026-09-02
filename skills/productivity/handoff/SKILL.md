@@ -1,16 +1,16 @@
 ---
 name: handoff
-description: Compact the current conversation into a handoff document for another agent to pick up.
-argument-hint: "What will the next session be used for?"
+description: Condense la conversation en cours en un document de passation qu'un autre agent pourra reprendre.
+argument-hint: "À quoi servira la prochaine session ?"
 disable-model-invocation: true
 ---
 
-Write a handoff document summarising the current conversation so a fresh agent can continue the work. Save to the temporary directory of the user's OS - not the current workspace.
+Rédiger un document de passation qui résume la conversation en cours, afin qu'un nouvel agent puisse poursuivre le travail. L'enregistrer dans le répertoire temporaire du système d'exploitation de l'utilisateur — pas dans l'espace de travail courant.
 
-Include a "suggested skills" section in the document, naming which skills the next agent should call the Skill tool for.
+Inclure dans le document une section « skills suggérés », en nommant les skills que le prochain agent devra invoquer via l'outil Skill.
 
-Do not duplicate content already captured in other artifacts (specs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
+Ne pas dupliquer le contenu déjà consigné dans d'autres artefacts (specs, plans, ADR, issues, commits, diffs). Les référencer plutôt par chemin ou par URL.
 
-Redact any sensitive information, such as API keys, passwords, or personally identifiable information.
+Caviarder toute information sensible, comme les clés d'API, les mots de passe ou les données à caractère personnel.
 
-If the user passed arguments, treat them as a description of what the next session will focus on and tailor the doc accordingly.
+Si l'utilisateur a passé des arguments, les traiter comme une description de ce sur quoi la prochaine session se concentrera, et adapter le document en conséquence.

@@ -1,31 +1,31 @@
-# MISSION.md Format
+# Format de MISSION.md
 
-`MISSION.md` lives at the workspace root. It captures the _reason_ the user is learning this topic. Every teaching decision (what to teach next, which resources to surface, which exercises to design) should trace back to this document.
+`MISSION.md` vit à la racine de l'espace de travail. Il capture la _raison_ pour laquelle l'utilisateur apprend ce sujet. Chaque décision pédagogique (quoi enseigner ensuite, quelles ressources faire remonter, quels exercices concevoir) doit pouvoir se rattacher à ce document.
 
-## Template
+## Gabarit
 
 ```md
-# Mission: {Topic}
+# Mission : {Sujet}
 
-## Why
-{1-3 sentences. The concrete real-world goal the user is chasing. What changes in their life or work when they have this skill? Avoid abstract framings like "to understand X"; push for the underlying outcome.}
+## Pourquoi
+{1 à 3 phrases. L'objectif concret et réel que poursuit l'utilisateur. Qu'est-ce qui change dans sa vie ou son travail une fois qu'il a cette compétence ? Éviter les formulations abstraites du type « comprendre X » ; pousser jusqu'au résultat sous-jacent.}
 
-## Success looks like
-- {A specific, observable thing the user will be able to do}
-- {Another specific thing}
+## À quoi ressemble la réussite
+- {Une chose précise et observable que l'utilisateur saura faire}
+- {Une autre chose précise}
 - {…}
 
-## Constraints
-- {Time, budget, prior commitments, learning preferences, anything that bounds the approach}
+## Contraintes
+- {Temps, budget, engagements existants, préférences d'apprentissage, tout ce qui borne l'approche}
 
-## Out of scope
-- {Adjacent topics the user explicitly does not want to chase right now, protecting the zone of proximal development}
+## Hors périmètre
+- {Sujets voisins que l'utilisateur ne veut explicitement pas poursuivre pour l'instant, ce qui protège la zone proximale de développement}
 ```
 
-## Rules
+## Règles
 
-- **One mission per workspace.** If the user wants to learn two unrelated things, that is two workspaces.
-- **Concrete over abstract.** "Run a half marathon by October" beats "get fitter." "Ship a Rust CLI to my team" beats "learn Rust."
-- **Push back on vagueness.** If the user cannot articulate why, interview them before writing anything. A bad mission is worse than no mission.
-- **Revise when reality shifts.** Missions change. When the user's goal moves, update this file: don't leave a stale mission steering future sessions.
-- **Keep it short.** If `MISSION.md` runs past a screen, it has stopped being a compass and started being a plan.
+- **Une mission par espace de travail.** Si l'utilisateur veut apprendre deux choses sans rapport, cela fait deux espaces de travail.
+- **Du concret plutôt que de l'abstrait.** « Courir un semi-marathon d'ici octobre » vaut mieux que « me remettre en forme ». « Livrer un CLI en Rust à mon équipe » vaut mieux que « apprendre Rust ».
+- **Résister au flou.** Si l'utilisateur n'arrive pas à formuler son pourquoi, l'interviewer avant d'écrire quoi que ce soit. Une mauvaise mission est pire que pas de mission du tout.
+- **Réviser quand la réalité bouge.** Les missions changent. Quand l'objectif de l'utilisateur se déplace, mettre ce fichier à jour : ne pas laisser une mission périmée orienter les sessions futures.
+- **Rester court.** Si `MISSION.md` dépasse un écran, il a cessé d'être une boussole pour devenir un plan.

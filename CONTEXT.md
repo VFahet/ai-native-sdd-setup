@@ -68,4 +68,8 @@ _À éviter_ : gestionnaire de tickets, backlog, outil de suivi
 Une unité de travail suivie dans le tracker : bug, tâche, ou tranche produite par `/to-tickets`.
 
 **Skill promu**
-Un skill des buckets `engineering/` ou `productivity/`, traduit et livré dans le plugin. Par opposition à `backlog/`, qui contient les skills conservés mais non traduits et non livrés.
+Un skill des buckets `product/`, `engineering/` ou `productivity/` : traduit ou écrit ici, déclaré dans `plugin.json`, livré. Par opposition à `backlog/`, qui contient les skills repris de l'amont mais non traduits et non livrés.
+
+**Capacité**
+Une ligne de la décomposition finale du PRD. Une capacité donne exactement une spec, et c'est ce rapport 1 → 1 qui fait le joint entre la phase de cadrage et la phase itérative. Un PRD qui ne produit qu'une capacité aurait dû être une spec.
+_À éviter_ : epic, module, lot

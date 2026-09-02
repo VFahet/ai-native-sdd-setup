@@ -1,14 +1,14 @@
 ---
 name: resolving-merge-conflicts
-description: "Use when you need to resolve an in-progress git merge/rebase conflict."
+description: "À utiliser quand tu dois résoudre un conflit de merge/rebase git en cours."
 ---
 
-1. **See the current state** of the merge/rebase. Check git history, and the conflicting files.
+1. **Voir l'état actuel** du merge/rebase. Examiner l'historique git, et les fichiers en conflit.
 
-2. **Find the primary sources** for each conflict. Understand deeply why each change was made, and what the original intent was. Read the commit messages, check the PRs, check original issues/tickets.
+2. **Trouver les sources primaires** de chaque conflit. Comprendre en profondeur pourquoi chaque changement a été fait, et quelle était l'intention d'origine. Lire les messages de commit, consulter les PR, consulter les issues/tickets d'origine.
 
-3. **Resolve each hunk.** Preserve both intents where possible. Where incompatible, pick the one matching the merge's stated goal and note the trade-off. Do **not** invent new behaviour. Always resolve; never `--abort`.
+3. **Résoudre chaque hunk.** Préserver les deux intentions quand c'est possible. Quand elles sont incompatibles, choisir celle qui correspond à l'objectif annoncé du merge et noter le compromis. Ne **pas** inventer de nouveau comportement. Toujours résoudre ; ne jamais faire `--abort`.
 
-4. Discover the project's **automated checks** and run them, typically typecheck, then tests, then format. Fix anything the merge broke.
+4. Découvrir les **vérifications automatisées** du projet et les lancer, typiquement le typecheck, puis les tests, puis le format. Corriger tout ce que le merge a cassé.
 
-5. **Finish the merge/rebase.** Stage everything and commit. If rebasing, continue the rebase process until all commits are rebased.
+5. **Terminer le merge/rebase.** Tout mettre en staging et committer. En cas de rebase, poursuivre le processus de rebase jusqu'à ce que tous les commits soient rebasés.

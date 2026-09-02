@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
-# Human-in-the-loop reproduction loop.
-# Copy this file, edit the steps below, and run it.
-# The agent runs the script; the user follows prompts in their terminal.
+# Boucle de reproduction human-in-the-loop.
+# Copier ce fichier, éditer les étapes ci-dessous, puis le lancer.
+# L'agent lance le script ; l'utilisateur suit les invites dans son terminal.
 #
-# Usage:
+# Usage :
 #   bash hitl-loop.template.sh
 #
-# Two helpers:
-#   step "<instruction>"          → show instruction, wait for Enter
-#   capture VAR "<question>"      → show question, read response into VAR
+# Deux fonctions utilitaires :
+#   step "<instruction>"          → affiche l'instruction, attend Entrée
+#   capture VAR "<question>"      → affiche la question, lit la réponse dans VAR
 #
-# At the end, captured values are printed as KEY=VALUE for the agent to parse.
+# À la fin, les valeurs capturées sont affichées en KEY=VALUE pour que l'agent les parse.
 #
-# `capture` prints its value back to the terminal, where the agent reads it,
-# so capture observations, and leave signing in to the user as a `step`.
+# `capture` réaffiche sa valeur dans le terminal, où l'agent la lit :
+# capturer donc des observations, et laisser la connexion à l'utilisateur comme un `step`.
 
 set -euo pipefail
 
 step() {
   printf '\n>>> %s\n' "$1"
-  read -r -p "    [Enter when done] " _
+  read -r -p "    [Entrée quand c'est fait] " _
 }
 
 capture() {
@@ -29,16 +29,16 @@ capture() {
   printf -v "$var" '%s' "$answer"
 }
 
-# --- edit below ---------------------------------------------------------
+# --- éditer ci-dessous --------------------------------------------------
 
-step "Open the app at http://localhost:3000 and sign in."
+step "Ouvrir l'application sur http://localhost:3000 et se connecter."
 
-capture ERRORED "Click the 'Export' button. Did it throw an error? (y/n)"
+capture ERRORED "Cliquer sur le bouton 'Export'. A-t-il levé une erreur ? (y/n)"
 
-capture ERROR_MSG "Paste the error message (or 'none'):"
+capture ERROR_MSG "Coller le message d'erreur (ou 'none') :"
 
-# --- edit above ---------------------------------------------------------
+# --- éditer ci-dessus ---------------------------------------------------
 
-printf '\n--- Captured ---\n'
+printf '\n--- Capturé ---\n'
 printf 'ERRORED=%s\n' "$ERRORED"
 printf 'ERROR_MSG=%s\n' "$ERROR_MSG"

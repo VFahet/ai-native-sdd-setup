@@ -1,7 +1,7 @@
 ---
 name: grill-me
-description: A relentless interview to sharpen a plan or design.
+description: Une interview sans relâche pour affûter un plan ou une conception.
 disable-model-invocation: true
 ---
 
-Call the Skill tool with "grilling".
+Appeler l'outil Skill avec « grilling ».

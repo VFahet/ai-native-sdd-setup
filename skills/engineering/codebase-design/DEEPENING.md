@@ -1,37 +1,37 @@
-# Deepening
+# Approfondissement
 
-How to deepen a cluster of shallow modules safely, given its dependencies. Assumes the vocabulary in [SKILL.md](SKILL.md): **module**, **interface**, **seam**, **adapter**.
+Comment approfondir sans risque un cluster de modules shallow, compte tenu de ses dépendances. Suppose acquis le vocabulaire de [SKILL.md](SKILL.md) : **module**, **interface**, **seam**, **adaptateur**.
 
-## Dependency categories
+## Catégories de dépendances
 
-When assessing a candidate for deepening, classify its dependencies. The category determines how the deepened module is tested across its seam.
+Quand on évalue un candidat à l'approfondissement, classer ses dépendances. La catégorie détermine comment le module approfondi est testé à travers son seam.
 
-### 1. In-process
+### 1. Intra-processus
 
-Pure computation, in-memory state, no I/O. Always deepenable: merge the modules and test through the new interface directly. No adapter needed.
+Calcul pur, état en mémoire, aucune E/S. Toujours approfondissable : fusionner les modules et tester directement à travers la nouvelle interface. Aucun adaptateur nécessaire.
 
-### 2. Local-substitutable
+### 2. Substituable en local
 
-Dependencies that have local test stand-ins (PGLite for Postgres, in-memory filesystem). Deepenable if the stand-in exists. The deepened module is tested with the stand-in running in the test suite. The seam is internal; no port at the module's external interface.
+Dépendances qui disposent d'une doublure de test locale (PGLite pour Postgres, système de fichiers en mémoire). Approfondissable si la doublure existe. Le module approfondi est testé avec la doublure qui tourne dans la suite de tests. Le seam est interne ; pas de port à l'interface externe du module.
 
-### 3. Remote but owned (Ports & Adapters)
+### 3. Distant mais qui t'appartient (Ports & Adapters)
 
-Your own services across a network boundary (microservices, internal APIs). Define a **port** (interface) at the seam. The deep module owns the logic; the transport is injected as an **adapter**. Tests use an in-memory adapter. Production uses an HTTP/gRPC/queue adapter.
+Tes propres services de l'autre côté d'une frontière réseau (microservices, API internes). Définir un **port** (une interface) au seam. Le deep module détient la logique ; le transport est injecté sous forme d'**adaptateur**. Les tests utilisent un adaptateur en mémoire. La production utilise un adaptateur HTTP/gRPC/queue.
 
-Recommendation shape: *"Define a port at the seam, implement an HTTP adapter for production and an in-memory adapter for testing, so the logic sits in one deep module even though it's deployed across a network."*
+Forme de la recommandation : *« Définir un port au seam, implémenter un adaptateur HTTP pour la production et un adaptateur en mémoire pour les tests, pour que la logique tienne dans un seul deep module même si elle est déployée à travers un réseau. »*
 
-### 4. True external (Mock)
+### 4. Vraiment externe (Mock)
 
-Third-party services (Stripe, Twilio, etc.) you don't control. The deepened module takes the external dependency as an injected port; tests provide a mock adapter.
+Services tiers (Stripe, Twilio, etc.) que tu ne contrôles pas. Le module approfondi prend la dépendance externe comme port injecté ; les tests fournissent un adaptateur mock.
 
-## Seam discipline
+## Discipline des seams
 
-- **One adapter means a hypothetical seam. Two adapters means a real one.** Don't introduce a port unless at least two adapters are justified (typically production + test). A single-adapter seam is just indirection.
-- **Internal seams vs external seams.** A deep module can have internal seams (private to its implementation, used by its own tests) as well as the external seam at its interface. Don't expose internal seams through the interface just because tests use them.
+- **Un seul adaptateur, c'est un seam hypothétique. Deux adaptateurs, c'est un vrai seam.** N'introduire un port que si au moins deux adaptateurs se justifient (typiquement production + test). Un seam à un seul adaptateur n'est que de l'indirection.
+- **Seams internes contre seams externes.** Un deep module peut avoir des seams internes (privés à son implémentation, utilisés par ses propres tests) aussi bien que le seam externe à son interface. Ne pas exposer les seams internes à travers l'interface juste parce que des tests s'en servent.
 
-## Testing strategy: replace, don't layer
+## Stratégie de test : remplacer, ne pas empiler
 
-- Old unit tests on shallow modules become waste once tests at the deepened module's interface exist; delete them.
-- Write new tests at the deepened module's interface. The **interface is the test surface**.
-- Tests assert on observable outcomes through the interface, not internal state.
-- Tests should survive internal refactors, since they describe behaviour, not implementation. If a test has to change when the implementation changes, it's testing past the interface.
+- Les anciens tests unitaires sur les modules shallow n'ont plus de valeur dès que des tests existent à l'interface du module approfondi ; les supprimer.
+- Écrire de nouveaux tests à l'interface du module approfondi. L'**interface est la surface de test**.
+- Les tests vérifient des résultats observables à travers l'interface, pas l'état interne.
+- Les tests doivent survivre aux refactors internes, puisqu'ils décrivent un comportement, pas une implémentation. Si un test doit changer quand l'implémentation change, c'est qu'il teste au-delà de l'interface.

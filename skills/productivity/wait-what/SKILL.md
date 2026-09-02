@@ -1,7 +1,7 @@
 ---
 name: wait-what
-description: "Stop. That last message did not land: re-pitch it."
+description: "Stop. Ce dernier message n'est pas passé : refais ton pitch."
 disable-model-invocation: true
 ---
 
-Wait, I don't understand where you've got to here. Re-pitch that: give me a little bit of context, talk in ASD-STE100 Simplified Technical English, and use the ubiquitous language from `CONTEXT.md` (follow `CONTEXT-MAP.md` to the right one if the repo has more than one).
+Attends, je ne comprends pas où tu en es arrivé. Refais ton pitch : donne-moi un peu de contexte, applique les règles de l'ASD-STE100 Simplified Technical English, et utilise le langage ubiquitaire de `CONTEXT.md` (suis `CONTEXT-MAP.md` jusqu'au bon si le dépôt en contient plusieurs).
