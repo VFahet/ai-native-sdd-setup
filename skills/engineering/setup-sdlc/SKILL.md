@@ -32,7 +32,7 @@ Regarder le dépôt courant pour comprendre son état de départ. Lire ce qui ex
 - Le **trunk**, la branche d'intégration du dépôt : `git symbolic-ref --short refs/remotes/origin/HEAD`, à défaut `git branch --list main master`. C'est lui que les garde-fous de la Section D protègent — ne pas supposer `main`.
 - `.claude/settings.json` et `.claude/hooks/` : des `permissions.deny` ou un hook `PreToolUse` existent-ils déjà ? Si oui, il faudra **fusionner** dans ce qui est là, jamais l'écraser.
 - `jq` et `python3`/`python` sont-ils sur le `PATH` ? Le garde-fou s'en sert pour lire la commande interceptée ; sans eux il retombe sur une analyse approximative, plus prompte aux faux positifs.
-- Signaux de monorepo : un `pnpm-workspace.yaml`, un champ `workspaces` dans `package.json`, ou un `packages/*` peuplé avec son propre `src/`. Ces signaux ne sont présents que dans un vrai dépôt multi-paquets ; leur absence signifie mono-contexte, ce qui est le cas de presque tous les dépôts.
+- Signaux de monorepo : plusieurs manifestes de paquet sous un même dépôt — selon l'écosystème, un `pnpm-workspace.yaml` ou un champ `workspaces` dans `package.json`, un `[tool.uv.workspace]` ou plusieurs `pyproject.toml`, un `[workspace]` Cargo, plusieurs `go.mod` — ou un répertoire de paquets (`packages/*`, `libs/*`) peuplé avec son propre `src/`. Ces signaux ne sont présents que dans un vrai dépôt multi-paquets ; leur absence signifie mono-contexte, ce qui est le cas de presque tous les dépôts.
 
 ### 2. Présenter les constats et demander
 

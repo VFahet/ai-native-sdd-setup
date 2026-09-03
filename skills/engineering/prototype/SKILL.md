@@ -14,7 +14,7 @@ Identifier à quelle question on répond, à partir de la demande de l'utilisate
 - **« Est-ce que cette logique / ce modèle d'état tient la route ? »** → [LOGIC.md](LOGIC.md). Construire un fichier HTML unique et partageable (boutons en libre exploration, plus des parcours guidés en onglets) qui pousse la machine à états dans des cas difficiles à raisonner sur papier, et qu'un non-développeur peut piloter.
 - **« À quoi est-ce que ça devrait ressembler ? »** → [UI.md](UI.md). Générer plusieurs variantes d'UI radicalement différentes sur une seule route, permutables via un paramètre de recherche d'URL et une barre flottante en bas.
 
-Les deux branches produisent des artefacts très différents : se tromper ici gâche tout le prototype. Si la question est réellement ambiguë et que l'utilisateur est injoignable, choisir par défaut la branche qui colle le mieux au code environnant (un module backend → logique ; une page ou un composant → UI) et énoncer l'hypothèse en haut du prototype.
+Ces deux branches sont les deux formes connues, pas une taxonomie exhaustive. Une question qui ne rentre franchement dans aucune des deux se prototype dans la forme la plus courte qui y répond — souvent un script et un tableau de résultats — en gardant les règles communes ci-dessous. Quand la question relève bien de l'une des deux, en revanche, les artefacts produits sont très différents : se tromper de branche gâche tout le prototype. Si la question est réellement ambiguë et que l'utilisateur est injoignable, choisir par défaut la branche qui colle le mieux au code environnant (un module backend → logique ; une page ou un composant → UI) et énoncer l'hypothèse en haut du prototype.
 
 ## Règles communes aux deux branches
 

@@ -37,7 +37,7 @@ L'état git est sur disque, comme le ticket : cette étape se retrouve seule apr
 
 Appeler l'outil Skill avec « tdd » autant que possible, aux seams convenus à l'avance. Un seam non confirmé n'est pas un seam.
 
-Lancer le typecheck régulièrement, et les fichiers de test concernés régulièrement. Garder la boucle courte.
+Découvrir les vérifications automatisées du projet et les lancer régulièrement — typiquement le typecheck, puis les fichiers de test concernés. Garder la boucle courte.
 
 Rester dans le périmètre du ticket. Tout ce qui est utile mais hors périmètre se note pour un ticket suivant, ne s'implémente pas ici.
 

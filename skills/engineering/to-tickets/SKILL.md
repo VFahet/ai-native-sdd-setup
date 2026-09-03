@@ -28,7 +28,7 @@ Découper le travail en tickets **tracer bullet**.
 
 <vertical-slice-rules>
 
-- Chaque tranche traverse toutes les couches (schéma, API, UI, tests) de façon étroite mais COMPLÈTE : verticale, PAS une tranche horizontale d'une seule couche
+- Chaque tranche traverse toutes les couches du système, de son entrée à une sortie observable, de façon étroite mais COMPLÈTE : verticale, PAS une tranche horizontale d'une seule couche. Les couches se lisent dans le code du projet, elles ne se supposent pas
 - Une tranche terminée est démontrable ou vérifiable seule
 - Chaque tranche est dimensionnée pour tenir dans une seule fenêtre de contexte neuve
 - Tout *prefactoring* doit être fait en premier

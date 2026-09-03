@@ -19,7 +19,7 @@ La frontière publique observable où vivent les tests : on y observe un comport
 _À ne pas traduire par_ : couture, jointure, point de test
 
 **tracer bullet**
-Une tranche verticale qui traverse toutes les couches (schéma, API, UI, tests) de façon étroite mais complète, et qui est démontrable seule. Le terme vient de _The Pragmatic Programmer_ et porte l'image du tir traçant : on voit où la balle part avant de tirer la rafale.
+Une tranche verticale qui traverse toutes les couches du système, de son entrée à une sortie observable, de façon étroite mais complète, et qui est démontrable seule. Les couches sont celles que le système présente réellement, jamais une liste supposée. Le terme vient de _The Pragmatic Programmer_ et porte l'image du tir traçant : on voit où la balle part avant de tirer la rafale.
 _À ne pas traduire par_ : balle traçante, tranche verticale (qui n'est que la moitié du concept)
 
 **deep module**
