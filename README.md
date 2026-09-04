@@ -19,7 +19,7 @@ Puis, dans le dépôt où tu veux travailler :
 /setup-sdlc
 ```
 
-Cette commande configure une fois pour toutes où vivent les issues, les ADR et le glossaire du projet, et pose le workflow git : une branche par fonctionnalité, et des garde-fous qui refusent à l'agent de merger vers le trunk. Les autres skills en dépendent.
+Cette commande configure une fois pour toutes où vivent les issues, les ADR et le glossaire du projet, et pose le workflow git : une branche par fonctionnalité, et un merge vers le trunk que l'agent propose au lieu de le décider — il sait le faire, il attend que tu le demandes. Les autres skills en dépendent.
 
 ## La chaîne
 
@@ -60,7 +60,7 @@ Le cadrage amont, absent du dépôt d'origine.
 
 | Skill | Rôle |
 |---|---|
-| **setup-sdlc** | Configure le dépôt : tracker d'issues, docs de domaine, workflow git et garde-fous. À lancer une fois avant tout le reste |
+| **setup-sdlc** | Configure le dépôt : tracker d'issues, docs de domaine, workflow git. À lancer une fois avant tout le reste |
 | **which-skill** | Routeur : quel skill ou quel enchaînement correspond à ta situation |
 | **research** | Enquête sur sources primaires et capture les résultats dans un fichier du dépôt |
 | **wayfinder** | Cartographie un chantier trop gros pour une session, en tickets de décision résolus un à un |

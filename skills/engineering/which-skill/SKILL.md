@@ -37,11 +37,11 @@ Pas de projet à cadrer, juste une idée dans un dépôt existant ? Sauter direc
 
 7. **`/implement`**, un ticket à la fois, **en faisant un `/clear` du contexte entre chacun**. Chaque ticket est autoportant, donc le contexte du précédent est jetable. Il pilote **`/tdd`** en interne (une tranche red-green à la fois, aux seams convenus), valide critère par critère avec une preuve nommable, puis relit avec **`/code-review`** — une revue du diff sur deux axes, Standards et Spec. La revue rapporte, elle ne corrige pas : le **refactor**, troisième temps du red-green-refactor que `/tdd` laisse de côté, a lieu ici, sur les constats de l'axe Standards, avant de commiter.
 
-   Il travaille sur `feature/<feature-slug>`, créée au premier ticket de la fonctionnalité, un commit par ticket. Au **dernier** ticket seulement, il rappelle la revue sur un tout autre découpage — la fonctionnalité entière contre le trunk et contre la **spec**, seule passe capable de voir une exigence tombée entre deux tickets — puis ouvre la PR. Il ne la merge jamais : `/setup-sdlc` pose les garde-fous qui le lui refusent.
+   Il travaille sur `feature/<feature-slug>`, créée au premier ticket de la fonctionnalité, un commit par ticket. Au **dernier** ticket seulement, il rappelle la revue sur un tout autre découpage — la fonctionnalité entière contre le trunk et contre la **spec**, seule passe capable de voir une exigence tombée entre deux tickets — puis ouvre la PR. Il s'arrête là : le merge appartient à l'utilisateur, et n'a lieu que s'il le demande — c'est la règle que `/setup-sdlc` écrit dans `docs/agents/git-workflow.md`.
 
 Puis retour à l'étape 3 pour la fonctionnalité suivante.
 
-Prendre **`/tdd`** seul quand tu veux simplement construire un comportement concret en commençant par les tests, sans spec complète, et **`/code-review`** seul — le seul nom d'ici qui entre en collision avec une commande intégrée de Claude Code, que le préfixe `ai-native-sdlc:` lève — dès que tu veux relire une branche ou une PR par rapport à un point fixe.
+Prendre **`/tdd`** seul quand tu veux simplement construire un comportement concret en commençant par les tests, sans spec complète, et **`/code-review`** seul — le seul nom d'ici qui entre en collision avec une commande intégrée de Claude Code, que le préfixe `ai-native-sdd:` lève — dès que tu veux relire une branche ou une PR par rapport à un point fixe.
 
 ### Hygiène de contexte
 
@@ -99,4 +99,4 @@ Complètement en dehors de l'enchaînement principal.
 
 ## Prérequis
 
-**`/setup-sdlc`** : à lancer avant ton premier enchaînement, pour configurer ce que les autres skills présupposent — l'issue tracker, le vocabulaire des labels de triage, l'organisation des docs de domaine, et le workflow git avec ses garde-fous. Les issue trackers personnalisés fonctionnent aussi.
+**`/setup-sdlc`** : à lancer avant ton premier enchaînement, pour configurer ce que les autres skills présupposent — l'issue tracker, le vocabulaire des labels de triage, l'organisation des docs de domaine, et le workflow git avec les gestes qu'il réserve à ton accord. Les issue trackers personnalisés fonctionnent aussi.

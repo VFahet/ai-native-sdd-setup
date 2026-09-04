@@ -19,20 +19,19 @@ Comment les skills d'ingénierie manipulent git dans ce dépôt. Lu par `/implem
 - **Ouvrir la PR** quand tous les tickets de la fonctionnalité sont clos : `gh pr create --base main`. Avant de l'ouvrir, `/implement` relit la fonctionnalité entière contre `main` et contre sa spec — la revue par ticket ne peut pas voir une exigence tombée entre deux tickets.
 - **Se synchroniser** avec le trunk quand la branche a divergé : `git merge main` ou `git rebase main` **depuis la branche de fonctionnalité**. C'est de l'hygiène, pas une livraison.
 
-## Ce que l'agent ne fait pas
+## Ce qui attend l'accord de l'utilisateur
 
-- **Merger vers le trunk.** Ni `gh pr merge`, ni `git merge feature/... ` depuis `main`, ni aucune variante. La PR est le livrable de l'agent ; la fusionner est une décision humaine.
+Quatre gestes font atterrir du code sur le trunk, ou réécrivent l'historique qui y mène. L'agent en est capable, et les exécute quand l'utilisateur les lui demande — sur sa demande seule, jamais de sa propre initiative :
+
+- **Merger vers le trunk** : `gh pr merge`, `git merge feature/...` depuis `main`, toute variante. La PR est le livrable de l'agent ; la fusionner appartient à l'utilisateur.
 - **Pousser sur `main`**, directement ou via `HEAD:main`.
 - **Merger ou rebaser alors que `HEAD` est sur `main`.**
 - **Force-pusher**, où que ce soit.
 
-Si l'une de ces opérations est nécessaire, la proposer à l'utilisateur et s'arrêter. Ne pas contourner un garde-fou qui refuse une commande — le refus est le mécanisme, pas un obstacle.
+Quand l'un de ces gestes devient nécessaire, le proposer, dire en une phrase ce qu'il changerait, et attendre la réponse. L'accord donné vaut pour le geste demandé, pas pour les suivants.
 
-## Garde-fous
+## Ce qui applique ces règles
 
-Ces règles sont **appliquées**, pas seulement écrites :
+Le document, et rien d'autre : l'agent les suit parce qu'il le lit. C'est délibéré — un blocage mécanique refuserait aussi le merge que l'utilisateur demande lui-même, et le desserrer coûterait plus cher que la protection ne rapporte.
 
-- `.claude/settings.json` → `permissions.deny` refuse les formes catégoriques (`gh pr merge`, force-push).
-- `.claude/hooks/block-trunk-writes.sh` est un hook `PreToolUse` sur `Bash` qui refuse les formes **directionnelles** — celles qui ne sont interdites qu'en fonction de leur cible ou de la branche courante.
-
-La distinction est volontaire : `git merge` n'est pas interdit en soi, il l'est *vers le trunk*. Un blocage catégorique casserait `/resolving-merge-conflicts` et la synchronisation de branche.
+Pour un dépôt où cet arbitrage penche dans l'autre sens — plusieurs mains, un trunk protégé par contrat — `/setup-sdlc` sait poser sur demande des garde-fous dans `.claude/` qui refusent ces commandes. Ils valent alors dans tous les cas, y compris pour un merge explicitement demandé.

@@ -58,7 +58,7 @@ Si un critère n'est pas satisfait : revenir à l'étape 3. Ne pas cocher, ne pa
 
 ## 5. Relire
 
-Appeler l'outil Skill avec « ai-native-sdlc:code-review » (forme namespacée : le nom nu entre en collision avec la commande intégrée). Son axe **Spec** confronte le diff au ticket d'origine — c'est un second regard sur ce que l'étape 4 vient d'affirmer, et il est indépendant.
+Appeler l'outil Skill avec « ai-native-sdd:code-review » (forme namespacée : le nom nu entre en collision avec la commande intégrée). Son axe **Spec** confronte le diff au ticket d'origine — c'est un second regard sur ce que l'étape 4 vient d'affirmer, et il est indépendant.
 
 Lui passer d'emblée les deux choses qu'il demanderait sinon : le **point fixe**, c'est-à-dire le `HEAD` d'avant le travail du ticket, en signalant que ce travail n'est pas encore commité ; et la **référence du ticket** comme source de spec, sous la forme résolue à l'étape 1 — le chemin du fichier sur un tracker local, jamais un numéro nu, que la revue ne sait pas résoudre.
 
@@ -78,7 +78,7 @@ Reste-t-il des tickets ouverts dans la fonctionnalité ? Cela se constate, ne se
 
 Ne tourne qu'au dernier ticket de la fonctionnalité. Deux choses, dans cet ordre : relire la fonctionnalité entière, puis ouvrir la PR.
 
-**La revue de fonctionnalité.** Rappeler l'outil Skill avec « ai-native-sdlc:code-review », sur un tout autre découpage que celui de l'étape 5 :
+**La revue de fonctionnalité.** Rappeler l'outil Skill avec « ai-native-sdd:code-review », sur un tout autre découpage que celui de l'étape 5 :
 
 - **Point fixe** : le trunk nommé par `docs/agents/git-workflow.md`. Le diff est donc la fonctionnalité complète, pas le dernier ticket. Le travail est commité, cette fois : la comparaison à trois points s'applique normalement.
 - **Source de spec** : la **spec** de la fonctionnalité — `.scratch/<feature-slug>/spec.md`, ou l'issue de spec dont les tickets descendent. Surtout pas un ticket : c'est le couple trunk + spec qui fait tout l'intérêt de cette passe. **S'il n'y a pas de spec** — `/to-spec` a été sauté —, le dire à la revue au lieu de la laisser en chercher une : elle tourne alors sur son seul axe Standards, qui suffit à voir les incohérences entre tickets, et le rapport porte la mention que rien n'a confronté le diff à une intention.
@@ -90,4 +90,4 @@ Traiter les constats bloquants avant d'ouvrir la PR, en commits sur la même bra
 
 **La PR.** Sans remote, il n'y en a pas — étape 2. Sinon `gh pr create --base <trunk>`, en résumant la fonctionnalité, en listant les tickets qu'elle clôt, et en reprenant le résultat de la revue de fonctionnalité — c'est ce que l'utilisateur lira avant de décider de merger.
 
-**Ne pas merger la PR**, ni y toucher ensuite. C'est la décision que l'utilisateur se réserve, et la raison d'être des garde-fous posés par `/setup-sdlc`. Si une commande git est refusée, ce refus est le mécanisme qui fonctionne : le rapporter à l'utilisateur, ne pas chercher une autre formulation qui passerait.
+**La PR ouverte, le travail de ce skill est fini.** Merger est la décision que l'utilisateur se réserve : lui rendre la main, en disant que la PR l'attend. Si elle doit être mergée maintenant, c'est lui qui le dit, et l'agent sait alors le faire. Certains dépôts posent en plus des garde-fous dans `.claude/` qui refusent ces commandes ; si l'un d'eux refuse la commande, rapporter le refus à l'utilisateur et le laisser desserrer, plutôt que de chercher une formulation qui passerait.

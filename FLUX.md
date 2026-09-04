@@ -34,7 +34,7 @@ flowchart TD
     style CL fill:#9e6a03,stroke:#9e6a03,color:#fff
 ```
 
-Une fonctionnalité tient sur une branche, un ticket sur un commit : `/implement` crée `feature/<feature-slug>` au premier ticket, y commite les suivants, et ouvre la PR au dernier. Il ne la merge pas — `/setup-sdlc` pose les garde-fous qui le lui refusent, et `docs/agents/git-workflow.md` dit pourquoi.
+Une fonctionnalité tient sur une branche, un ticket sur un commit : `/implement` crée `feature/<feature-slug>` au premier ticket, y commite les suivants, et ouvre la PR au dernier. Il s'arrête à la PR : merger appartient à l'utilisateur, et l'agent ne le fait que si celui-ci le lui demande — `/setup-sdlc` écrit cette règle dans `docs/agents/git-workflow.md`, qui dit aussi pourquoi.
 
 D'où **deux revues à deux découpages différents**. À chaque ticket, `/code-review` relit le ticket contre son ticket. Au dernier, il relit la fonctionnalité entière contre le trunk et contre la **spec** — la seule passe capable de voir une exigence tombée entre deux tickets, ou une duplication née entre le ticket 1 et le ticket 4. Ni l'une ni l'autre ne peut faire le travail de l'autre.
 

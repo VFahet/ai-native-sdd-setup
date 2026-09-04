@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Garde-fou trunk — hook PreToolUse sur Bash, installé par /setup-sdlc.
+# Garde-fou trunk — hook PreToolUse sur Bash, installé par /setup-sdlc sur demande.
 #
-# Refuse ce qui ferait atterrir du code sur le trunk sans décision humaine.
+# Refuse ce qui ferait atterrir du code sur le trunk. C'est un durcissement opt-in :
+# par défaut la règle vit dans docs/agents/git-workflow.md et l'agent merge quand
+# l'utilisateur le demande. Une fois ce hook posé, le refus vaut aussi contre lui.
 # Volontairement DIRECTIONNEL : `git merge` et `git push` ne sont pas interdits
 # en soi, ils le sont vers le trunk. Un blocage catégorique casserait
 # /resolving-merge-conflicts et la synchronisation d'une branche avec le trunk.

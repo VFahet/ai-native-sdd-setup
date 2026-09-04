@@ -1,6 +1,6 @@
 ---
 name: setup-sdlc
-description: "Configure ce dépôt pour les skills d'ingénierie : son issue tracker, le vocabulaire des labels de triage, l'emplacement des docs de domaine, et le workflow git — branche par fonctionnalité, et garde-fous qui refusent à l'agent de merger. À lancer une fois avant le premier usage des autres skills."
+description: "Configure ce dépôt pour les skills d'ingénierie : son issue tracker, le vocabulaire des labels de triage, l'emplacement des docs de domaine, et le workflow git — branche par fonctionnalité, et merge réservé à l'accord de l'utilisateur. À lancer une fois avant le premier usage des autres skills."
 disable-model-invocation: true
 ---
 
@@ -11,11 +11,11 @@ Poser la configuration propre au dépôt que les skills d'ingénierie présuppos
 - **Issue tracker** : où vivent les issues (GitHub par défaut ; le markdown local est également supporté nativement)
 - **Labels de triage** : les chaînes utilisées pour les cinq rôles canoniques de triage
 - **Docs de domaine** : où vivent `CONTEXT.md` et les ADR, et les règles de lecture associées
-- **Workflow git** : le modèle de branche, ce que l'agent n'a pas le droit de faire, et les garde-fous qui le lui refusent
+- **Workflow git** : le modèle de branche, et les gestes que l'agent réserve à l'accord explicite de l'utilisateur
 
 C'est un skill piloté par le dialogue, pas un script déterministe. Explorer, présenter ce qui a été trouvé, confirmer avec l'utilisateur, puis écrire.
 
-Les trois premiers points produisent de la prose sous `docs/agents/`, que l'agent lit. Le quatrième en produit aussi, mais **écrit en plus dans `.claude/`** : un document dit ce qui est interdit, un garde-fou le refuse. La différence compte — une interdiction seulement écrite est une préférence.
+Les quatre points produisent de la prose sous `docs/agents/`, que l'agent lit. La limite du quatrième est du **consentement**, pas de l'empêchement : l'agent sait merger, et le fait quand l'utilisateur le lui demande — jamais de lui-même. Un dépôt qui veut en plus un refus mécanique peut demander les garde-fous de la Section D ; ils ne sont pas le défaut.
 
 ## Process
 
@@ -29,9 +29,8 @@ Regarder le dépôt courant pour comprendre son état de départ. Lire ce qui ex
 - `docs/adr/` et les éventuels répertoires `src/*/docs/adr/`
 - `docs/agents/` : la sortie d'un précédent passage de ce skill existe-t-elle déjà ?
 - `.scratch/` : signe qu'une convention d'issue tracker en markdown local est déjà en place
-- Le **trunk**, la branche d'intégration du dépôt : `git symbolic-ref --short refs/remotes/origin/HEAD`, à défaut `git branch --list main master`. C'est lui que les garde-fous de la Section D protègent — ne pas supposer `main`.
-- `.claude/settings.json` et `.claude/hooks/` : des `permissions.deny` ou un hook `PreToolUse` existent-ils déjà ? Si oui, il faudra **fusionner** dans ce qui est là, jamais l'écraser.
-- `jq` et `python3`/`python` sont-ils sur le `PATH` ? Le garde-fou s'en sert pour lire la commande interceptée ; sans eux il retombe sur une analyse approximative, plus prompte aux faux positifs.
+- Le **trunk**, la branche d'intégration du dépôt : `git symbolic-ref --short refs/remotes/origin/HEAD`, à défaut `git branch --list main master`. C'est lui que le workflow de la Section D protège — ne pas supposer `main`.
+- `.claude/settings.json` et `.claude/hooks/` : des `permissions.deny` ou un hook `PreToolUse` refusent-ils déjà des commandes git ? Deux raisons de regarder — les fusionner si l'utilisateur demande les garde-fous, et savoir dire pourquoi une commande sera refusée s'ils sont déjà là.
 - Signaux de monorepo : plusieurs manifestes de paquet sous un même dépôt — selon l'écosystème, un `pnpm-workspace.yaml` ou un champ `workspaces` dans `package.json`, un `[tool.uv.workspace]` ou plusieurs `pyproject.toml`, un `[workspace]` Cargo, plusieurs `go.mod` — ou un répertoire de paquets (`packages/*`, `libs/*`) peuplé avec son propre `src/`. Ces signaux ne sont présents que dans un vrai dépôt multi-paquets ; leur absence signifie mono-contexte, ce qui est le cas de presque tous les dépôts.
 
 ### 2. Présenter les constats et demander
@@ -69,20 +68,18 @@ Ne proposer le **multi-contexte** (un `CONTEXT-MAP.md` racine pointant vers un `
 
 **Section D : workflow git.** Cette section tourne toujours.
 
-> Explication : ce que l'agent a le droit de faire de git. Deux choses s'y décident — sur quelle branche il travaille, et jusqu'où va son autorité. Un agent qui peut merger vers le trunk peut livrer sans que personne ne regarde.
+> Explication : ce que l'agent fait de git. Deux choses s'y décident — sur quelle branche il travaille, et à partir de quel moment il te repasse la main. Un agent qui merge de sa propre initiative livre sans que personne ne regarde.
 
 Défaut recommandé, à confirmer d'un mot :
 
-> **Trunk-based, une branche par fonctionnalité.** `/implement` crée `feature/<feature-slug>` au premier ticket d'une fonctionnalité et commite dessus, un commit par ticket. L'agent pousse la branche et ouvre la PR ; **il ne merge jamais**. Des garde-fous posés dans `.claude/` refusent les commandes qui feraient atterrir du code sur le trunk. (recommandé : **oui**)
+> **Trunk-based, une branche par fonctionnalité.** `/implement` crée `feature/<feature-slug>` au premier ticket d'une fonctionnalité et commite dessus, un commit par ticket. L'agent pousse la branche et ouvre la PR, puis s'arrête là : **merger vers le trunk, y pousser directement ou force-pusher, il le propose et attend ton accord**. Ces règles vivent dans `docs/agents/git-workflow.md`, que l'agent lit ; rien ne les bloque mécaniquement, pour qu'un merge que tu demandes reste faisable. (recommandé : **oui**)
 
-Confirmer au passage le trunk détecté à l'étape 1 — c'est lui que les garde-fous protègent.
-
-Le blocage est **directionnel**, jamais catégorique. `git merge` reste permis *dans* une branche de fonctionnalité : c'est de la synchronisation, et `/resolving-merge-conflicts` en dépend. `git push` reste permis *vers* la branche de fonctionnalité, sans quoi l'agent ne pourrait pas ouvrir de PR. Ce qui est refusé, c'est la cible : le trunk. Un blocage catégorique du type « toute commande contenant `git push` » casserait les deux.
+Confirmer au passage le trunk détecté à l'étape 1 — c'est lui que le workflow protège.
 
 Deux réponses écartent le défaut :
 
-- **Le modèle, sans les garde-fous** : écrire `docs/agents/git-workflow.md` et sauter l'installation dans `.claude/`. Le dire alors franchement : la règle devient indicative, l'agent peut en dériver, et personne ne le saura avant de lire l'historique.
-- **Un autre modèle** (commits directs sur le trunk, une branche par ticket, git-flow…) : demander à l'utilisateur de le décrire, rédiger `docs/agents/git-workflow.md` d'après sa description, et ne poser de garde-fou que sur ce qu'il a lui-même déclaré interdit. Ne rien interdire qu'il n'ait nommé.
+- **Durcir avec des garde-fous** : en plus du document, poser dans `.claude/` des `permissions.deny` et un hook `PreToolUse` qui refusent ces commandes (gabarit : [garde-fous.md](./garde-fous.md), installation à l'étape 4). À proposer seulement si l'utilisateur demande un blocage, ou décrit un contexte qui l'appelle — plusieurs mains sur le dépôt, un trunk protégé par contrat. Le dire alors franchement : le refus vaut aussi quand c'est lui qui demande le merge, et il faudra desserrer `.claude/` à la main. Le blocage reste **directionnel** : `git merge` dans une branche de fonctionnalité et `git push` vers elle restent permis, sans quoi `/resolving-merge-conflicts` et l'ouverture de PR cassent.
+- **Un autre modèle** (commits directs sur le trunk, une branche par ticket, git-flow…) : demander à l'utilisateur de le décrire, et rédiger `docs/agents/git-workflow.md` d'après sa description. N'y réserver à son accord que les gestes qu'il a lui-même nommés.
 
 
 ### 3. Confirmer et laisser éditer
@@ -91,7 +88,7 @@ Montrer à l'utilisateur un brouillon de :
 
 - Le bloc `## Agent skills` à ajouter dans celui des deux fichiers `CLAUDE.md` / `AGENTS.md` qui sera édité (règles de sélection à l'étape 4)
 - Le contenu de `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, `docs/agents/git-workflow.md` et `docs/agents/triage-labels.md`
-- Les garde-fous à poser : le hook `.claude/hooks/block-trunk-writes.sh` et les entrées ajoutées à `.claude/settings.json` (gabarit : [garde-fous.md](./garde-fous.md)) — sauf refus en Section D
+- **Seulement si l'utilisateur a demandé les garde-fous** en Section D : le hook `.claude/hooks/block-trunk-writes.sh` et les entrées ajoutées à `.claude/settings.json` (gabarit : [garde-fous.md](./garde-fous.md))
 
 Le laisser corriger avant d'écrire.
 
@@ -126,7 +123,7 @@ Le bloc :
 
 ### Workflow git
 
-[résumé en une ligne du modèle de branche, et de ce que l'agent n'a pas le droit de faire]. Voir `docs/agents/git-workflow.md`.
+[résumé en une ligne du modèle de branche, et des gestes que l'agent réserve à l'accord de l'utilisateur]. Voir `docs/agents/git-workflow.md`.
 ```
 
 Toujours inclure le sous-bloc `### Labels de triage`, et toujours écrire `docs/agents/triage-labels.md`.
@@ -138,7 +135,7 @@ Toujours inclure le sous-bloc `### Labels de triage`, et toujours écrire `docs/
 - [issue-tracker-local.md](./issue-tracker-local.md) : issue tracker en markdown local
 - [triage-labels.md](./triage-labels.md) : correspondance des labels
 - [domain.md](./domain.md) : règles de lecture des docs de domaine + disposition
-- [git-workflow.md](./git-workflow.md) : modèle de branche + ce que l'agent ne fait pas. Le gabarit est écrit pour un trunk nommé `main` : y substituer le trunk réel. Il suppose aussi un **remote** ; si `git remote` est muet, retirer les lignes « pousser la branche » et « ouvrir la PR » et dire à leur place que le travail s'arrête au commit local — un document qui prescrit un geste impossible se fait ignorer en entier. Si l'utilisateur a refusé les garde-fous en Section D, remplacer la section « Garde-fous » du gabarit par une ligne disant que ces règles ne sont **pas** appliquées — un document qui annonce une protection inexistante est pire que pas de document.
+- [git-workflow.md](./git-workflow.md) : modèle de branche + les gestes réservés à l'accord de l'utilisateur. Le gabarit est écrit pour un trunk nommé `main` : y substituer le trunk réel. Il suppose aussi un **remote** ; si `git remote` est muet, retirer les lignes « pousser la branche » et « ouvrir la PR » et dire à leur place que le travail s'arrête au commit local — un document qui prescrit un geste impossible se fait ignorer en entier. Si l'utilisateur a demandé les garde-fous en Section D, réécrire la section « Ce qui applique ces règles » pour dire que `.claude/settings.json` et `.claude/hooks/block-trunk-writes.sh` refusent ces commandes — un document doit dire ce qui est réellement en place, ni plus ni moins.
 
 Pour un issue tracker « autre », rédiger `docs/agents/issue-tracker.md` de zéro à partir de la description de l'utilisateur.
 
@@ -153,7 +150,9 @@ for l in needs-triage needs-info ready-for-agent ready-for-human wontfix; do gla
 
 Vérifier ensuite avec `gh label list` / `glab label list` que les cinq y sont : le `|| true` absorbe aussi bien un label déjà présent qu'un échec d'authentification. Substituer les chaînes retenues en Section B si l'utilisateur a donné les siennes — elles existent déjà sur son tracker, la boucle est alors sans effet. En markdown local, rien à créer : l'état de triage est une ligne `Status:` dans le fichier. Sur un tracker « autre », dire à l'utilisateur de poser les cinq lui-même.
 
-**Poser les garde-fous** — sauf s'ils ont été refusés en Section D. Un document qui dit « l'agent ne merge pas » n'empêche rien ; ces trois pas, oui.
+**Poser les garde-fous** — seulement si l'utilisateur les a demandés en Section D. Sans cette demande, sauter les trois pas : le workflow tient dans `docs/agents/git-workflow.md` et `.claude/` reste intact.
+
+Vérifier d'abord que `jq` ou `python3`/`python` est sur le `PATH` : le hook s'en sert pour lire la commande interceptée, et sans eux il retombe sur une analyse approximative, plus prompte aux faux positifs. Le dire à l'utilisateur avant de poser le hook.
 
 1. Copier [scripts/block-trunk-writes.sh](./scripts/block-trunk-writes.sh) vers `.claude/hooks/block-trunk-writes.sh`, puis `chmod +x`. Si le trunk n'est pas `main`, corriger la valeur de `TRUNK` en tête du script — le script ne la devine pas.
 
@@ -166,4 +165,6 @@ Vérifier ensuite avec `gh label list` / `glab label list` que les cinq y sont :
 
 Dire à l'utilisateur que la configuration est faite et quels skills d'ingénierie liront désormais ces fichiers. Mentionner qu'il peut éditer `docs/agents/*.md` directement plus tard ; relancer ce skill n'est nécessaire que pour changer d'issue tracker ou repartir de zéro.
 
-Dire aussi, en une phrase, ce qui vient d'être **refusé** à l'agent et par quel mécanisme — l'utilisateur doit savoir où aller le desserrer. Le hook et les règles `deny` vivent dans `.claude/`, qui se commite : la limite vaut pour toute l'équipe, pas seulement pour la machine où ce skill a tourné.
+Dire aussi, en une phrase, ce que l'agent **rapportera désormais à l'utilisateur au lieu de le faire seul** — merger, pousser sur le trunk, force-pusher — et où cette règle est écrite : `docs/agents/git-workflow.md`, qu'il peut éditer.
+
+Si les garde-fous ont été posés, ajouter que ces commandes sont en plus **refusées** par `.claude/settings.json` et `.claude/hooks/block-trunk-writes.sh` — y compris quand c'est lui qui les demande — et que ces fichiers se commitent : la limite vaut pour toute l'équipe, pas seulement pour la machine où ce skill a tourné.

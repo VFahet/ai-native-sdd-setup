@@ -2,6 +2,8 @@
 
 Ce qui accompagne le hook `block-trunk-writes.sh` dans `.claude/`. À la différence des autres gabarits de ce dossier, rien d'ici ne se copie sous `docs/agents/` : ce sont des entrées à **fusionner** dans `.claude/settings.json`, puis deux tests à lancer.
 
+**Cette installation est un opt-in, pas le défaut.** Le workflow git ordinaire tient dans `docs/agents/git-workflow.md` : l'agent y lit qu'il propose le merge et attend l'accord de l'utilisateur, et il sait le faire quand celui-ci le lui demande. Ce qui suit remplace ce consentement par un refus mécanique, qui vaut **aussi contre l'utilisateur** : une fois posé, plus aucun merge vers le trunk ne passe, même explicitement demandé, tant que `.claude/` n'a pas été desserré à la main. Ne le poser que sur demande, et le dire avant.
+
 ## Entrées de `.claude/settings.json`
 
 ```json
