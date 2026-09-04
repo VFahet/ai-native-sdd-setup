@@ -9,8 +9,8 @@ L'idée : ne pas laisser l'agent improviser le processus. Chaque étape produit 
 ## Installation
 
 ```bash
-/plugin marketplace add VFahet/ai-native-sdlc-setup
-/plugin install ai-native-sdlc
+/plugin marketplace add VFahet/ai-native-sdd-setup
+/plugin install ai-native-sdd
 ```
 
 Puis, dans le dépôt où tu veux travailler :
@@ -91,13 +91,11 @@ Le cadrage amont, absent du dépôt d'origine.
 | **writing-for-agents** | Écrire des documents pour des agents : skills, `CLAUDE.md`, `AGENTS.md` |
 | **retro** | Rétrospective sur une session : ce qu'il faut changer dans l'environnement de l'agent pour que les suivantes coûtent moins |
 
-Les skills conservés mais non traduits vivent dans [skills/backlog/](./skills/backlog/) et ne sont pas livrés dans le plugin.
-
 ## Conventions
 
 Le corps des skills est en français, mais les `name:` restent en anglais — ce sont les commandes et les références croisées. Certains termes de l'art (`seam`, `tracer bullet`, `deep module`, `red-green-refactor`, `trunk`) ne sont pas traduits non plus : [CONTEXT.md](./CONTEXT.md) dit lesquels et pourquoi.
 
-Les skills du plugin sont aussi exposés sous le préfixe `ai-native-sdlc:`, et le nom nu suffit tant que rien d'autre ne le revendique. Une exception, et une seule : `code-review` entre en collision avec la commande intégrée de Claude Code, donc un skill qui l'appelle passe `ai-native-sdlc:code-review` à l'outil Skill. La forme préfixée ne va pas plus loin : dans la prose, les tableaux et les schémas de ce dépôt, le nom s'écrit nu — `/code-review`.
+Les skills du plugin sont aussi exposés sous le préfixe `ai-native-sdd:`, et le nom nu suffit tant que rien d'autre ne le revendique. Une exception, et une seule : `code-review` entre en collision avec la commande intégrée de Claude Code, donc un skill qui l'appelle passe `ai-native-sdd:code-review` à l'outil Skill. La forme préfixée ne va pas plus loin : dans la prose, les tableaux et les schémas de ce dépôt, le nom s'écrit nu — `/code-review`.
 
 ## Licence
 

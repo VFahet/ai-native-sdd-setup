@@ -1,12 +1,12 @@
 {
-  "name": "ai-native-sdlc",
+  "name": "ai-native-sdd",
   "version": "0.1.0",
   "description": "Un environnement de développement structuré et augmenté à l'IA : cadrage, spec, découpage, exécution TDD, revue. En français, pour Claude Code.",
   "author": {
     "name": "Valentin Fahet"
   },
-  "homepage": "https://github.com/VFahet/ai-native-sdlc-setup",
-  "repository": "https://github.com/VFahet/ai-native-sdlc-setup",
+  "homepage": "https://github.com/VFahet/ai-native-sdd-setup",
+  "repository": "https://github.com/VFahet/ai-native-sdd-setup",
   "license": "MIT",
   "keywords": ["sdlc", "français", "tdd", "code-review", "spec"],
   "skills": [
