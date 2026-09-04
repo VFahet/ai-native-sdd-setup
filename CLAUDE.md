@@ -16,6 +16,12 @@ Le `name:` du frontmatter reste toujours en anglais. La `description:` est tradu
 
 Ce dépôt cible **Claude Code uniquement**. Pas de fichiers `agents/` pour Codex ou Gemini.
 
+## Après toute rupture de convention
+
+Un changement qui laisse un dépôt **déjà configuré** dans un état que la chaîne ne sait plus lire — un fichier de configuration nouveau, un artefact qui change d'emplacement, un marqueur qui change de forme — demande une entrée dans [skills/engineering/upgrade-sdlc/MIGRATIONS.md](./skills/engineering/upgrade-sdlc/MIGRATIONS.md), écrite **dans le même commit que la rupture**.
+
+Une convention changée sans entrée est une rupture silencieuse : les dépôts déjà configurés continuent de tourner sur l'ancienne, et rien ne le signale. C'est le seul mécanisme qui rende `/upgrade-sdlc` capable de faire son travail.
+
 ## Après toute modification des manifestes
 
 ```bash

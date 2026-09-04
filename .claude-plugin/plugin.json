@@ -12,7 +12,9 @@
   "skills": [
     "./skills/product/discover",
     "./skills/product/to-prd",
+    "./skills/product/validate",
     "./skills/engineering/setup-sdlc",
+    "./skills/engineering/upgrade-sdlc",
     "./skills/engineering/which-skill",
     "./skills/engineering/research",
     "./skills/engineering/wayfinder",
@@ -21,6 +23,7 @@
     "./skills/engineering/grill-with-docs",
     "./skills/engineering/to-spec",
     "./skills/engineering/to-tickets",
+    "./skills/engineering/analyze",
     "./skills/engineering/implement",
     "./skills/engineering/tdd",
     "./skills/engineering/code-review",

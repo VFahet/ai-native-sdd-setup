@@ -1,6 +1,6 @@
 ---
 name: to-spec
-description: "Transforme la conversation en cours en spec et la publie dans l'issue tracker du projet : pas d'interview, juste la synthèse de ce qui a déjà été discuté."
+description: "Transforme la conversation en cours en spec, écrite comme document versionné sous docs/specs/ et suivie par une epic dans l'issue tracker : pas d'interview, juste la synthèse de ce qui a déjà été discuté."
 disable-model-invocation: true
 ---
 
@@ -12,7 +12,7 @@ L'issue tracker et le vocabulaire des labels de triage devraient t'avoir été f
 
 1. **Rassembler les sources écrites**, avant toute synthèse. C'est ce qui permet de lancer ce skill dans une fenêtre neuve, sans avoir mené l'entretien soi-même :
 
-   - **`.scratch/<feature-slug>/decisions.md`** s'il existe : les décisions prises pendant `/grill-with-docs`. C'est la source principale des sections *Décisions d'implémentation* et *Décisions de test* quand la conversation ne les porte pas. Si l'utilisateur n'a pas passé de slug, parcourir `.scratch/*/` à la recherche des répertoires contenant un `decisions.md` dont la fonctionnalité n'a **pas encore de spec**. Ce que « pas encore de spec » veut dire dépend de la forme que le tracker configuré donne à une spec, lue dans `docs/agents/issue-tracker.md` : sur le tracker markdown local, pas de `spec.md` à côté du `decisions.md` ; sur un vrai tracker, aucune issue dont le titre commence par `spec: <feature-slug>` — la marque que pose l'étape 4, à chercher sur tous les états, ouverts comme fermés. S'il n'y en a qu'un, l'annoncer et continuer, sinon demander lequel.
+   - **`.scratch/<feature-slug>/decisions.md`** s'il existe : les décisions prises pendant `/grill-with-docs`. C'est la source principale des sections *Décisions d'implémentation* et *Décisions de test* quand la conversation ne les porte pas. Si l'utilisateur n'a pas passé de slug, parcourir `.scratch/*/` à la recherche des répertoires contenant un `decisions.md` dont la fonctionnalité n'a **pas encore de spec** — c'est-à-dire dont le `docs/specs/<feature-slug>.md` n'existe pas. Une seule règle, quel que soit le tracker : la spec est toujours un fichier versionné à ce chemin. S'il n'y en a qu'un, l'annoncer et continuer, sinon demander lequel.
    - **`docs/prd.md`** s'il existe : y relever les **exigences non fonctionnelles qui contraignent cette fonctionnalité**, et les reporter dans les décisions d'implémentation **avec leur chiffre ou leur seuil**. Une exigence restée dans le PRD ne deviendra jamais un critère d'acceptation. Reprendre aussi le hors-périmètre du projet qui touche cette zone.
    - **La carte d'un chantier `/wayfinder`** — `.scratch/<chantier>/map.md` sur le tracker markdown local, l'issue labellisée `wayfinder:map` sur un vrai tracker — quand l'utilisateur en passe une ou qu'un chantier existe : sa **destination** dit vers quoi ce chantier cherchait son chemin, et ses **Décisions à ce jour** indexent les **tickets de décision** résolus — le répertoire `decisions/` du chantier, un fichier par ticket à `.scratch/<chantier>/decisions/<NN>-<slug>.md`, ou les issues enfants fermées de la carte. La carte n'en garde que l'essentiel, donc zoomer sur les tickets qui touchent cette fonctionnalité pour lire leur réponse. Reprendre son **hors périmètre** dans le hors-scope de la spec, et laisser le **brouillard** dehors : ce que la carte n'a pas encore spécifié ne se spécifie pas ici.
 
@@ -26,9 +26,18 @@ L'issue tracker et le vocabulaire des labels de triage devraient t'avoir été f
 
 Vérifier auprès de l'utilisateur que ces seams correspondent à ce qu'il attend.
 
-4. Rédiger la spec avec le gabarit ci-dessous, puis la publier dans l'issue tracker du projet. Appliquer le label de triage `ready-for-agent` — pas besoin de triage supplémentaire. Sur un vrai tracker, titrer l'issue `spec: <feature-slug> — <titre>` : `ready-for-agent` ne distingue rien, `to-tickets` l'applique aussi à chacun de ses tickets, et c'est ce préfixe de titre qui rend la spec retrouvable par le balayage de l'étape 1. Sur le tracker markdown local, le chemin `.scratch/<feature-slug>/spec.md` porte déjà la marque.
+4. Rédiger la spec avec le gabarit ci-dessous et l'écrire dans **`docs/specs/<feature-slug>.md`**, quel que soit le tracker configuré — en créant le répertoire `docs/specs/` s'il n'existe pas, ce qui est le cas à la première fonctionnalité d'un dépôt. La spec est un document versionné : c'est là qu'elle se relit, s'amende et se diffe, et c'est ce que git donne qu'aucun tracker ne donne. Elle porte son **statut** en tête — `Draft` à l'écriture, puis `Approved`, `Implemented`, ou `Superseded by <lien>`. Sans lui, rien ne dit à `/code-review` si l'intention qu'il vient de lire est encore celle du code.
+
+5. **Sur un vrai tracker seulement**, créer en plus l'**epic** : l'issue qui suit l'avancement, titrée `spec: <feature-slug> — <titre>`, labellisée `ready-for-agent` — pas besoin de triage supplémentaire. Son corps est **mince** : un lien vers `docs/specs/<feature-slug>.md` et les critères d'acceptation au niveau de la fonctionnalité. **Ne pas y écrire de rubrique « Tickets » vide** : c'est `to-tickets` qui rattachera les siens, par sous-issues natives là où la plateforme les a — auquel cas la progression s'affiche sans qu'aucune liste existe — et par task list seulement à défaut. Une rubrique vide sur un dépôt à sous-issues resterait vide pour toujours et donnerait l'impression que rien n'a marché. **Ne jamais y recopier la spec** — deux corps qui dérivent, et plus rien ne dit lequel fait foi. Le préfixe `spec:` du titre est ce qui distingue l'epic de ses tickets, qui portent le même label.
+
+   Sur le tracker markdown local, il n'y a pas d'epic : le document et les tickets suffisent, et l'avancement se lit en parcourant `.scratch/<feature-slug>/issues/`. Deux couches au lieu de trois, assumées.
 
 <spec-template>
+
+# spec: <feature-slug> — <titre>
+
+**Statut :** Draft
+**Epic :** <lien vers l'issue, sur un vrai tracker ; omettre en markdown local>
 
 ## Énoncé du problème
 
@@ -86,4 +95,4 @@ Toute note supplémentaire sur la fonctionnalité.
 
 ## Ensuite
 
-`/to-tickets`, avec la spec qui vient d'être publiée : son chemin sur le tracker markdown local, son numéro d'issue sur un vrai tracker. C'est la référence que sa première étape récupère ; sans elle, il repart de la conversation. Ne pas le lancer soi-même : annoncer à l'utilisateur la commande exacte à taper, référence comprise.
+`/to-tickets`, avec la spec qui vient d'être publiée : le numéro de l'epic sur un vrai tracker, le chemin `docs/specs/<feature-slug>.md` sur le tracker markdown local. C'est la référence que sa première étape récupère ; sans elle, il repart de la conversation. Sur un vrai tracker, l'epic ne porte qu'un lien : `to-tickets` doit le suivre et lire le fichier, le corps de l'issue ne contenant pas la spec. Ne pas le lancer soi-même : annoncer à l'utilisateur la commande exacte à taper, référence comprise.

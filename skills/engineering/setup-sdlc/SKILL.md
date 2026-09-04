@@ -41,7 +41,9 @@ Ouvrir chaque section par la réponse recommandée, pour que l'utilisateur puiss
 
 **Section A : issue tracker.**
 
-> Explication : l'« issue tracker » est l'endroit où vivent les issues de ce dépôt. Des skills comme `to-tickets` et `to-spec` y lisent et y écrivent. Ils ont besoin de savoir s'ils doivent appeler `gh issue create`, écrire un fichier markdown sous `.scratch/`, ou suivre un autre workflow que tu décris. Choisis l'endroit où tu suis réellement le travail sur ce dépôt.
+> Explication : l'« issue tracker » est l'endroit où vivent les **tickets** de ce dépôt. Des skills comme `to-tickets` et `to-spec` y lisent et y écrivent. Ils ont besoin de savoir s'ils doivent appeler `gh issue create`, écrire un fichier markdown sous `.scratch/`, ou suivre un autre workflow que tu décris. Choisis l'endroit où tu suis réellement le travail sur ce dépôt.
+>
+> Ce choix ne concerne **pas** la spec : elle est toujours un fichier versionné à `docs/specs/<feature-slug>.md`, quel que soit le tracker. Ce que le tracker porte, ce sont les tickets — et, sur un vrai tracker, l'epic mince qui suit leur avancement.
 
 Posture par défaut : ces skills ont été conçus pour GitHub. Si un `git remote` pointe vers GitHub, proposer GitHub. S'il pointe vers GitLab (`gitlab.com` ou une instance auto-hébergée), proposer GitLab. Sinon (ou si l'utilisateur préfère), proposer :
 
@@ -82,12 +84,25 @@ Deux réponses écartent le défaut :
 - **Un autre modèle** (commits directs sur le trunk, une branche par ticket, git-flow…) : demander à l'utilisateur de le décrire, et rédiger `docs/agents/git-workflow.md` d'après sa description. N'y réserver à son accord que les gestes qu'il a lui-même nommés.
 
 
+**Section E : standards de code.** Cette section tourne toujours, et se règle en une question.
+
+> Explication : `/code-review` relit chaque changement sur deux axes, dont un **Standards**. Sans fichier de standards, cet axe tourne uniquement sur une base de code smells générique — un bon filet, mais rien qui porte les conventions de *ce* dépôt : nommage, structure, forme des tests, gestion des erreurs.
+
+> Veux-tu un `docs/agents/coding-standards.md` de départ, à compléter ? (recommandé : **oui**)
+
+Sur **oui**, écrire le gabarit [coding-standards.md](./coding-standards.md) avec ses sections vides, en pré-remplissant la seule qui se constate sans rien demander : **Outillage en place**, déduite de l'exploration de l'étape 1 — formateur, linter, typechecker, commande de test réellement présents. Dire à l'utilisateur que le reste est à lui, et que le fichier vaut mieux incomplet qu'absent : `/code-review` lit ce qui est rempli et ignore le reste.
+
+Ne rien inventer dans les autres sections. Des standards devinés à partir du code existant décrivent les accidents du dépôt, pas ses intentions, et une revue qui les applique reproduit ses défauts.
+
+Sur **non**, ne pas écrire le fichier et ne pas insister : l'axe Standards fonctionne sans, sur sa base de smells.
+
 ### 3. Confirmer et laisser éditer
 
 Montrer à l'utilisateur un brouillon de :
 
 - Le bloc `## Agent skills` à ajouter dans celui des deux fichiers `CLAUDE.md` / `AGENTS.md` qui sera édité (règles de sélection à l'étape 4)
 - Le contenu de `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, `docs/agents/git-workflow.md` et `docs/agents/triage-labels.md`
+- **Seulement si l'utilisateur a accepté les standards de code** en Section E : `docs/agents/coding-standards.md`, sections vides comprises
 - **Seulement si l'utilisateur a demandé les garde-fous** en Section D : le hook `.claude/hooks/block-trunk-writes.sh` et les entrées ajoutées à `.claude/settings.json` (gabarit : [garde-fous.md](./garde-fous.md))
 
 Le laisser corriger avant d'écrire.
@@ -135,6 +150,7 @@ Toujours inclure le sous-bloc `### Labels de triage`, et toujours écrire `docs/
 - [issue-tracker-local.md](./issue-tracker-local.md) : issue tracker en markdown local
 - [triage-labels.md](./triage-labels.md) : correspondance des labels
 - [domain.md](./domain.md) : règles de lecture des docs de domaine + disposition
+- [coding-standards.md](./coding-standards.md) : standards de code — seulement si l'utilisateur les a acceptés en Section E, et avec la seule section « Outillage en place » pré-remplie
 - [git-workflow.md](./git-workflow.md) : modèle de branche + les gestes réservés à l'accord de l'utilisateur. Le gabarit est écrit pour un trunk nommé `main` : y substituer le trunk réel. Il suppose aussi un **remote** ; si `git remote` est muet, retirer les lignes « pousser la branche » et « ouvrir la PR » et dire à leur place que le travail s'arrête au commit local — un document qui prescrit un geste impossible se fait ignorer en entier. Si l'utilisateur a demandé les garde-fous en Section D, réécrire la section « Ce qui applique ces règles » pour dire que `.claude/settings.json` et `.claude/hooks/block-trunk-writes.sh` refusent ces commandes — un document doit dire ce qui est réellement en place, ni plus ni moins.
 
 Pour un issue tracker « autre », rédiger `docs/agents/issue-tracker.md` de zéro à partir de la description de l'utilisateur.

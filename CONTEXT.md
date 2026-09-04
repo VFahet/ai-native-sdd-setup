@@ -56,11 +56,11 @@ _À ne pas traduire par_ : assistant, magicien
 **ADR** — _Architecture Decision Record_. Sigle usuel, non traduit.
 
 **spec**
-Le document technique produit par `/to-spec`. « Spécification » est correct mais lourd en usage répété ; « spec » est l'usage courant en français technique.
+Le document technique produit par `/to-spec`, écrit à `docs/specs/<feature-slug>.md` quel que soit le tracker, et portant un `**Statut :**` en tête. « Spécification » est correct mais lourd en usage répété ; « spec » est l'usage courant en français technique.
 
 ### 3. Les identifiants techniques
 
-Chemins, noms de fichiers, labels de triage, commandes shell, clés de configuration : jamais traduits. `.scratch/<feature-slug>/spec.md` reste tel quel.
+Chemins, noms de fichiers, labels de triage, commandes shell, clés de configuration : jamais traduits. `docs/specs/<feature-slug>.md` reste tel quel.
 
 **Exception : les exemples illustratifs.** Quand un skill montre l'arborescence d'un projet imaginaire pour expliquer une convention, les noms de domaine de cet exemple sont francisés — `src/ordering/` devient `src/commandes/`, `0001-event-sourced-orders.md` devient `0001-commandes-event-sourcees.md`. Un lecteur francophone nomme ses dossiers en français ; un exemple qui ne le fait pas enseigne mal. Les liens markdown qui pointent vers ces chemins d'exemple suivent, pour que la cible corresponde au dossier montré.
 
@@ -69,15 +69,21 @@ La frontière est nette : ce qui est francisé, c'est le **domaine imaginaire** 
 ## Vocabulaire du domaine
 
 **Issue tracker** (ou **tracker**)
-L'endroit où vivent les issues d'un dépôt : GitHub Issues, GitLab, ou une convention markdown locale sous `.scratch/`. Les skills `to-tickets` et `to-spec` y lisent et y écrivent. Configuré par `/setup-sdlc`.
+L'endroit où vivent les **tickets** d'un dépôt : GitHub Issues, GitLab, ou une convention markdown locale sous `.scratch/`. Les skills `to-tickets` et `to-spec` y lisent et y écrivent. Configuré par `/setup-sdlc`. La **spec** n'y vit pas : c'est un fichier versionné sous `docs/specs/`, quel que soit le tracker.
 _À éviter_ : gestionnaire de tickets, backlog, outil de suivi
 
 **Ticket**
 Une unité de travail suivie dans le tracker : bug, tâche, ou tranche produite par `/to-tickets`.
 
 **Fonctionnalité**
-Une ligne de la décomposition finale du PRD. Le `<feature-slug>` du tracker local désigne le même objet. Une fonctionnalité donne exactement une spec, et c'est ce rapport 1 → 1 qui fait le joint entre la phase de cadrage et la phase itérative. Un PRD qui ne produit qu'une fonctionnalité aurait dû être une spec.
-_À éviter_ : epic, module, capacité
+Une ligne de la décomposition finale du PRD. Le `<feature-slug>` désigne le même objet. Une fonctionnalité donne exactement une spec, et c'est ce rapport 1 → 1 qui fait le joint entre la phase de cadrage et la phase itérative. Un PRD qui ne produit qu'une fonctionnalité aurait dû être une spec.
+_À éviter_ : module, capacité
+_Ne pas confondre_ avec l'**epic** : la fonctionnalité est une ligne du PRD, l'epic est l'issue qui suit son avancement. L'une est du texte, l'autre est un objet du tracker.
+
+**Epic**
+L'issue qui suit l'avancement d'une fonctionnalité sur un vrai tracker : titre `spec: <feature-slug> — <titre>`, corps mince, un lien vers `docs/specs/<feature-slug>.md`, la liste de ses tickets. Elle ne porte jamais le contenu de la spec. Le tracker markdown local n'en a pas.
+Terme laissé en anglais : c'est le nom de l'objet dans tous les trackers, Jira comme GitHub, et « épopée » ne veut rien dire. Genre féminin par l'usage — *une epic*.
+_À éviter_ : issue parente, issue de spec, ticket chapeau
 
 **Lot**
 Un groupe ordonné de fonctionnalités dans le PRD. Le **lot 1** est le MVP : la plus petite combinaison qui fait bouger au moins une métrique de succès, et la seule partie de `## Fonctionnalités` que le gel couvre. Les lots suivants portent un ordre indicatif, librement révisable.

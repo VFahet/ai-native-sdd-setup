@@ -34,9 +34,9 @@ Une phase de cadrage séquentielle, une fois. Puis des boucles, une par fonction
                                       ▼
    /grill-with-docs  ─▶  /to-spec  ─▶  /to-tickets  ─▶  /implement
                               │              │                │
-                     spec.md ─┘              │                ├─▶ /tdd
-                                             │                └─▶ /code-review
-     .scratch/<feature-slug>/issues/NN-*.md ─┘
+      docs/specs/<slug>.md ───┘              │                ├─▶ /tdd
+                    [Draft ▸ Implemented]    │                └─▶ /code-review
+             les tickets, dans le tracker ───┘
 ```
 
 Le détail complet — diagrammes, artefacts, points de `/clear`, skills hors chaîne — est dans [FLUX.md](./FLUX.md).
@@ -55,12 +55,14 @@ Le cadrage amont, absent du dépôt d'origine.
 |---|---|
 | **discover** | Cadrage produit initial, une fois par projet : problème, acteurs, exigences non fonctionnelles, périmètre, métriques, lot MVP |
 | **to-prd** | Synthétise le cadrage en `docs/prd.md` : plafonné à deux pages, gelé, décomposé en fonctionnalités ordonnées en lots |
+| **validate** | Confronte les métriques du PRD à la réalité une fois un lot livré — la branche montante du V. Seul skill autorisé à rouvrir le PRD, par révision datée |
 
 ### Engineering
 
 | Skill | Rôle |
 |---|---|
-| **setup-sdlc** | Configure le dépôt : tracker d'issues, docs de domaine, workflow git. À lancer une fois avant tout le reste |
+| **setup-sdlc** | Configure le dépôt : tracker d'issues, docs de domaine, workflow git, standards de code. À lancer une fois avant tout le reste |
+| **upgrade-sdlc** | Constate ce qui manque à un dépôt déjà configuré depuis que le plugin a changé, et n'applique que l'écart |
 | **which-skill** | Routeur : quel skill ou quel enchaînement correspond à ta situation |
 | **research** | Enquête sur sources primaires et capture les résultats dans un fichier du dépôt |
 | **wayfinder** | Cartographie un chantier trop gros pour une session, en tickets de décision résolus un à un |
@@ -68,6 +70,7 @@ Le cadrage amont, absent du dépôt d'origine.
 | **grill-with-docs** | L'interview de `grilling`, qui produit ADR et glossaire au passage. Premier tour : cadre la fonctionnalité contre le PRD, puis enchaîne sur la conception |
 | **to-spec** | Transforme la conversation en spec technique : problème, user stories, décisions d'implémentation, hors-scope |
 | **to-tickets** | Découpe une spec en tickets *tracer bullet*, chacun déclarant ce qui le bloque |
+| **analyze** | Relit les artefacts les uns contre les autres — PRD, spec, ADR, glossaire, tickets — avant la première ligne de code. Trois axes : Descente, Cohérence, Constructibilité |
 | **implement** | Exécute un ticket sur la branche de sa fonctionnalité : TDD aux seams convenus, typecheck, revue, commit — puis, au dernier ticket, revue de la fonctionnalité entière et PR |
 | **tdd** | La boucle red-green-refactor, et ce qui fait un test qui mérite d'être gardé |
 | **code-review** | Revue sur deux axes en parallèle : conformité aux standards du dépôt, et conformité à la spec d'origine |

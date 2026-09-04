@@ -1,6 +1,24 @@
 # Issue tracker : GitHub
 
-Les issues et les specs de ce dépôt vivent comme issues GitHub. Utiliser la CLI `gh` pour toutes les opérations.
+Les issues de ce dépôt vivent comme issues GitHub. Utiliser la CLI `gh` pour toutes les opérations.
+
+## Les trois niveaux, et ce qui les distingue
+
+Une issue GitHub n'est pas un niveau : c'est le contenant de plusieurs objets qui se ressemblent dans un `gh issue list`. La correspondance avec le monde Confluence + Jira est directe, et c'est ce qui rend la convention transposable.
+
+| Niveau | Ici | Équivalent Jira | Marque |
+|---|---|---|---|
+| **document** | `docs/specs/<feature-slug>.md` | page Confluence / Notion | un fichier versionné, avec un `**Statut :**` en tête |
+| **epic** | une issue titrée `spec: <feature-slug> — <titre>` | epic | le préfixe de titre |
+| **ticket** | une issue enfant de l'epic | story / task | `Parent : #<epic>` en tête du corps |
+| carte `/wayfinder` | une issue | — | label `wayfinder:map` |
+| ticket de décision | une issue enfant de la carte | — | label `wayfinder:<type>` |
+
+Le label `ready-for-agent` ne distingue **rien** : l'epic et ses tickets le portent tous les deux. Ce sont le préfixe de titre et la ligne `Parent` qui discriminent.
+
+**Le corps de l'epic reste mince** — un lien vers le fichier de spec, les critères au niveau de la fonctionnalité, la liste des tickets. La spec ne s'y recopie jamais : deux corps finissent par diverger, et plus rien ne dit lequel fait foi. Le fichier fait foi.
+
+**Un `#42` nu n'est pas un lien dans un fichier `.md` du dépôt** — l'autolinking de GitHub ne vaut que dans les corps d'issues, de PR et les messages de commit. Depuis `docs/specs/`, écrire l'URL complète.
 
 ## Conventions
 

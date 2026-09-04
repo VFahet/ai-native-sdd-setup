@@ -16,11 +16,12 @@ flowchart TD
     PRD --> G["/grill-with-docs<br/>T1 : cadre la fonctionnalité<br/>T2+ : le comment"]
     G --> ADR[/"ADR + CONTEXT.md"/]
     G --> TS["/to-spec<br/>+ validation des seams"]
-    TS --> SPEC[/"spec dans le tracker<br/>ready-for-agent"/]
+    TS --> SPEC[/"docs/specs/&lt;slug&gt;.md — statut<br/>+ epic mince dans le tracker"/]
     SPEC --> TT["/to-tickets<br/>tranches verticales"]
-    TT --> ISS[/".scratch/…/issues/NN-*.md<br/>tracer bullets + blocages"/]
+    TT --> ISS[/"les tickets, dans le tracker<br/>tracer bullets + blocages"/]
+    ISS --> AN["/analyze<br/>les artefacts entre eux,<br/>avant tout code"]
 
-    ISS --> CL(["/clear"])
+    AN --> CL(["/clear"])
     CL --> I["/implement<br/>chemin complet du ticket<br/>— NN sur un vrai tracker"]
     I --> TDD["/tdd<br/>red-green, en interne"]
     I --> CR["/code-review<br/>par ticket, puis<br/>par fonctionnalité"]
@@ -28,6 +29,8 @@ flowchart TD
 
     OK -. "tickets restants" .-> CL
     OK -. "fonctionnalité suivante" .-> G
+    OK -. "lot livré" .-> V["/validate<br/>les métriques du PRD<br/>contre la réalité"]
+    V -. "révision datée" .-> PRD
 
     style PRD fill:#1f6feb,stroke:#1f6feb,color:#fff
     style OK fill:#238636,stroke:#238636,color:#fff
@@ -38,7 +41,9 @@ Une fonctionnalité tient sur une branche, un ticket sur un commit : `/implement
 
 D'où **deux revues à deux découpages différents**. À chaque ticket, `/code-review` relit le ticket contre son ticket. Au dernier, il relit la fonctionnalité entière contre le trunk et contre la **spec** — la seule passe capable de voir une exigence tombée entre deux tickets, ou une duplication née entre le ticket 1 et le ticket 4. Ni l'une ni l'autre ne peut faire le travail de l'autre.
 
-**Chaque skill lit ses entrées sur disque**, donc chacun tourne dans une fenêtre neuve. Enchaîner `/discover` à `/to-tickets` d'une traite reste **recommandé** — le cadrage, la conception et le découpage raisonnent mieux sur une même réflexion continue — mais ce n'est plus une condition de survie des données. Après `/to-tickets`, `/clear` entre chaque `/implement` : chaque ticket est autoportant.
+`/analyze` est la porte entre le découpage et l'exécution, et le seul contrôle **avant** qu'une ligne existe : il confronte les artefacts les uns aux autres — une exigence chiffrée du PRD que la spec a perdue, une décision de spec qu'aucun ticket ne porte, un slug divergent, un ticket sans critère d'acceptation. Ce que `/code-review` cherche plus tard demande un diff ; ce que `/analyze` cherche est déjà visible et coûte, corrigé ici, un `/to-tickets` relancé plutôt qu'une fonctionnalité refaite. Il ne modifie rien : il rapporte, et l'utilisateur décide.
+
+**Chaque skill lit ses entrées sur disque**, donc chacun tourne dans une fenêtre neuve. Enchaîner `/discover` à `/to-tickets` d'une traite reste **recommandé** — le cadrage, la conception et le découpage raisonnent mieux sur une même réflexion continue — mais ce n'est plus une condition de survie des données. Après `/to-tickets` vient `/analyze`, qui a besoin des artefacts et non de la conversation ; le `/clear` tombe juste après lui, puis entre chaque `/implement` : chaque ticket est autoportant. `/analyze` ne tourne qu'une fois par fonctionnalité, pas à chaque ticket.
 
 ## Les artefacts
 
@@ -53,7 +58,8 @@ D'où **deux revues à deux découpages différents**. À chaque ticket, `/code-
 | `.scratch/<feature-slug>/decisions.md` | `/grill-with-docs`, avec ou sans PRD | `/to-spec` | jetable |
 | `.scratch/<chantier>/map.md` (ou l'issue `wayfinder:map`) | `/wayfinder` | `/wayfinder`, `/to-spec` | le temps du chantier |
 | `.scratch/<chantier>/decisions/<NN>-<slug>.md` (ou une issue enfant de la carte) | `/wayfinder` | `/wayfinder`, `/to-spec` | le temps du chantier |
-| `.scratch/<feature-slug>/spec.md` (ou une issue du tracker) | `/to-spec` | `/to-tickets`, `/code-review` | le temps de la fonctionnalité |
+| **`docs/specs/<feature-slug>.md`** | `/to-spec` | `/to-tickets`, `/code-review` | **durable, avec un statut** — `Draft` → `Approved` → `Implemented` → `Superseded by …` |
+| l'epic `spec: <feature-slug>` dans le tracker | `/to-spec` | l'humain, pour l'avancement | le temps de la fonctionnalité — un vrai tracker seulement |
 | `.scratch/<feature-slug>/issues/<NN>-<slug>.md` | `/to-tickets` | `/implement` | le temps de la fonctionnalité |
 
 ## Les quatre niveaux
@@ -62,7 +68,7 @@ D'où **deux revues à deux découpages différents**. À chaque ticket, `/code-
 PRD  ──▶  fonctionnalité  ──▶  spec  ──▶  ticket  ──▶  code
 ```
 
-Une **fonctionnalité** n'est pas un document : c'est une ligne du PRD, la partition du périmètre en morceaux de la taille d'une spec. Équivalent d'un *epic*.
+Une **fonctionnalité** n'est pas un document : c'est une ligne du PRD, la partition du périmètre en morceaux de la taille d'une spec. Sur un vrai tracker elle prend corps dans une **epic** — l'issue qui suit son avancement — mais l'epic n'est pas un cinquième niveau : elle ne porte aucun contenu propre, seulement un lien vers la spec et la liste des tickets.
 
 Le **lot** groupe ces lignes dans le PRD — le lot 1 est le MVP, *la plus petite combinaison qui fait bouger une métrique*, et c'est la seule partie de `## Fonctionnalités` que le gel couvre. Ce n'est pas un cinquième niveau : c'est un regroupement, il ne produit aucun artefact.
 
@@ -105,12 +111,13 @@ flowchart LR
 | `/grill-me` | l'interview, hors d'un répertoire de travail |
 | `/domain-modeling`, `/codebase-design` | le vocabulaire sous les autres skills — quand ce sont les mots qui coincent |
 | `/teach`, `/writing-for-agents`, `/which-skill` | méta, hors cycle |
+| `/upgrade-sdlc` | le plugin a bougé depuis que ce dépôt a été configuré — comble l'écart, jamais plus |
 | `/retro` | après coup — une session qui a mal tourné, et ce que l'environnement doit en apprendre |
 
 ## Ce qui reste à recâbler
 
 La couche produit (`skills/product/`) a été greffée au-dessus d'une chaîne, héritée du dépôt d'origine, qui n'en avait pas. Un joint reste ouvert :
 
-- **La branche montante du V n'a pas de skill.** Les métriques de succès du PRD sont ce qui rend l'itération falsifiable, et rien ne les rouvre une fois le lot 1 livré. `/to-prd` pose cette relecture comme un rendez-vous que l'utilisateur prend lui-même, et c'est délibéré : aucune commande ne la déclenche, la chaîne ne la rappellera pas. C'est la seule branche de validation qu'aucun test automatique ne couvre.
+- **La branche montante du V a un skill, mais aucun déclencheur.** `/validate` confronte les métriques du PRD à la réalité une fois un lot livré, et c'est le seul skill autorisé à rouvrir le PRD — par révision datée. Mais **rien ne l'appelle** : aucune commande ne signale qu'un lot vient d'être livré, et `/implement` s'arrête à la PR d'une fonctionnalité sans savoir si c'était la dernière du lot. Le rendez-vous reste pris par l'utilisateur. La condition est au moins constatable depuis que les specs portent un statut : un lot est livré quand toutes ses fonctionnalités sont à `Implemented`.
 
 Et une limite à connaître : l'indépendance des fenêtres repose sur le fait que `/grill-with-docs` **écrive effectivement** `decisions.md`. C'est une obligation inscrite dans un skill, pas un mécanisme — elle échoue en silence si l'agent la saute. Son absence est au moins observable, ce que l'ancienne règle « une seule fenêtre » n'était pas.

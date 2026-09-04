@@ -30,12 +30,12 @@ Si un skill appelant l'a déjà fournie, la prendre telle quelle : `/implement` 
 
 1. Les références d'issue dans les messages de commit (`#123`, `Closes #45`, `!67` chez GitLab, etc.), récupérées via le workflow décrit dans `docs/agents/issue-tracker.md`.
 2. Un chemin passé en argument par l'utilisateur.
-3. Un fichier de spec sous `docs/`, `specs/` ou `.scratch/` correspondant au nom de la branche ou de la fonctionnalité.
+3. `docs/specs/<feature-slug>.md` — le nom de la branche `feature/<feature-slug>` donne le slug. C'est l'emplacement canonique de la spec, quel que soit le tracker. Lire son **statut** en tête : une spec `Superseded by …` ne décrit plus l'intention du code, et le rapport doit le dire au lieu de confronter le diff à une intention périmée. À défaut, chercher un fichier de spec ailleurs sous `docs/` ou `.scratch/`.
 4. Si rien n'est trouvé, demander à l'utilisateur où est la spec. S'il répond qu'il n'y en a pas, le sous-agent **Spec** est sauté et rapporte « pas de spec disponible ».
 
 ### 3. Identifier les sources de standards
 
-Tout ce qui, dans le dépôt, documente la façon dont le code doit être écrit : `CODING_STANDARDS.md`, `CONTRIBUTING.md`, etc.
+`docs/agents/coding-standards.md` d'abord — le fichier que `/setup-sdlc` propose d'écrire, et l'emplacement canonique. Puis tout ce qui, ailleurs dans le dépôt, documente la façon dont le code doit être écrit : `CODING_STANDARDS.md`, `CONTRIBUTING.md`, etc. Les sections laissées vides du gabarit ne disent rien : les ignorer plutôt que d'en déduire une intention.
 
 En plus de ce que le dépôt documente, l'axe Standards porte toujours la **base de référence des smells** ci-dessous : un ensemble fixe de code smells de Fowler (_Refactoring_, ch. 3) qui s'applique même quand le dépôt ne documente rien. Deux règles l'encadrent :
 
