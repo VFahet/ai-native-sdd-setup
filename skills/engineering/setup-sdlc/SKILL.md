@@ -41,7 +41,9 @@ Ouvrir chaque section par la réponse recommandée, pour que l'utilisateur puiss
 
 **Section A : issue tracker.**
 
-> Explication : l'« issue tracker » est l'endroit où vivent les issues de ce dépôt. Des skills comme `to-tickets` et `to-spec` y lisent et y écrivent. Ils ont besoin de savoir s'ils doivent appeler `gh issue create`, écrire un fichier markdown sous `.scratch/`, ou suivre un autre workflow que tu décris. Choisis l'endroit où tu suis réellement le travail sur ce dépôt.
+> Explication : l'« issue tracker » est l'endroit où vivent les **tickets** de ce dépôt. Des skills comme `to-tickets` et `to-spec` y lisent et y écrivent. Ils ont besoin de savoir s'ils doivent appeler `gh issue create`, écrire un fichier markdown sous `.scratch/`, ou suivre un autre workflow que tu décris. Choisis l'endroit où tu suis réellement le travail sur ce dépôt.
+>
+> Ce choix ne concerne **pas** la spec : elle est toujours un fichier versionné à `docs/specs/<feature-slug>.md`, quel que soit le tracker. Ce que le tracker porte, ce sont les tickets — et, sur un vrai tracker, l'epic mince qui suit leur avancement.
 
 Posture par défaut : ces skills ont été conçus pour GitHub. Si un `git remote` pointe vers GitHub, proposer GitHub. S'il pointe vers GitLab (`gitlab.com` ou une instance auto-hébergée), proposer GitLab. Sinon (ou si l'utilisateur préfère), proposer :
 

@@ -14,7 +14,7 @@ L'issue tracker et le vocabulaire des labels de triage devraient t'avoir été f
 
 ### 1. Rassembler le contexte
 
-Travailler à partir de ce qui est déjà dans le contexte de la conversation. Si l'utilisateur passe une référence en argument (un chemin de spec, un numéro ou une URL d'issue), la récupérer et lire son corps complet et ses commentaires.
+Travailler à partir de ce qui est déjà dans le contexte de la conversation. Si l'utilisateur passe une référence en argument (un chemin de spec, un numéro ou une URL d'issue), la récupérer et lire son corps complet et ses commentaires. Un numéro d'issue désigne l'**epic**, dont le corps est mince par convention : y suivre le lien vers `docs/specs/<feature-slug>.md` et lire le fichier. S'arrêter au corps de l'epic, c'est découper une spec qu'on n'a pas lue.
 
 ### 2. Explorer le code (optionnel)
 
@@ -62,13 +62,17 @@ Publier les tickets validés. **Comment** dépend du tracker configuré par `/se
 - **Fichiers locaux** → écrire un fichier par ticket sous `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numérotés à partir de `01` dans l'ordre des dépendances (les bloqueurs d'abord). Le « Bloqué par » de chaque fichier liste les numéros ou titres dont il dépend. Utiliser le gabarit par ticket ci-dessous : un ticket par fichier, jamais un fichier unique regroupant tout.
 - **Un vrai issue tracker (GitHub, Linear, …)** → publier une issue par ticket dans l'ordre des dépendances (les bloqueurs d'abord), pour que les arêtes de blocage de chaque ticket puissent référencer de vrais identifiants. Utiliser la relation native de blocage / sous-issue de la plateforme quand elle existe ; sinon, renseigner le « Bloqué par » de chaque ticket avec les issues bloquantes. Appliquer le label de triage `ready-for-agent` sauf instruction contraire ; les tickets sont saisissables par un agent par construction.
 
-Ne PAS fermer ni modifier une issue parente.
+**Rattacher les tickets à l'epic.** Utiliser la relation de **sous-issue native** quand la plateforme l'a : elle affiche la progression toute seule, rien d'autre à écrire. Sinon, et seulement sinon, ajouter la task list `- [ ] #<n>` dans le corps de l'epic — c'est la seule modification autorisée d'une issue parente, et elle n'ajoute que la liste.
+
+Ne PAS fermer une issue parente, ni toucher au reste de son corps. Ne jamais y recopier la spec : l'epic pointe vers `docs/specs/<feature-slug>.md`, qui fait foi.
 
 Une fois les tickets publiés, **annoncer à l'utilisateur les commandes exactes à taper** pour les tickets de la frontière : `/implement .scratch/<feature-slug>/issues/<NN>-<slug>.md` — le chemin complet — sur le tracker markdown local, `/implement <numéro d'issue>` sur un vrai tracker. Le slug ne survit pas au `/clear` qui suit : il doit voyager dans la commande.
 
 <local-ticket-template>
 
 # <NN> : <Titre du ticket>
+
+**Spec :** `docs/specs/<feature-slug>.md`
 
 **À construire :** le comportement de bout en bout que ce ticket rend fonctionnel, du point de vue de l'utilisateur — pas une liste d'implémentation couche par couche.
 
@@ -85,7 +89,7 @@ Une fois les tickets publiés, **annoncer à l'utilisateur les commandes exactes
 
 ## Parent
 
-Une référence à l'issue parente dans le tracker (si la source était une issue existante, sinon omettre cette section).
+`Parent : #<numéro de l'epic>` et `Spec : docs/specs/<feature-slug>.md`. Toujours les deux, jamais omis : le premier rattache le ticket à sa fonctionnalité, le second épargne à `/implement` et `/code-review` un aller-retour pour résoudre l'epic. C'est aussi la seule marque positive qui dit qu'une issue est un **ticket** et non une epic ou une carte `/wayfinder`.
 
 ## À construire
 

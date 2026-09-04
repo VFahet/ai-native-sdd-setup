@@ -21,6 +21,7 @@
     "./skills/engineering/grill-with-docs",
     "./skills/engineering/to-spec",
     "./skills/engineering/to-tickets",
+    "./skills/engineering/analyze",
     "./skills/engineering/implement",
     "./skills/engineering/tdd",
     "./skills/engineering/code-review",

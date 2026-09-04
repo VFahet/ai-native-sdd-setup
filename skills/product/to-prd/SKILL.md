@@ -82,7 +82,7 @@ Les contraintes transverses, chacune avec un chiffre ou un seuil : performance, 
 
 ## Fonctionnalités
 
-La décomposition du projet, une ligne par fonctionnalité. **Chaque fonctionnalité devient une spec.** Le slug que porte sa ligne nomme le répertoire `.scratch/<feature-slug>/` de cette spec : la suite de la chaîne le lit ici plutôt que de le redériver. C'est le joint entre la phase de cadrage et la phase itérative : sans cette liste, personne ne sait combien de specs sont attendues ni quand le projet est fini.
+La décomposition du projet, une ligne par fonctionnalité. **Chaque fonctionnalité devient une spec.** Le slug que porte sa ligne nomme le `docs/specs/<feature-slug>.md` de cette spec, puis la branche `feature/<feature-slug>` qui la construira : la suite de la chaîne le lit ici plutôt que de le redériver. C'est le joint entre la phase de cadrage et la phase itérative : sans cette liste, personne ne sait combien de specs sont attendues ni quand le projet est fini.
 
 L'ordre se **dérive**, il ne s'arbitre pas : les dépendances contraignent, les métriques départagent. Noter la dépendance sur la ligne quand elle existe.
 

@@ -1,6 +1,21 @@
 # Issue tracker : GitLab
 
-Les issues et les specs de ce dépôt vivent comme issues GitLab. Utiliser la CLI [`glab`](https://gitlab.com/gitlab-org/cli) pour toutes les opérations.
+Les issues de ce dépôt vivent comme issues GitLab. Utiliser la CLI [`glab`](https://gitlab.com/gitlab-org/cli) pour toutes les opérations.
+
+## Les trois niveaux, et ce qui les distingue
+
+Une issue GitLab est le contenant de plusieurs objets qui se ressemblent dans un `glab issue list` :
+
+| Niveau | Ici | Marque |
+|---|---|---|
+| **document** | `docs/specs/<feature-slug>.md` | un fichier versionné, avec un `**Statut :**` en tête |
+| **epic** | une issue titrée `spec: <feature-slug> — <titre>` | le préfixe de titre |
+| **ticket** | une issue enfant de l'epic | `Parent : #<epic>` en tête du corps |
+| carte `/wayfinder` | une issue | label `wayfinder:map` |
+
+Le label `ready-for-agent` ne distingue rien : l'epic et ses tickets le portent tous les deux.
+
+**Le corps de l'epic reste mince** — un lien vers le fichier de spec, les critères au niveau de la fonctionnalité, la liste des tickets. La spec ne s'y recopie jamais : le fichier fait foi.
 
 ## Conventions
 

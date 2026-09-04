@@ -1,11 +1,13 @@
 # Issue tracker : markdown local
 
-Les issues et les specs de ce dépôt vivent comme fichiers markdown dans `.scratch/`.
+Les issues de ce dépôt vivent comme fichiers markdown dans `.scratch/`. La spec, elle, n'y vit pas : c'est un document versionné à `docs/specs/<feature-slug>.md`, comme sur tout autre tracker.
+
+Ce tracker n'a que **deux niveaux**, et c'est assumé : le document et les tickets. Il n'y a pas d'epic — aucune issue pour la porter, et l'avancement se lit en parcourant `.scratch/<feature-slug>/issues/`.
 
 ## Conventions
 
-- Une feature par répertoire : `.scratch/<feature-slug>/`
-- La spec est `.scratch/<feature-slug>/spec.md`
+- La spec est `docs/specs/<feature-slug>.md`, avec un `**Statut :**` en tête (`Draft` → `Approved` → `Implemented` → `Superseded by …`)
+- Une feature par répertoire pour ses tickets : `.scratch/<feature-slug>/`
 - Les issues d'implémentation sont un fichier par ticket, à `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numérotés à partir de `01` — jamais un fichier unique regroupant tous les tickets
 - L'état de triage est consigné sur une ligne `Status:` en haut de chaque fichier d'issue (voir `triage-labels.md` pour les chaînes de rôle)
 - Les commentaires et l'historique de conversation s'ajoutent en bas du fichier, sous un titre `## Comments`
