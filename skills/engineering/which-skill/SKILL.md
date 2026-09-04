@@ -43,6 +43,8 @@ Pas de projet à cadrer, juste une idée dans un dépôt existant ? Sauter direc
 
 Puis retour à l'étape 3 pour la fonctionnalité suivante.
 
+9. **`/validate`**, une fois le **lot** entier livré — pas à chaque fonctionnalité. Il confronte les **métriques de succès** du PRD à ce qui s'est réellement passé, métrique par métrique, avec la source du chiffre nommée avant d'aller le chercher. Une métrique que rien n'observe est un constat de plein droit. C'est la **branche montante du V**, la seule qu'aucun test automatique ne couvre, et le seul skill autorisé à rouvrir `docs/prd.md` — par **révision datée**, le texte d'origine conservé. Il ne tranche pas : il mesure et propose. Un lot est livré quand toutes ses specs sont à `Implemented`.
+
 Prendre **`/tdd`** seul quand tu veux simplement construire un comportement concret en commençant par les tests, sans spec complète, et **`/code-review`** seul — le seul nom d'ici qui entre en collision avec une commande intégrée de Claude Code, que le préfixe `ai-native-sdd:` lève — dès que tu veux relire une branche ou une PR par rapport à un point fixe.
 
 ### Hygiène de contexte

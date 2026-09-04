@@ -29,6 +29,8 @@ flowchart TD
 
     OK -. "tickets restants" .-> CL
     OK -. "fonctionnalité suivante" .-> G
+    OK -. "lot livré" .-> V["/validate<br/>les métriques du PRD<br/>contre la réalité"]
+    V -. "révision datée" .-> PRD
 
     style PRD fill:#1f6feb,stroke:#1f6feb,color:#fff
     style OK fill:#238636,stroke:#238636,color:#fff
@@ -115,6 +117,6 @@ flowchart LR
 
 La couche produit (`skills/product/`) a été greffée au-dessus d'une chaîne, héritée du dépôt d'origine, qui n'en avait pas. Un joint reste ouvert :
 
-- **La branche montante du V n'a pas de skill.** Les métriques de succès du PRD sont ce qui rend l'itération falsifiable, et rien ne les rouvre une fois le lot 1 livré. `/to-prd` pose cette relecture comme un rendez-vous que l'utilisateur prend lui-même, et c'est délibéré : aucune commande ne la déclenche, la chaîne ne la rappellera pas. C'est la seule branche de validation qu'aucun test automatique ne couvre.
+- **La branche montante du V a un skill, mais aucun déclencheur.** `/validate` confronte les métriques du PRD à la réalité une fois un lot livré, et c'est le seul skill autorisé à rouvrir le PRD — par révision datée. Mais **rien ne l'appelle** : aucune commande ne signale qu'un lot vient d'être livré, et `/implement` s'arrête à la PR d'une fonctionnalité sans savoir si c'était la dernière du lot. Le rendez-vous reste pris par l'utilisateur. La condition est au moins constatable depuis que les specs portent un statut : un lot est livré quand toutes ses fonctionnalités sont à `Implemented`.
 
 Et une limite à connaître : l'indépendance des fenêtres repose sur le fait que `/grill-with-docs` **écrive effectivement** `decisions.md`. C'est une obligation inscrite dans un skill, pas un mécanisme — elle échoue en silence si l'agent la saute. Son absence est au moins observable, ce que l'ancienne règle « une seule fenêtre » n'était pas.

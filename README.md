@@ -55,6 +55,7 @@ Le cadrage amont, absent du dépôt d'origine.
 |---|---|
 | **discover** | Cadrage produit initial, une fois par projet : problème, acteurs, exigences non fonctionnelles, périmètre, métriques, lot MVP |
 | **to-prd** | Synthétise le cadrage en `docs/prd.md` : plafonné à deux pages, gelé, décomposé en fonctionnalités ordonnées en lots |
+| **validate** | Confronte les métriques du PRD à la réalité une fois un lot livré — la branche montante du V. Seul skill autorisé à rouvrir le PRD, par révision datée |
 
 ### Engineering
 

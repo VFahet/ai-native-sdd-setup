@@ -131,4 +131,4 @@ Ce partage suit le test de stabilité. *Quelles fonctionnalités forment le prem
 
 `/grill-with-docs` puis `/to-spec`, une fonctionnalité à la fois. Le premier tour de `/grill-with-docs` cadre la fonctionnalité contre ce PRD, puis l'entretien enchaîne sur le comment — il n'y a pas d'étape de cadrage séparée.
 
-Une fois le lot 1 livré, rouvrir ce PRD et confronter ses métriques de succès à la réalité : c'est la seule branche de validation qu'aucun test automatique ne couvre. Aucun skill ne porte ce geste — le dire à l'utilisateur comme un rendez-vous qu'il prend lui-même, pas comme une étape que la chaîne déclenchera.
+Une fois le lot 1 livré, rouvrir ce PRD et confronter ses métriques de succès à la réalité : c'est la seule branche de validation qu'aucun test automatique ne couvre. C'est `/validate` qui la porte, et il est le seul skill autorisé à modifier ce document — par **révision datée**, jamais en silence. Le dire à l'utilisateur : la chaîne ne le déclenchera pas toute seule, elle lui donne la commande.

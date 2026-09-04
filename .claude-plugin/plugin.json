@@ -12,6 +12,7 @@
   "skills": [
     "./skills/product/discover",
     "./skills/product/to-prd",
+    "./skills/product/validate",
     "./skills/engineering/setup-sdlc",
     "./skills/engineering/which-skill",
     "./skills/engineering/research",
