@@ -16,15 +16,17 @@ L'issue tracker devrait t'avoir été fourni. Si `docs/agents/issue-tracker.md` 
 
 ### 1. Fixer le point de référence
 
-Le point fixe est celui que l'utilisateur a indiqué (un SHA de commit, un nom de branche, un tag, `main`, `HEAD~5`, etc.). S'il n'en a pas donné, le demander.
+Le point fixe est celui que l'utilisateur a indiqué (un SHA de commit, un nom de branche, un tag, `HEAD~5`, etc.), ou celui qu'un skill appelant a fourni. Si personne n'en a donné, le demander.
 
-Capturer la commande de diff une fois pour toutes : `git diff <point-fixe>...HEAD` (trois points, pour que la comparaison se fasse par rapport à la merge-base). Noter aussi la liste des commits via `git log <point-fixe>..HEAD --oneline`.
+`/implement` appelle ce skill deux fois, à deux découpages qu'il ne faut pas confondre : à chaque ticket, le point fixe est le `HEAD` d'avant le travail du ticket ; au dernier ticket de la fonctionnalité, c'est le **trunk**, et le diff porte alors sur la fonctionnalité entière.
+
+Capturer la commande de diff une fois pour toutes : `git diff <point-fixe>...HEAD` (trois points, pour que la comparaison se fasse par rapport à la merge-base). Noter aussi la liste des commits via `git log <point-fixe>..HEAD --oneline`. Quand l'appelant relit un travail qu'il n'a pas encore commité — c'est le cas de la revue par ticket de `/implement`, qui relit avant de commiter —, comparer à l'arbre de travail : `git diff <point-fixe>` sans les trois points, sinon le diff est vide. Sa revue de fonctionnalité, elle, porte sur du travail déjà commité : les trois points s'appliquent normalement.
 
 Avant d'aller plus loin, confirmer que le point fixe se résout (`git rev-parse <point-fixe>`) et que le diff n'est pas vide. Une mauvaise référence ou un diff vide doit échouer ici, pas à l'intérieur de deux sous-agents parallèles.
 
 ### 2. Identifier la source de la spec
 
-Chercher la spec d'origine, dans cet ordre :
+Si un skill appelant l'a déjà fournie, la prendre telle quelle : `/implement` passe le ticket qu'il vient d'implémenter pour sa revue par ticket, et la **spec** de la fonctionnalité pour sa revue de fonctionnalité. Ne pas y substituer une source trouvée par la recherche ci-dessous — le découpage choisi par l'appelant est délibéré. Sinon, chercher la spec d'origine, dans cet ordre :
 
 1. Les références d'issue dans les messages de commit (`#123`, `Closes #45`, `!67` chez GitLab, etc.), récupérées via le workflow décrit dans `docs/agents/issue-tracker.md`.
 2. Un chemin passé en argument par l'utilisateur.
@@ -57,15 +59,19 @@ Chaque smell se lit *ce que c'est* → *comment le corriger* ; le confronter au 
 
 ### 4. Lancer les deux sous-agents en parallèle
 
+Si un skill appelant a fourni un **cadrage** — une consigne qui restreint ce que la revue doit chercher —, le coller verbatim en tête des deux briefs ci-dessous. `/implement` en passe un pour sa revue de fin de fonctionnalité, dont le diff a déjà été relu ticket par ticket : sans ce cadrage, la revue rapporte à nouveau ce qui a déjà été arbitré. Un cadrage restreint le champ de la recherche ; il ne relâche jamais le critère d'achèvement des briefs.
+
+Si l'étape 1 a retenu la commande de l'arbre de travail, le dire dans les deux prompts : le travail n'est pas encore commité, la liste des commits est donc vide.
+
 Le **prompt du sous-agent Standards** doit inclure :
 
-- La commande de diff complète et la liste des commits.
+- La commande de diff retenue à l'étape 1 et la liste des commits.
 - La liste des fichiers-sources de standards trouvés à l'étape 3, **plus la base de référence des smells de l'étape 3 collée intégralement** (le sous-agent n'y a aucun autre accès).
 - Le brief : « Rapporte, par fichier ou hunk quand c'est pertinent, (a) chaque endroit où le diff enfreint un standard documenté : cite le standard (fichier + règle) ; et (b) tout smell de la base que tu repères : nomme-le et cite le hunk. Distingue les violations dures des jugements : une infraction à un standard documenté peut être dure, mais les smells de la base sont toujours des jugements, et un standard documenté du dépôt l'emporte sur la base. Saute tout ce que l'outillage applique. Moins de 400 mots. »
 
 Le **prompt du sous-agent Spec** doit inclure :
 
-- La commande de diff et la liste des commits.
+- La commande de diff retenue à l'étape 1 et la liste des commits.
 - Le chemin ou le contenu récupéré de la spec.
 - Le brief : « Rapporte : (a) les exigences demandées par la spec qui sont absentes ou partielles ; (b) les comportements présents dans le diff qui n'ont pas été demandés (dérive de périmètre) ; (c) les exigences qui semblent implémentées mais dont l'implémentation paraît fausse. Cite la ligne de spec pour chaque constat. Moins de 400 mots. »
 

@@ -1,13 +1,12 @@
 Les skills sont rangés en buckets sous `skills/` :
 
-- `product/` : cadrage amont — le **quoi** et le **pourquoi**, avant toute décision technique. Écrits ici, absents de l'amont
+- `product/` : cadrage amont — le **quoi** et le **pourquoi**, avant toute décision technique. Écrits ici, absents du dépôt d'origine dont celui-ci est un fork
 - `engineering/` : travail de code au quotidien
 - `productivity/` : outils de workflow hors code
-- `backlog/` : skills repris de l'amont mais **non traduits** — conservés pour plus tard, jamais livrés
 
-`product/` est la contribution propre de ce dépôt : l'amont est volontairement engineering-only, sa chaîne démarre à `to-spec` et suppose le *quoi* déjà décidé. Un skill n'a sa place dans `product/` que s'il reste vrai indépendamment de la solution retenue ; dès qu'il parle de modules, de seams ou de schéma, il appartient à `engineering/`.
+`product/` est la contribution propre de ce dépôt : le dépôt d'origine est volontairement engineering-only, sa chaîne démarre à `to-spec` et suppose le *quoi* déjà décidé. Un skill n'a sa place dans `product/` que s'il reste vrai indépendamment de la solution retenue ; dès qu'il parle de modules, de seams ou de schéma, il appartient à `engineering/`.
 
-Tout skill de `engineering/` ou `productivity/` (les buckets **promus**) doit avoir une entrée dans le tableau `skills` de `.claude-plugin/plugin.json` et une ligne dans le `README.md` racine. Les skills de `backlog/` ne doivent apparaître ni dans l'un ni dans l'autre.
+Tout skill de `product/`, `engineering/` ou `productivity/` doit avoir une entrée dans le tableau `skills` de `.claude-plugin/plugin.json` et une ligne dans le `README.md` racine.
 
 ## Règles de traduction
 
@@ -22,5 +21,3 @@ Ce dépôt cible **Claude Code uniquement**. Pas de fichiers `agents/` pour Code
 ```bash
 claude plugin validate . --strict
 ```
-
-L'origine amont, le commit de référence et la procédure de resynchronisation sont dans [UPSTREAM.md](./UPSTREAM.md).

@@ -19,7 +19,7 @@ La frontière publique observable où vivent les tests : on y observe un comport
 _À ne pas traduire par_ : couture, jointure, point de test
 
 **tracer bullet**
-Une tranche verticale qui traverse toutes les couches (schéma, API, UI, tests) de façon étroite mais complète, et qui est démontrable seule. Le terme vient de _The Pragmatic Programmer_ et porte l'image du tir traçant : on voit où la balle part avant de tirer la rafale.
+Une tranche verticale qui traverse toutes les couches du système, de son entrée à une sortie observable, de façon étroite mais complète, et qui est démontrable seule. Les couches sont celles que le système présente réellement, jamais une liste supposée. Le terme vient de _The Pragmatic Programmer_ et porte l'image du tir traçant : on voit où la balle part avant de tirer la rafale.
 _À ne pas traduire par_ : balle traçante, tranche verticale (qui n'est que la moitié du concept)
 
 **deep module**
@@ -45,6 +45,14 @@ Réarranger le code _avant_ d'ajouter la fonctionnalité, pour que l'ajout devie
 La portion de la fenêtre de contexte (~150k tokens sur les modèles de pointe) à l'intérieur de laquelle le modèle raisonne encore finement. Au-delà, il répond toujours mais dégrade sans le signaler. C'est ce qui dimensionne les limites de phase.
 _À ne pas traduire par_ : zone intelligente, zone de lucidité
 
+**trunk**
+La branche d'intégration du dépôt — `main` le plus souvent, mais le nom réel se lit dans le dépôt, jamais supposé. « Branche principale » désigne aussi bien la branche courante d'un développeur, donc ne tranche rien ; « tronc » perd le rattachement à _trunk-based development_, le modèle de branche d'où le terme vient. Le mot porte en plus la direction : on part du trunk, on y revient par une PR.
+_À ne pas traduire par_ : tronc, branche principale
+
+**wizard**
+Le script bash que produit `/wizard` : il guide un humain, pas à pas, à travers une procédure manuelle. Le mot désigne l'artefact autant que la commande qui le fabrique ; « assistant » perdrait ce lien et se confondrait avec l'agent lui-même.
+_À ne pas traduire par_ : assistant, magicien
+
 **ADR** — _Architecture Decision Record_. Sigle usuel, non traduit.
 
 **spec**
@@ -67,9 +75,11 @@ _À éviter_ : gestionnaire de tickets, backlog, outil de suivi
 **Ticket**
 Une unité de travail suivie dans le tracker : bug, tâche, ou tranche produite par `/to-tickets`.
 
-**Skill promu**
-Un skill des buckets `product/`, `engineering/` ou `productivity/` : traduit ou écrit ici, déclaré dans `plugin.json`, livré. Par opposition à `backlog/`, qui contient les skills repris de l'amont mais non traduits et non livrés.
+**Fonctionnalité**
+Une ligne de la décomposition finale du PRD. Le `<feature-slug>` du tracker local désigne le même objet. Une fonctionnalité donne exactement une spec, et c'est ce rapport 1 → 1 qui fait le joint entre la phase de cadrage et la phase itérative. Un PRD qui ne produit qu'une fonctionnalité aurait dû être une spec.
+_À éviter_ : epic, module, capacité
 
-**Capacité**
-Une ligne de la décomposition finale du PRD. Une capacité donne exactement une spec, et c'est ce rapport 1 → 1 qui fait le joint entre la phase de cadrage et la phase itérative. Un PRD qui ne produit qu'une capacité aurait dû être une spec.
-_À éviter_ : epic, module, lot
+**Lot**
+Un groupe ordonné de fonctionnalités dans le PRD. Le **lot 1** est le MVP : la plus petite combinaison qui fait bouger au moins une métrique de succès, et la seule partie de `## Fonctionnalités` que le gel couvre. Les lots suivants portent un ordre indicatif, librement révisable.
+_À éviter_ : release, jalon, sprint, phase
+_Ne pas confondre_ avec les lots de migration d'un refactor expand–contract (`to-tickets`), qui sont des groupes de tickets.

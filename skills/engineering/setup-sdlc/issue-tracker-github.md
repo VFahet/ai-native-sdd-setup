@@ -15,7 +15,7 @@ Déduire le dépôt de `git remote -v` ; `gh` le fait automatiquement quand il t
 
 ## Les pull requests comme surface de triage
 
-**PR comme surface de demande : non.** _(Passer à `oui` si ce dépôt traite les PR externes comme des demandes de fonctionnalité ; `/triage` lit ce drapeau.)_
+**PR comme surface de demande : non.** _(Passer à `oui` si ce dépôt traite les PR externes comme des demandes de fonctionnalité ; le drapeau dit si la file de triage inclut les PR ou seulement les issues.)_
 
 Quand le drapeau vaut `oui`, les PR passent par les mêmes labels et les mêmes états que les issues, avec les équivalents `gh pr` :
 
@@ -37,7 +37,7 @@ Lancer `gh issue view <numéro> --comments`.
 
 Utilisées par `/wayfinder`. La **carte** est une issue unique, avec des issues **enfants** comme tickets.
 
-- **Carte** : une issue unique labellisée `wayfinder:map`, portant le corps Notes / Décisions à ce jour / Brouillard. `gh issue create --label wayfinder:map`.
+- **Carte** : une issue unique labellisée `wayfinder:map`, portant le corps en cinq sections que décrit `/wayfinder` — Destination, Notes, Décisions à ce jour, Pas encore spécifié, Hors périmètre. `gh issue create --label wayfinder:map`.
 - **Ticket enfant** : une issue rattachée à la carte comme sous-issue GitHub (`gh api` sur l'endpoint sub-issues). Là où les sous-issues ne sont pas activées, ajouter l'enfant à une liste de tâches dans le corps de la carte et placer `Part of #<carte>` en haut du corps de l'enfant. Labels : `wayfinder:<type>` (`research`/`prototype`/`grilling`/`task`). Une fois réservé, le ticket est assigné au dev qui le porte.
 - **Blocage** : les **dépendances natives d'issues** de GitHub, la représentation canonique et visible dans l'UI. Ajouter une arête avec `gh api --method POST repos/<owner>/<repo>/issues/<enfant>/dependencies/blocked_by -F issue_id=<id-bdd-du-bloqueur>`, où `<id-bdd-du-bloqueur>` est l'**identifiant numérique de base de données** du bloqueur (`gh api repos/<owner>/<repo>/issues/<n> --jq .id`, et _non_ le `#numéro` ni le `node_id`). GitHub renvoie `issue_dependencies_summary.blocked_by` (bloqueurs ouverts uniquement, la porte vivante). Là où les dépendances ne sont pas disponibles, se rabattre sur une ligne `Blocked by: #<n>, #<n>` en haut du corps de l'enfant. Un ticket est débloqué quand tous ses bloqueurs sont fermés.
 - **Requête de frontière** : lister les enfants ouverts de la carte (`gh issue list --state open`, restreint aux sous-issues / à la liste de tâches de la carte), écarter ceux qui ont un bloqueur ouvert (`issue_dependencies_summary.blocked_by > 0`, ou une issue ouverte dans la ligne `Blocked by`) ou un assigné ; le premier dans l'ordre de la carte l'emporte.
