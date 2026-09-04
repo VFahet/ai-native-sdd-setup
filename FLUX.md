@@ -111,6 +111,7 @@ flowchart LR
 | `/grill-me` | l'interview, hors d'un répertoire de travail |
 | `/domain-modeling`, `/codebase-design` | le vocabulaire sous les autres skills — quand ce sont les mots qui coincent |
 | `/teach`, `/writing-for-agents`, `/which-skill` | méta, hors cycle |
+| `/upgrade-sdlc` | le plugin a bougé depuis que ce dépôt a été configuré — comble l'écart, jamais plus |
 | `/retro` | après coup — une session qui a mal tourné, et ce que l'environnement doit en apprendre |
 
 ## Ce qui reste à recâbler

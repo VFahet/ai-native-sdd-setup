@@ -14,6 +14,7 @@
     "./skills/product/to-prd",
     "./skills/product/validate",
     "./skills/engineering/setup-sdlc",
+    "./skills/engineering/upgrade-sdlc",
     "./skills/engineering/which-skill",
     "./skills/engineering/research",
     "./skills/engineering/wayfinder",

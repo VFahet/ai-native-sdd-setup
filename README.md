@@ -61,7 +61,8 @@ Le cadrage amont, absent du dépôt d'origine.
 
 | Skill | Rôle |
 |---|---|
-| **setup-sdlc** | Configure le dépôt : tracker d'issues, docs de domaine, workflow git. À lancer une fois avant tout le reste |
+| **setup-sdlc** | Configure le dépôt : tracker d'issues, docs de domaine, workflow git, standards de code. À lancer une fois avant tout le reste |
+| **upgrade-sdlc** | Constate ce qui manque à un dépôt déjà configuré depuis que le plugin a changé, et n'applique que l'écart |
 | **which-skill** | Routeur : quel skill ou quel enchaînement correspond à ta situation |
 | **research** | Enquête sur sources primaires et capture les résultats dans un fichier du dépôt |
 | **wayfinder** | Cartographie un chantier trop gros pour une session, en tickets de décision résolus un à un |

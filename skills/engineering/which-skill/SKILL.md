@@ -103,4 +103,6 @@ Complètement en dehors de l'enchaînement principal.
 
 ## Prérequis
 
+**`/upgrade-sdlc`** : quand le plugin a bougé depuis que ce dépôt a été configuré. Il constate l'écart — un `docs/agents/*.md` qu'aucune version n'écrivait encore, une spec restée dans le corps d'une issue — et n'applique que lui, après t'avoir montré ce qui casse si tu refuses. Il ne rejoue jamais `/setup-sdlc` et ne réécrit aucun fichier existant sans te le redemander.
+
 **`/setup-sdlc`** : à lancer avant ton premier enchaînement, pour configurer ce que les autres skills présupposent — l'issue tracker, le vocabulaire des labels de triage, l'organisation des docs de domaine, et le workflow git avec les gestes qu'il réserve à ton accord. Les issue trackers personnalisés fonctionnent aussi.
